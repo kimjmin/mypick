@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+	<display-name>Mpick</display-name>
+	
+	<servlet>
+		<servlet-name>Confirm</servlet-name>
+		<servlet-class>mpick.auth.Confirm</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Confirm</servlet-name>
+		<url-pattern>/Confirm/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>MpickAjax</servlet-name>
+		<servlet-class>mpick.auth.CandiAjax</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MpickAjax</servlet-name>
+		<url-pattern>/MpickAjax/*</url-pattern>
+	</servlet-mapping>
+	
+</web-app>
