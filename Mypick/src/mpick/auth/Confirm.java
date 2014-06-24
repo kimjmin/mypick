@@ -30,14 +30,13 @@ public class Confirm extends HttpServlet {
 		if(toUrl != null && cmd != null && cmd.equals("insert")){
 			
 			obj = dao.getUserObj(req);
+			/*
 			if(obj != null && obj.getId() != null && !"".equals(obj.getId())){
 				result = dao.insertUserObj(obj);
 			}
-			
+			*/
 			if (result > 0) {
-				session.setAttribute("candiId", obj.getId());
 				session.setAttribute("candiUserObj", obj);
-								
 				try {Thread.sleep(2000);} catch (InterruptedException e) { }
 				
 				res.sendRedirect(toUrl);
@@ -56,7 +55,6 @@ public class Confirm extends HttpServlet {
 //			io.saveConfig(obj);
 			
 			if (result > 0) {
-				session.setAttribute("candiId", obj.getId());
 				session.setAttribute("candiUserObj", obj);
 				
 				res.sendRedirect(toUrl);
@@ -74,7 +72,6 @@ public class Confirm extends HttpServlet {
 			
 			if (check == 2) {
 				obj = dao.getUserObj(id);
-				session.setAttribute("candiId", obj.getId());
 				session.setAttribute("candiUserObj", obj);
 				
 				res.sendRedirect(toUrl);

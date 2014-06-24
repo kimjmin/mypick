@@ -38,7 +38,7 @@ public class MpickDao {
 	 * @return
 	 */
 	public MpickUserObj getUserObj(HttpServletRequest req, MpickUserObj obj){
-		
+		/*
 		if(req.getParameter("id") != null)
 			obj.setId(req.getParameter("id").trim());
 		if(req.getParameter("passwd") != null)
@@ -47,7 +47,7 @@ public class MpickDao {
 			obj.setName(req.getParameter("name"));
 		if(req.getParameter("type") != null)
 			obj.setType(req.getParameter("type"));
-		
+		*/
 		return obj;
 	}
 	
@@ -61,12 +61,12 @@ public class MpickDao {
 		
 		DataEntity data = new DataEntity();
 		Dao dao = Dao.getInstance();
-		
+		/*
 		data.put("id", userObj.getId());
 		data.put("passwd", userObj.getPasswd());
 		data.put("name", userObj.getName());
 		data.put("type", userObj.getType());
-		
+		*/
 		result = dao.inertData(property, "cdi_user", data);
 		return result;
 	}
@@ -82,7 +82,7 @@ public class MpickDao {
 		Dao dao = Dao.getInstance();
 		DataEntity setData = new DataEntity();
 		DataEntity whereData = new DataEntity();
-		
+		/*
 		setData.put("passwd", userObj.getPasswd());
 		if(!"".equals(userObj.getName()))
 			setData.put("name", userObj.getName());
@@ -90,7 +90,7 @@ public class MpickDao {
 			setData.put("type", userObj.getType());
 		
 		whereData.put("id", userObj.getId());
-		
+		*/
 		result = dao.updateData(property, "cdi_user", setData, whereData);
 		
 		return result;
@@ -116,7 +116,7 @@ public class MpickDao {
 		DataEntity[] entity = dao.getResult(property, sql.toString(), param);
 		
 		if(entity != null && entity.length == 1){
-			tempPw = entity[0].get("passwd");
+			tempPw = (String)entity[0].get("passwd");
 			if (tempPw.equals(passwd)) {
 				result = 2;
 			} else {
@@ -146,14 +146,14 @@ public class MpickDao {
 		sql.append("WHERE id = ?");
 		
 		DataEntity[] entity = dao.getResult(property, sql.toString(), param);
-		
+		/*
 		if(entity != null && entity.length == 1){
 			result.setId(entity[0].get("id"));
 			result.setPasswd(entity[0].get("passwd"));
 			result.setName(entity[0].get("name"));
 			result.setType(entity[0].get("type"));
 		}
-		
+		*/
 		return result;
 	}
 	
