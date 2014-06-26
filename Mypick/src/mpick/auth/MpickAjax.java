@@ -11,7 +11,7 @@ import mpick.com.MpickDao;
 
 public class MpickAjax extends HttpServlet{
 	
-	private static final long serialVersionUID = -4496829789988209505L;
+	private static final long serialVersionUID = 8075039219880337611L;
 
 	/**
 	 * Candi 에서 사용하는 Ajax.
@@ -22,21 +22,26 @@ public class MpickAjax extends HttpServlet{
 		
 		MpickDao dao = MpickDao.getInstance();
 		String cmd = req.getParameter("cmd");
-		System.out.println("cmd : "+cmd);
 		if(cmd != null){
 			/**
 			 * 중복 ID 체크.
 			 */
-			if(cmd.equals("checkId")){
-				String id = req.getParameter("id");
-				if(!dao.isExistId(id)){
-					System.out.println("OK");
+			if(cmd.equals("checkMail")){
+				String email = req.getParameter("email");
+				if(!dao.isExistMail(email)){
 					out.print("{\"result\":\"OK\"}");
 				} else {
-					System.out.println("EXIST");
+					out.print("{\"result\":\"EXIST\"}");
+				}
+			} else if(cmd.equals("checkNick")){
+				String nicname = req.getParameter("nicname");
+				if(!dao.isExistNicname(nicname)){
+					out.print("{\"result\":\"OK\"}");
+				} else {
 					out.print("{\"result\":\"EXIST\"}");
 				}
 			}
+			
 		}
 		
 	}

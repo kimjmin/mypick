@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,48 +8,19 @@
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/mypick.css">
-
-<script
-	src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/mypick.js"></script>
-
 </head>
 <body>
 	<div class="container">
 
-		<nav class="navbar navbar-inverse" role="navigation"> <!-- Brand and toggle get grouped for better mobile display -->
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target=".navbar-ex1-collapse">
-				<span class="sr-only">상단 네비게이션</span>
-			</button>
-			<a class="navbar-brand" href="#">myPick</a>
-		</div>
-		<!-- Collect the nav links, forms, and other content for toggling -->
-		<div class="collapse navbar-collapse navbar-ex1-collapse">
-			<ul class="nav navbar-nav">
-				<li class="active"><a href="#">Calculator</a></li>
-				<li class=""><a href="logUpload.jsp">Encyclopedia</a></li>
-				<li class=""><a href="metaUpload.jsp">Community</a></li>
-			</ul>
-			<form id="navFrm" name="navFrm"
-				class="navbar-form navbar-right btn-group" role="search">
-				<button type="button" class="btn btn-default dropdown-toggle"
-					data-toggle="dropdown">
-					<i class="glyphicon glyphicon-cog"></i> <span class="caret"></span>
-				</button>
-				<ul class="dropdown-menu" role="menu">
-					<li><a href="#">사용자정보 변경</a></li>
-					<li><a href="#">대시보드 환경설정</a></li>
-					<li class="divider"></li>
-					<li><a href="javascript:logout();">로그아웃</a></li>
-				</ul>
-				<input type="hidden" name="cmd" /> <input type="hidden"
-					name="toUrl" />
-			</form>
-		</div>
-		</nav>
+<!-- 상단 네비게이션 메뉴 시작 -->	
+<%@include file="/navbar.jsp"%>
+<script>
+$("#navLiCal").attr("class", "active");
+</script>
+<!-- 상단 네비게이션 메뉴 끝 -->
 
 		<div class="row">
 
@@ -175,7 +145,7 @@
 		<option>실버</option>
 		<option>골드</option>
 	</select>
-	<input type="number" class="form-control" id="amount" placeholder="할인율"> %
+	<input type="number" min="0" max="1000" class="form-control" id="amount" placeholder="할인율"> %
 </div>
 
 </div>

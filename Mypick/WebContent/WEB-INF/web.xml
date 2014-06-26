@@ -13,7 +13,7 @@
 	
 	<servlet>
 		<servlet-name>MpickAjax</servlet-name>
-		<servlet-class>mpick.auth.CandiAjax</servlet-class>
+		<servlet-class>mpick.auth.MpickAjax</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MpickAjax</servlet-name>

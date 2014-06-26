@@ -30,15 +30,11 @@ public class Confirm extends HttpServlet {
 		if(toUrl != null && cmd != null && cmd.equals("insert")){
 			
 			obj = dao.getUserObj(req);
-			/*
-			if(obj != null && obj.getId() != null && !"".equals(obj.getId())){
+			if(obj != null && obj.getEmail() != null && !"".equals(obj.getEmail())){
 				result = dao.insertUserObj(obj);
 			}
-			*/
 			if (result > 0) {
-				session.setAttribute("candiUserObj", obj);
-				try {Thread.sleep(2000);} catch (InterruptedException e) { }
-				
+				session.setAttribute("mpUserObj", obj);
 				res.sendRedirect(toUrl);
 			} else {
 				out.println("<script>");
@@ -55,7 +51,7 @@ public class Confirm extends HttpServlet {
 //			io.saveConfig(obj);
 			
 			if (result > 0) {
-				session.setAttribute("candiUserObj", obj);
+				session.setAttribute("mpUserObj", obj);
 				
 				res.sendRedirect(toUrl);
 			} else {
@@ -66,13 +62,13 @@ public class Confirm extends HttpServlet {
 			}
 		} else if(toUrl != null && cmd != null && cmd.equals("login")){
 			
-			String id = req.getParameter("id");
-			String passwd = req.getParameter("passwd");
-			int check = dao.login(id, passwd);
+			String email = req.getParameter("loginEmail");
+			String passwd = req.getParameter("loginPw");
+			int check = dao.login(email, passwd);
 			
 			if (check == 2) {
-				obj = dao.getUserObj(id);
-				session.setAttribute("candiUserObj", obj);
+				obj = dao.getUserObj(email);
+				session.setAttribute("mpUserObj", obj);
 				
 				res.sendRedirect(toUrl);
 			} else if (check == 1) {
@@ -92,16 +88,12 @@ public class Confirm extends HttpServlet {
 				out.println("</script>");
 			}
 		} else if(cmd != null && cmd.equals("logout")){
-			
-			session.removeAttribute("candiId");
-			session.removeAttribute("candiUserObj");
-			
+			session.removeAttribute("mpUserObj");
 			if(toUrl != null && !toUrl.equals("")){
 				res.sendRedirect(toUrl);
 			} else {
 				res.sendRedirect("index.jsp");
 			}
-			
 		} else {
 			out.println("<script>");
 			out.println("	alert(\"잘못된 접근입니다.\");");
