@@ -20,4 +20,46 @@
 		<url-pattern>/MpickAjax/*</url-pattern>
 	</servlet-mapping>
 	
+	<!-- Calculator 관련 페이지 시작 -->
+	<!-- 
+	<servlet>
+		<servlet-name>Calc</servlet-name>
+		<servlet-class>mpick.pages.Calc</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Calc</servlet-name>
+		<url-pattern>/Calc/*</url-pattern>
+	</servlet-mapping>
+	 -->
+	<servlet>
+		<servlet-name>CalcFee</servlet-name>
+		<servlet-class>mpick.pages.calc.Fee</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CalcFee</servlet-name>
+		<url-pattern>/Calc/Fee/*</url-pattern>
+	</servlet-mapping>
+	<!-- Calculator 관련 페이지 끝 -->
+	
+	<!-- Encyclopedia 관련 페이지 시작 -->
+	<servlet>
+		<servlet-name>Encl</servlet-name>
+		<servlet-class>mpick.pages.encl.Atoz</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Encl</servlet-name>
+		<url-pattern>/Encl/Atoz</url-pattern>
+	</servlet-mapping>
+	<!-- Encyclopedia 관련 페이지 끝 -->
+	
+	<!-- Community 관련 페이지 시작 -->
+	<servlet>
+		<servlet-name>Comm</servlet-name>
+		<servlet-class>mpick.pages.comm.Mypage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Comm</servlet-name>
+		<url-pattern>/Comm/Mypage</url-pattern>
+	</servlet-mapping>
+	<!-- Community 관련 페이지 끝 -->
 </web-app>

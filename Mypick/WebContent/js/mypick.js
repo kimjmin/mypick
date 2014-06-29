@@ -11,15 +11,15 @@ function login(navForm){
 	}
 	
 	$("#cmd").val("login");
-	$("#toUrl").val("index.jsp");
+//	$("#toUrl").val("index.jsp");
 	var frm = document.getElementById("navFrm");
-	frm.action="Confirm";
+	frm.action="../Confirm";
 	frm.method="post";
 	frm.submit();	
 }
 
 function signin(frm){
-	frm.action="signin.jsp";
+	frm.action="../signin.jsp";
 	frm.method="post";
 	frm.submit();	
 }
@@ -27,6 +27,6 @@ function signin(frm){
 function logout() {
 	var frm = document.getElementById("navFrm");
 	frm.cmd.value="logout";
-	frm.action="Confirm";
+	frm.action="../Confirm";
 	frm.submit();
 }
