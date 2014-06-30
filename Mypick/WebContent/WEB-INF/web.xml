@@ -3,52 +3,105 @@
 	<display-name>Mpick</display-name>
 	
 	<servlet>
-		<servlet-name>Confirm</servlet-name>
-		<servlet-class>mpick.auth.Confirm</servlet-class>
+		<servlet-name>ControlConfirm</servlet-name>
+		<servlet-class>mpick.ctrl.Confirm</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Confirm</servlet-name>
-		<url-pattern>/Confirm/*</url-pattern>
+		<servlet-name>ControlConfirm</servlet-name>
+		<url-pattern>/Control/Confirm/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet>
-		<servlet-name>MpickAjax</servlet-name>
-		<servlet-class>mpick.auth.MpickAjax</servlet-class>
+		<servlet-name>ControlMpickAjax</servlet-name>
+		<servlet-class>mpick.ctrl.MpickAjax</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>MpickAjax</servlet-name>
-		<url-pattern>/MpickAjax/*</url-pattern>
+		<servlet-name>ControlMpickAjax</servlet-name>
+		<url-pattern>/Control/MpickAjax/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ControlSignin</servlet-name>
+		<servlet-class>mpick.ctrl.Signin</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlSignin</servlet-name>
+		<url-pattern>/Control/Signin/*</url-pattern>
 	</servlet-mapping>
 	
 	<!-- Calculator 관련 페이지 시작 -->
-	<!-- 
-	<servlet>
-		<servlet-name>Calc</servlet-name>
-		<servlet-class>mpick.pages.Calc</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Calc</servlet-name>
-		<url-pattern>/Calc/*</url-pattern>
-	</servlet-mapping>
-	 -->
 	<servlet>
 		<servlet-name>CalcFee</servlet-name>
-		<servlet-class>mpick.pages.calc.Fee</servlet-class>
+		<servlet-class>mpick.pages.Calculator</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CalcFee</servlet-name>
 		<url-pattern>/Calc/Fee/*</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CalcTax</servlet-name>
+		<servlet-class>mpick.pages.Calculator</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CalcTax</servlet-name>
+		<url-pattern>/Calc/Tax/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CalcTrans</servlet-name>
+		<servlet-class>mpick.pages.Calculator</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CalcTrans</servlet-name>
+		<url-pattern>/Calc/Trans/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CalcVolume</servlet-name>
+		<servlet-class>mpick.pages.Calculator</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CalcVolume</servlet-name>
+		<url-pattern>/Calc/Volume/*</url-pattern>
+	</servlet-mapping>
 	<!-- Calculator 관련 페이지 끝 -->
 	
 	<!-- Encyclopedia 관련 페이지 시작 -->
 	<servlet>
-		<servlet-name>Encl</servlet-name>
-		<servlet-class>mpick.pages.encl.Atoz</servlet-class>
+		<servlet-name>EnclAtoz</servlet-name>
+		<servlet-class>mpick.pages.Encyclopedia</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Encl</servlet-name>
-		<url-pattern>/Encl/Atoz</url-pattern>
+		<servlet-name>EnclAtoz</servlet-name>
+		<url-pattern>/Encl/Atoz/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>EnclTax</servlet-name>
+		<servlet-class>mpick.pages.Encyclopedia</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EnclTax</servlet-name>
+		<url-pattern>/Encl/Tax/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>EnclRefund</servlet-name>
+		<servlet-class>mpick.pages.Encyclopedia</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EnclRefund</servlet-name>
+		<url-pattern>/Encl/Refund/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>EnclExchange</servlet-name>
+		<servlet-class>mpick.pages.Encyclopedia</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EnclExchange</servlet-name>
+		<url-pattern>/Encl/Exchange/*</url-pattern>
 	</servlet-mapping>
 	<!-- Encyclopedia 관련 페이지 끝 -->
 	
@@ -59,7 +112,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Comm</servlet-name>
-		<url-pattern>/Comm/Mypage</url-pattern>
+		<url-pattern>/Comm/Mypage/*</url-pattern>
 	</servlet-mapping>
 	<!-- Community 관련 페이지 끝 -->
 </web-app>

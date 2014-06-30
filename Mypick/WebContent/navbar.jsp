@@ -4,9 +4,9 @@
 	//사용자 로그인 체크하는 로직. 모든 페이지에 반드시 포함할것.
 	MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
 	
-//	String toUrl = request.getParameter("toUrl");
 	String toUrl = request.getRequestURI();
 	if (toUrl == null || toUrl.equals("")){ toUrl = "Calc/Fee"; }
+	System.out.println("toUrl : "+toUrl);
 	String pageName = "";
 	if(toUrl.indexOf("Calc") > 0){
 		pageName = "Calc";

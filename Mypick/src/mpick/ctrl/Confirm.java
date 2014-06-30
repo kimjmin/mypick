@@ -1,4 +1,4 @@
-package mpick.auth;
+package mpick.ctrl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -35,6 +35,7 @@ public class Confirm extends HttpServlet {
 			}
 			if (result > 0) {
 				session.setAttribute("mpUserObj", obj);
+//				System.out.println("toUrl-insert : "+toUrl);
 				res.sendRedirect(toUrl);
 			} else {
 				out.println("<script>");
@@ -92,7 +93,7 @@ public class Confirm extends HttpServlet {
 			if(toUrl != null && !toUrl.equals("")){
 				res.sendRedirect(toUrl);
 			} else {
-				res.sendRedirect("index.jsp");
+				res.sendRedirect("../Calc/Fee");
 			}
 		} else {
 			out.println("<script>");

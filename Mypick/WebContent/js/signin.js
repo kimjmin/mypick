@@ -24,7 +24,7 @@ function checkMail() {
 	$.ajax({
 		type : "GET",
 		data : "cmd=checkMail&email=" + tEmail,
-		url : "MpickAjax",
+		url : "../Control/MpickAjax",
 		dataType:"json",
 		success : function(data) {
 			console.log(data);
@@ -44,7 +44,7 @@ function checkNick(){
 	$.ajax({
 		type : "GET",
 		data : "cmd=checkNick&nicname=" + nick,
-		url : "MpickAjax",
+		url : "../Control/MpickAjax",
 		dataType:"json",
 		success : function(data) {
 			console.log(data);
@@ -85,8 +85,8 @@ function signin() {
 			console.log($("#email").val());
 			frm.method="post";
 			frm.cmd.value="insert";
-			frm.toUrl.value="index.jsp";
-			frm.action="Confirm";
+			frm.toUrl.value="../Calc/Fee";
+			frm.action="../Control/Confirm";
 			frm.submit();
 		}
 	} else if(confVal.email == "N"){

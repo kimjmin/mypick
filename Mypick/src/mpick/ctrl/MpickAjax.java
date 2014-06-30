@@ -1,4 +1,4 @@
-package mpick.auth;
+package mpick.ctrl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
