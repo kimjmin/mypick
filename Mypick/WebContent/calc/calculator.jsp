@@ -15,6 +15,7 @@ if(m == null || m.equals("")){ m="fee"; }
 <link rel="stylesheet" href="../css/mypick.css">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
+<script src="../js/jquery.number.min.js"></script>
 <script src="../js/calc.js"></script>
 </head>
 <body>

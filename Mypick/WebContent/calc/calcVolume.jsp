@@ -21,7 +21,7 @@
 		<label for="wInput">가로 (inch)</label>
     </div>
     <div class="col-sm-2">
-		<input type="number" class="form-control" id="vWidth" max="1000000000" min="0" step="0.001" placeholder="가로">
+		<input type="number" class="form-control" id="vWidth" max="1000000000" min="0" step="0.001" placeholder="가로" required="required">
     </div>
   </div>
 </div>
@@ -31,7 +31,7 @@
 		<label for="wInput">세로 (inch)</label>
     </div>
     <div class="col-sm-2">
-		<input type="number" class="form-control" id="vDepth" max="1000000000" min="0" step="0.001" placeholder="세로">
+		<input type="number" class="form-control" id="vDepth" max="1000000000" min="0" step="0.001" placeholder="세로" required="required">
     </div>
   </div>
 </div>
@@ -41,7 +41,7 @@
 		<label for="wInput">높이 (inch)</label>
     </div>
     <div class="col-sm-2">
-		<input type="number" class="form-control" id="vHeight" max="1000000000" min="0" step="0.001" placeholder="높이">
+		<input type="number" class="form-control" id="vHeight" max="1000000000" min="0" step="0.001" placeholder="높이" required="required">
     </div>
   </div>
 </div>
@@ -52,11 +52,11 @@
 </div>
 </form>
 
-<br/>
-
+<hr/>
 <div class="row">
 	<h4>부피무게 계산 결과</h4>
-	<h5 id="vRes"></h5>
+	<h4 id="vForm"></h4>
+	<h3 id="vRes"></h3>
 </div>
 
 </div>

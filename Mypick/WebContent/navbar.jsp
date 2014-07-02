@@ -6,7 +6,6 @@
 	
 	String toUrl = request.getRequestURI();
 	if (toUrl == null || toUrl.equals("")){ toUrl = "Calc/Fee"; }
-	System.out.println("toUrl : "+toUrl);
 	String pageName = "";
 	if(toUrl.indexOf("Calc") > 0){
 		pageName = "Calc";

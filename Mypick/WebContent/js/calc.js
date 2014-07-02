@@ -8,61 +8,61 @@ function transUnit(){
 	var vSel = $("#vSel").val();
 	
 	if(wSel === "lb"){
-		$("#wlb").html(Math.round(Number(w)*1000)/1000);
-		$("#wkg").html(Math.round(Number(w)*0.45359*1000)/1000);
-		$("#wg").html(Math.round(Number(w)*453.592*1000)/1000);
-		$("#woz").html(Math.round(Number(w)*16*1000)/1000);
+		$("#wlb").html($.number(Number(w),3));
+		$("#wkg").html($.number(Number(w)*0.45359,3));
+		$("#wg").html($.number(Number(w)*453.592,3));
+		$("#woz").html($.number(Number(w)*16,3));
 	} else if(wSel === "kg"){
-		$("#wlb").html(Math.round(Number(w)*2.20459*1000)/1000);
-		$("#wkg").html(Math.round(Number(w)*1000)/1000);
-		$("#wg").html(Math.round(Number(w)*1000*1000)/1000);
-		$("#woz").html(Math.round(Number(w)*33.273*1000)/1000);
+		$("#wlb").html($.number(Number(w)*2.20459,3));
+		$("#wkg").html($.number(Number(w),3));
+		$("#wg").html($.number(Number(w)*1000,3));
+		$("#woz").html($.number(Number(w)*33.273,3));
 	} else if(wSel === "g"){
-		$("#wlb").html(Math.round(Number(w)*0.0022*1000)/1000);
-		$("#wkg").html(Math.round(Number(w)*0.001*1000)/1000);
-		$("#wg").html(Math.round(Number(w)*1000)/1000);
-		$("#woz").html(Math.round(Number(w)*0.03527*1000)/1000);
+		$("#wlb").html($.number(Number(w)*0.0022,3));
+		$("#wkg").html($.number(Number(w)*0.001,3));
+		$("#wg").html($.number(Number(w),3));
+		$("#woz").html($.number(Number(w)*0.03527,3));
 	} else if(wSel === "oz"){
-		$("#wlb").html(Math.round(Number(w)*0.06525*1000)/1000);
-		$("#wkg").html(Math.round(Number(w)*0.02835*1000)/1000);
-		$("#wg").html(Math.round(Number(w)*28.3495*1000)/1000);
-		$("#woz").html(Math.round(Number(w)*1000)/1000);
+		$("#wlb").html($.number(Number(w)*0.06525,3));
+		$("#wkg").html($.number(Number(w)*0.02835,3));
+		$("#wg").html($.number(Number(w)*28.3495,3));
+		$("#woz").html($.number(Number(w),3));
 	}
 	
 	if(lSel === "cm"){
-		$("#lcm").html(Math.round(Number(l)*1000)/1000);
-		$("#lin").html(Math.round(Number(l)*0.3937*1000)/1000);
-		$("#lft").html(Math.round(Number(l)*0.0328*1000)/1000);
+		$("#lcm").html($.number(Number(l),3));
+		$("#lin").html($.number(Number(l)*0.3937,3));
+		$("#lft").html($.number(Number(l)*0.0328,3));
 	} else if(lSel === "in"){
-		$("#lcm").html(Math.round(Number(l)*2.54*1000)/1000);
-		$("#lin").html(Math.round(Number(l)*1000)/1000);
-		$("#lft").html(Math.round(Number(l)*0.0833*1000)/1000);
+		$("#lcm").html($.number(Number(l)*2.54,3));
+		$("#lin").html($.number(Number(l),3));
+		$("#lft").html($.number(Number(l)*0.0833,3));
 	} else if(lSel === "ft"){
-		$("#lcm").html(Math.round(Number(l)*30.48*1000)/1000);
-		$("#lin").html(Math.round(Number(l)*12*1000)/1000);
-		$("#lft").html(Math.round(Number(l)*1000)/1000);
+		$("#lcm").html($.number(Number(l)*30.48,3));
+		$("#lin").html($.number(Number(l)*12,3));
+		$("#lft").html($.number(Number(l),3));
 	}
 	
 	if(vSel === "floz"){
-		$("#vfloz").html(Math.round(Number(v)*1000)/1000);
-		$("#vgal").html(Math.round(Number(v)*0.007813*1000)/1000);
-		$("#vl").html(Math.round(Number(v)*0.029574*1000)/1000);
-		$("#vcc").html(Math.round(Number(v)*29.57353*1000)/1000);
+		$("#vfloz").html($.number(Number(v),3));
+		$("#vgal").html($.number(Number(v)*0.007813,3));
+		$("#vl").html($.number(Number(v)*0.029574,3));
+		$("#vcc").html($.number(Number(v)*29.57353,3));
 	} else if(vSel === "gal"){
-		$("#vfloz").html(Math.round(Number(v)*127.999998*1000)/1000);
-		$("#vgal").html(Math.round(Number(v)*1000)/1000);
-		$("#vl").html(Math.round(Number(v)*3.785412*1000)/1000);
-		$("#vcc").html(Math.round(Number(v)*3785.41178*1000)/1000);
+		$("#vfloz").html($.number(Number(v)*127.999998,3));
+		$("#vgal").html($.number(Number(v),3));
+		$("#vl").html($.number(Number(v)*3.785412,3));
+		$("#vcc").html($.number(Number(v)*3785.41178,3));
 	} else if(vSel === "l"){
-		$("#vfloz").html(Math.round(Number(v)*33.814022*1000)/1000);
-		$("#vgal").html(Math.round(Number(v)*0.264172*1000)/1000);
-		$("#vl").html(Math.round(Number(v)*1000)/1000);
-		$("#vcc").html(Math.round(Number(v)*1000*1000)/1000);
+		$("#vfloz").html($.number(Number(v)*33.814022,3));
+		$("#vgal").html($.number(Number(v)*0.264172,3));
+		$("#vl").html($.number(Number(v),3));
+		$("#vcc").html($.number(Number(v)*1000,3));
 	} else if(vSel === "cc"){
-		$("#vfloz").html(Math.round(Number(v)*0.033814*1000)/1000);
-		$("#vgal").html(Math.round(Number(v)*0.000264*1000)/1000);
-		$("#vl").html(Math.round(Number(v)*0.001*1000)/1000);
-		$("#vcc").html(Math.round(Number(v)*1000)/1000);
+		$("#vfloz").html($.number(Number(v)*0.033814,3));
+		$("#vgal").html($.number(Number(v)*0.000264,3));
+		$("#vl").html($.number(Number(v)*0.001,3));
+		$("#vcc").html($.number(Number(v),3));
 	}	
 }
 
@@ -72,7 +72,9 @@ function calVolume(){
 	var h = $("#vHeight").val();
 	
 	var vol = (Number(w)*Number(d)*Number(h))/166;
-	vol = Math.round(vol*1000)/1000;
-	var res = ''+w+' (inch) x '+d+' (inch) x '+h+' (inch) / 166 = <code>'+vol+'</code> 파운드(lb)';
+	vol = $.number(vol,3);
+	var formu = '<code>'+$.number(w,3)+'</code> x <code>'+$.number(d,3)+'</code> x <code>'+$.number(h,3)+'</code> / 166';
+	var res = '= <code>'+vol+'</code> <small>파운드(lb)</small>';
+	$("#vForm").html(formu);
 	$("#vRes").html(res);
 }
