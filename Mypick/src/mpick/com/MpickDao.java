@@ -99,15 +99,6 @@ public class MpickDao {
 		Dao dao = Dao.getInstance();
 		DataEntity setData = new DataEntity();
 		DataEntity whereData = new DataEntity();
-		/*
-		setData.put("passwd", userObj.getPasswd());
-		if(!"".equals(userObj.getName()))
-			setData.put("name", userObj.getName());
-		if(!"".equals(userObj.getType()))
-			setData.put("type", userObj.getType());
-		
-		whereData.put("id", userObj.getId());
-		*/
 		result = dao.updateData(property, "cdi_user", setData, whereData);
 		
 		return result;
@@ -146,7 +137,7 @@ public class MpickDao {
 	}
 	
 	/**
-	 * id 값을 가지고 사용자 DB를 검색해서 CandiUserObj 를 리턴하는 메서드. 
+	 * id 값을 가지고 사용자 DB를 검색해서 MpickUserObj 를 리턴하는 메서드. 
 	 * @param id
 	 * @return
 	 */
@@ -216,25 +207,18 @@ public class MpickDao {
 			return true;
 		}
 	}
-	
+
 	/**
-	 * 사업자 목록을 가져오는 쿼리.
+	 * 환율정보 리턴.
 	 * @return
 	 */
-	public DataEntity[] getOspList(){
-		DataEntity[] result = null;
-		
+	public DataEntity[] getCurrInfo(){
+		DataEntity[] data = null;
 		Dao dao = Dao.getInstance();
 		StringBuffer sql = new StringBuffer();
-		String[] param = {"osp"};
-				
-		sql.append("SELECT ");
-		sql.append("id, name ");
-		sql.append("FROM cdi_user ");
-		sql.append("WHERE type = ?");
-		
-		result = dao.getResult(property, sql.toString(), param);
-		
-		return result;
+		sql.append("SELECT * FROM mp_curr_rate order by onum");
+		data = dao.getResult(property, sql.toString(), null);
+		return data;
 	}
+	
 }

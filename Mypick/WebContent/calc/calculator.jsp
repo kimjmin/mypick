@@ -22,7 +22,7 @@ if(m == null || m.equals("")){ m="fee"; }
 	<div class="container">
 
 <!-- 상단 네비게이션 메뉴 시작 -->	
-<%@include file="../navbar.jsp"%>
+<%@include file="../ctrl/navbar.jsp"%>
 <!-- 상단 네비게이션 메뉴 끝 -->
 
 		<div class="row">
@@ -42,37 +42,7 @@ if(m == null || m.equals("")){ m="fee"; }
 <!-- 메뉴 링크 목록 끝 -->
 
 <!-- 환율 정보 시작 -->
-<table class="table">
-	<thead>
-	<tr>
-		<th>통화</th>
-		<th>USD/$</th>
-		<th>GBP/￡</th>
-	</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<th>기준환율</th>
-			<td>1,018.10</td>
-			<td>1,733.32</td>
-		</tr>
-		<tr>
-			<th>사실때</th>
-			<td>1,035.91</td>
-			<td>1,767.81</td>
-		</tr>
-		<tr>
-			<th>보낼때</th>
-			<td>1,028.00</td>
-			<td>1,750.65</td>
-		</tr>
-		<tr>
-			<th>고시환율</th>
-			<td>1.00</td>
-			<td>1.00</td>
-		</tr>
-	</tbody>
-</table>
+<%@include file="../ctrl/currinfo.jsp"%>
 <!-- 환율 정보 끝 -->
 				
 <!-- 좌측 메뉴 끝 -->
