@@ -35,7 +35,6 @@ public class Confirm extends HttpServlet {
 			}
 			if (result > 0) {
 				session.setAttribute("mpUserObj", obj);
-//				System.out.println("toUrl-insert : "+toUrl);
 				res.sendRedirect(toUrl);
 			} else {
 				out.println("<script>");
@@ -43,23 +42,28 @@ public class Confirm extends HttpServlet {
 				out.println("	history.go(-1);");
 				out.println("</script>");
 			}
-		} else if(toUrl != null && cmd != null && cmd.equals("update")){
-			// 여긴 좀 더 자세히 정비할것.
-//			obj = (CandiUserObj) session.getAttribute("cdpObj");
-			obj = dao.getUserObj(req, obj);
-			
-			result = dao.updateUserObj(obj);
-//			io.saveConfig(obj);
-			
-			if (result > 0) {
-				session.setAttribute("mpUserObj", obj);
-				
-				res.sendRedirect(toUrl);
-			} else {
+		} else if(toUrl != null && cmd != null && cmd.equals("modify")){
+			MpickUserObj preobj = dao.getUserObj(req.getParameter("email"));
+			String prePasswd = req.getParameter("prepasswd");
+			if(!preobj.getPasswd().equals(prePasswd)){
 				out.println("<script>");
-				out.println("	alert(\"저장하는데 문제가 발생했습니다.\");");
+				out.println("	alert(\"기존 패스워드가 올바르지 않습니다.\");");
 				out.println("	history.go(-1);");
 				out.println("</script>");
+			} else {
+				obj = dao.getUserObj(req);
+				if(obj != null && obj.getEmail() != null && !"".equals(obj.getEmail())){
+					result = dao.updateUserObj(obj);
+				}
+				if (result > 0) {
+					session.setAttribute("mpUserObj", obj);
+					res.sendRedirect(toUrl);
+				} else {
+					out.println("<script>");
+					out.println("	alert(\"저장하는데 문제가 발생했습니다.\");");
+					out.println("	history.go(-1);");
+					out.println("</script>");
+				}
 			}
 		} else if(toUrl != null && cmd != null && cmd.equals("login")){
 			

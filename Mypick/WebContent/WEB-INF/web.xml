@@ -29,6 +29,15 @@
 		<url-pattern>/Control/Signin/*</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>ControlModify</servlet-name>
+		<servlet-class>mpick.ctrl.Modify</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlModify</servlet-name>
+		<url-pattern>/Control/Modify/*</url-pattern>
+	</servlet-mapping>
+	
 	<!-- Calculator 관련 페이지 시작 -->
 	<servlet>
 		<servlet-name>CalcFee</servlet-name>

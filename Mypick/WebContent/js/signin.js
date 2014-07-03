@@ -77,7 +77,7 @@ function chkPw() {
 	}
 }
 
-function signin() {
+function signup() {
 	var frm = document.signinFrm;
 	if(confVal.email == "Y" && confVal.passwd == "Y" && confVal.nicname == "Y"){
 		if(confirm("입력하신 정보로 가입하시겠습니까?")){
@@ -94,6 +94,51 @@ function signin() {
 	} else if(confVal.passwd == "N"){
 		alert("비밀번호가 일치하지 않습니다.\n비밀번호를 확인하십시오.");
 	} else if(confVal.nicname == "N"){
-		alert("닉네임 중복 확인이 되지 않았습니다.\n이메일 중복을 확인하십시오.");
-	} 
+		alert("닉네임 중복 확인이 되지 않았습니다.\n닉네임 중복을 확인하십시오.");
+	}
+}
+
+function checkModifNick(preNick){
+	var nick = $("#nicname").val();
+	if(nick === preNick){
+		if(confirm("닉네임이 변경되지 않았습니다.\n기존 닉네임을 계속 사용하시겠습니까?")){
+			confVal.nicname = "Y";
+		} else {
+			confVal.nicname = "N";
+		}
+	} else {
+		$.ajax({
+			type : "GET",
+			data : "cmd=checkNick&nicname=" + nick,
+			url : "../Control/MpickAjax",
+			dataType:"json",
+			success : function(data) {
+				console.log(data);
+				if (data.result == "OK") {
+					alert("사용 가능한 닉네임 입니다.");
+					confVal.nicname = "Y";
+				} else {
+					alert("이미 사용중인 닉네임 입니다.");
+					confVal.nicname = "N";
+				}
+			}
+		});
+	}
+}
+
+function modify(){
+	var frm = document.signinFrm;
+	if(confVal.passwd == "Y" && confVal.nicname == "Y"){
+		if(confirm("회원 정보를 수정하시겠습니까?")){
+			frm.method="post";
+			frm.cmd.value="modify";
+			frm.toUrl.value="../Calc/Fee";
+			frm.action="../Control/Confirm";
+			frm.submit();
+		}
+	} else if(confVal.passwd == "N"){
+		alert("비밀번호가 일치하지 않습니다.\n비밀번호를 확인하십시오.");
+	} else if(confVal.nicname == "N"){
+		alert("닉네임 중복 확인이 되지 않았습니다.\n닉네임 중복을 확인하십시오.");
+	}
 }

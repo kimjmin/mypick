@@ -98,8 +98,18 @@ public class MpickDao {
 		
 		Dao dao = Dao.getInstance();
 		DataEntity setData = new DataEntity();
+		setData.put("email", userObj.getEmail());
+		setData.put("passwd", userObj.getPasswd());
+		setData.put("name", userObj.getName());
+		setData.put("nicname", userObj.getNicname());
+		setData.put("birthday", userObj.getBirthday());
+		setData.put("gender", userObj.getGender());
+		setData.put("phone", userObj.getPhone());
+		
 		DataEntity whereData = new DataEntity();
-		result = dao.updateData(property, "cdi_user", setData, whereData);
+		whereData.put("email", userObj.getEmail());
+		
+		result = dao.updateData(property, "mp_user", setData, whereData);
 		
 		return result;
 	}
@@ -156,7 +166,7 @@ public class MpickDao {
 		DataEntity[] entity = dao.getResult(property, sql.toString(), param);
 		
 		if(entity != null && entity.length == 1){
-			result.setEmail((String)entity[0].get("id"));
+			result.setEmail((String)entity[0].get("email"));
 			result.setPasswd((String)entity[0].get("passwd"));
 			result.setName((String)entity[0].get("name"));
 			result.setNicname((String)entity[0].get("nicname"));
