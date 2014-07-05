@@ -46,7 +46,7 @@
   </div>
 </div>
 <div class="row">
-	<div class="col-md-3">
+	<div class="col-sm-3">
 		<button type="submit" class="btn btn-success btn-block">확인</button>
 	</div>
 </div>

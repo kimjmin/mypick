@@ -2,7 +2,6 @@ package mpick.ctrl;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Array;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -45,14 +44,21 @@ public class MpickAjax extends HttpServlet{
 			} else if(cmd.equals("currInfo")){
 				DataEntity[] currData = dao.getCurrInfo();
 				StringBuffer outStr = new StringBuffer();
-				outStr.append("{\"curr_info\":[");
-				
+				outStr.append("{");
+				outStr.append("\"up_date\":\""+currData[0].get("up_date")+"\",");
+				outStr.append("\"up_time\":\""+currData[0].get("up_time")+"\",");
+				outStr.append("\"curr_head\":[");
 				for(int i=0; i<currData.length; i++){
 					outStr.append("{");
-					outStr.append("\"up_date\":\""+currData[i].get("up_date")+"\",");
-					outStr.append("\"up_time\":\""+currData[i].get("up_time")+"\",");
 					outStr.append("\"curr\":\""+currData[i].get("curr")+"\",");
-					outStr.append("\"curr_kr\":\""+currData[i].get("curr_kr")+"\",");
+					outStr.append("\"curr_kr\":\""+currData[i].get("curr_kr")+"\"");
+					outStr.append("}");
+					if(i < currData.length-1){ outStr.append(","); }
+				}
+				outStr.append("],");
+				outStr.append("\"curr_info\":{");
+				for(int i=0; i<currData.length; i++){
+					outStr.append("\""+currData[i].get("curr")+"\":{");
 					outStr.append("\"cash_buy\":"+currData[i].get("cash_buy")+",");
 					outStr.append("\"cash_buy_rate\":"+currData[i].get("cash_buy_rate")+",");
 					outStr.append("\"cash_sell\":"+currData[i].get("cash_sell")+",");
@@ -67,7 +73,8 @@ public class MpickAjax extends HttpServlet{
 					outStr.append("}");
 					if(i < currData.length-1){ outStr.append(","); }
 				}
-				outStr.append("]}");
+				outStr.append("}");
+				outStr.append("}");
 				out.print(outStr.toString());
 			}
 			

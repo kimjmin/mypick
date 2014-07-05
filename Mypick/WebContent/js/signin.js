@@ -20,7 +20,6 @@ function checkMail() {
 	var mail1 = $("#email1").val();
 	var mail2 = $("#email2").val();
 	var tEmail = mail1+"@"+mail2;
-	console.log(tEmail);
 	$.ajax({
 		type : "GET",
 		data : "cmd=checkMail&email=" + tEmail,

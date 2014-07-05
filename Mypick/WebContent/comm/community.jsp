@@ -26,7 +26,7 @@ if(m == null || m.equals("")){ m="fee"; }
 <!-- 상단 네비게이션 메뉴 끝 -->
 
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-sm-3">
 <!-- 좌측 메뉴 시작 -->
 
 <h2>Community</h2>
@@ -49,7 +49,7 @@ if(m == null || m.equals("")){ m="fee"; }
 
 			</div>
 
-			<div class="col-md-9">
+			<div class="col-sm-9">
 				<div class="container">
 					<div class="row">
 						<blockquote>
@@ -63,7 +63,7 @@ if(m == null || m.equals("")){ m="fee"; }
 						</p>
 					</div>
 
-					<div class="col-md-8">
+					<div class="col-sm-8">
 						<form class="form-inline" role="form">
 							<table class="table">
 								<thead>

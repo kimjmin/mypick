@@ -124,4 +124,33 @@
 		<url-pattern>/Comm/Mypage/*</url-pattern>
 	</servlet-mapping>
 	<!-- Community 관련 페이지 끝 -->
+	
+	<!-- Admin 관련 페이지 시작 -->
+	<servlet>
+		<servlet-name>AdminShip</servlet-name>
+		<servlet-class>mpick.pages.Admin</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminShip</servlet-name>
+		<url-pattern>/Admin/Ship/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminEncl</servlet-name>
+		<servlet-class>mpick.pages.Admin</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminEncl</servlet-name>
+		<url-pattern>/Admin/Encl/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AdminComm</servlet-name>
+		<servlet-class>mpick.pages.Admin</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AdminComm</servlet-name>
+		<url-pattern>/Admin/Comm/*</url-pattern>
+	</servlet-mapping>
+	<!-- Admin 관련 페이지 끝 -->
 </web-app>

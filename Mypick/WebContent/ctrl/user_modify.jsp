@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="mpick.com.MpickUserObj,mpick.com.MpickMsg,java.text.SimpleDateFormat"%>
+<%@ page import="mpick.com.MpickMsg,java.text.SimpleDateFormat"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,7 +24,6 @@
 <!-- 상단 네비게이션 메뉴 시작 -->	
 <%@include file="../ctrl/navbar.jsp"%>
 <!-- 상단 네비게이션 메뉴 끝 -->
-
 <%
 if(userObj == null){
 	out.print(MpickMsg.loginError());

@@ -5,7 +5,6 @@ function goCalc(){
 	frm.action="../Calc/Fee";
 	frm.submit();
 }
-
 function goEncl(){
 	var frm = document.getElementById("navFrm");
 	frm.toUrl.value="Encl";
@@ -13,7 +12,6 @@ function goEncl(){
 	frm.action="../Encl/Atoz";
 	frm.submit();
 }
-
 function goComm(){
 	var frm = document.getElementById("navFrm");
 	frm.toUrl.value="Comm";
@@ -21,7 +19,6 @@ function goComm(){
 	frm.action="../Comm/Mypage";
 	frm.submit();
 }
-
 function login(navForm){
 	var frm = document.getElementById("navFrm");
 	if (frm.loginEmail.value.length == 0) {

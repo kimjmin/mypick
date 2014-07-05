@@ -1,25 +1,28 @@
 var currData;
 
 function initCurr(){
+	var params="cmd=currInfo";
 	$.ajax({
 		type : "GET",
-		data : "cmd=currInfo",
+		data : params,
 		url : "../Control/MpickAjax",
 		dataType:"json",
 		success : function(data) {
 			currData = data;
 			setCurrSel();
+		}, error:function(e){  
+			console.log(e.responseText);  
 		}
 	});
 }
 
 function setCurrSel(){
-	console.log("currData.curr_info.length: "+currData.curr_info.length);
-	for(var i=0; i<currData.curr_info.length; i++){
-		$("#currSel").append("<option value='"+i+"'>"+currData.curr_info[i].curr_kr+"</option>");
+//	console.log("currData.curr_head.length: "+currData.curr_head.length);
+	for(var i=0; i<currData.curr_head.length; i++){
+		$("#currSel").append("<option value='"+currData.curr_head[i].curr+"'>"+currData.curr_head[i].curr_kr+"</option>");
 	}
-	$("#up_date").html(currData.curr_info[0].up_date);
-	$("#up_time").html(currData.curr_info[0].up_time);
+	$("#up_date").html(currData.up_date);
+	$("#up_time").html(currData.up_time);
 	setCurrVal();
 }
 

@@ -74,7 +74,6 @@ public class Confirm extends HttpServlet {
 			if (check == 2) {
 				obj = dao.getUserObj(email);
 				session.setAttribute("mpUserObj", obj);
-				System.out.println("toUrl: " +toUrl);
 				res.sendRedirect(toUrl);
 			} else if (check == 1) {
 				out.println("<script>");

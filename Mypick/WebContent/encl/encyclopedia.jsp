@@ -26,7 +26,7 @@ if(m == null || m.equals("")){ m="atoz"; }
 <!-- 상단 네비게이션 메뉴 끝 -->
 
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-sm-3">
 <!-- 좌측 메뉴 시작 -->
 
 <h2>Encyclopedia</h2>
@@ -48,7 +48,7 @@ if(m == null || m.equals("")){ m="atoz"; }
 <!-- 좌측 메뉴 끝 -->
 			</div>
 			
-			<div class="col-md-9">
+			<div class="col-sm-9">
 <!-- 우측 내용 시작 -->
 <!-- 우측 내용 끝 -->
 			</div>

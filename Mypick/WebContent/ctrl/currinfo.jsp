@@ -6,7 +6,7 @@ initCurr();
 
 
 <div class="pull-right">
-	<span class="red" id="up_date"></span> <span class="red" id="up_time"></span>
+	<span class="text-red" id="up_date"></span> <span class="text-red" id="up_time"></span>
 </div>
 
 <table class="table">
@@ -22,19 +22,19 @@ initCurr();
 	<tbody>
 		<tr>
 			<th>기준환율</th>
-			<td><span id="sell_refer" class="blue"></span></td>
+			<td><span id="sell_refer" class="text-blue"></span></td>
 		</tr>
 		<tr>
 			<th>사실때</th>
-			<td><span id="cash_buy" class="blue"></span></td>
+			<td><span id="cash_buy" class="text-blue"></span></td>
 		</tr>
 		<tr>
 			<th>보내실때</th>
-			<td><span id="trans_send" class="blue"></span></td>
+			<td><span id="trans_send" class="text-blue"></span></td>
 		</tr>
 		<tr>
 			<th>고시환율</th>
-			<td><span id="usd_rate" class="blue"></span></td>
+			<td><span id="usd_rate" class="text-blue"></span></td>
 		</tr>
 	</tbody>
 </table>
