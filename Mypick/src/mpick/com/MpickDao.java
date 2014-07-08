@@ -231,4 +231,70 @@ public class MpickDao {
 		return data;
 	}
 	
+	/**
+	 * 배송대행업체 메인 입력.
+	 * @param shipId
+	 * @param ShipName
+	 * @param shipUrl
+	 * @return
+	 */
+	public int insertShip(int onum, String shipId, String ShipName, String shipUrl ){
+		int result = 0;
+		DataEntity data = new DataEntity();
+		Dao dao = Dao.getInstance();
+		data.put("onum", onum);
+		data.put("ship_id", shipId);
+		data.put("ship_name", ShipName);
+		data.put("ship_url", shipUrl);
+		result = dao.inertData(property, "mp_ship", data);
+		return result;
+	}
+	
+	/**
+	 * 배송대행업체 레벨 입력.
+	 * @param shipId
+	 * @param levNum
+	 * @param levName
+	 * @param levVal
+	 * @param levUnit
+	 * @return
+	 */
+	public int insertShipLevs(String shipId, int levNum, String levName, String levVal, String levUnit ){
+		int result = 0;
+		DataEntity data = new DataEntity();
+		Dao dao = Dao.getInstance();
+		data.put("ship_id", shipId);
+		data.put("lev_num", levNum);
+		data.put("lev_name", levName);
+		data.put("lev_val", levVal);
+		data.put("lev_unit", levUnit);
+		result = dao.inertData(property, "mp_ship_levs", data);
+		return result;
+	}
+	
+	public void deleteAllShips(){
+		Dao dao = Dao.getInstance();
+		dao.deleteAll(property, "mp_ship");
+		dao.deleteAll(property, "mp_ship_levs");
+	}
+	
+	public DataEntity[] getShips(){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * FROM mp_ship order by onum");
+		data = dao.getResult(property, sql.toString(), null);
+		return data;
+	}
+	
+	public DataEntity[] getShipLevs(String shipId){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * FROM mp_ship_levs where ship_id = ? order by lev_num");
+		String[] params = {shipId};
+		data = dao.getResult(property, sql.toString(), params);
+		return data;
+	}
+	
 }

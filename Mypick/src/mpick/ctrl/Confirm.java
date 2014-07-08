@@ -98,6 +98,18 @@ public class Confirm extends HttpServlet {
 			} else {
 				res.sendRedirect("../Calc/Fee");
 			}
+		} else if(toUrl != null && cmd != null && cmd.equals("saveShip")){
+			//배송대행지 저장.
+			ShipComps sc = new ShipComps();
+			int shipRes = sc.saveShipCompList(req, res);
+			if(shipRes > 0){
+				res.sendRedirect(toUrl);
+			} else {
+				out.println("<script>");
+				out.println("	alert(\"배송대행업체 정보를 저장하는 중 오류가 발생되었습니다.\");");
+				out.println("	history.go(-1);");
+				out.println("</script>");
+			}
 		} else {
 			out.println("<script>");
 			out.println("	alert(\"잘못된 접근입니다.\");");
