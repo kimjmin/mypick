@@ -17,7 +17,6 @@ if(m == null || m.equals("")){ m="fee"; }
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/jquery.number.min.js"></script>
-<script src="../js/admin.js"></script>
 </head>
 <body>
 	<div class="container">

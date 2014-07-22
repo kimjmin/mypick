@@ -7,14 +7,14 @@
 	String toUrl = request.getRequestURI();
 	if (toUrl == null || toUrl.equals("")){ toUrl = "Calc/Fee"; }
 	String pageName = "";
-	if(toUrl.indexOf("Calc") > 0){
+	if (toUrl.indexOf("Admin") > 0){
+		pageName = "Admin";
+	} else if(toUrl.indexOf("Calc") > 0){
 		pageName = "Calc";
 	} else if (toUrl.indexOf("Encl") > 0){
 		pageName = "Encl";
 	} else if (toUrl.indexOf("Comm") > 0){
 		pageName = "Comm";
-	} else if (toUrl.indexOf("Admin") > 0){
-		pageName = "Admin";
 	}
 %>
 <script src="../js/nav.js"></script>

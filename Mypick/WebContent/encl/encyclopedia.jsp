@@ -1,7 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
+/*
 String m = request.getParameter("m"); 
 if(m == null || m.equals("")){ m="atoz"; }
+*/
+String uri = request.getParameter("uri");
+String m = "atoz";
+if(uri.indexOf("Tax") > 0){
+	m = "tax";
+} else if(uri.indexOf("Refund") > 0){
+	m = "refund";
+} else if(uri.indexOf("Exchange") > 0){
+	m = "exchange";
+}
+
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -50,6 +62,18 @@ if(m == null || m.equals("")){ m="atoz"; }
 			
 			<div class="col-sm-9">
 <!-- 우측 내용 시작 -->
+<%
+if("atoz".equals(m)){
+%><%@include file="../encl/enclAtoz.jsp"%><%		
+} else if("tax".equals(m)){
+%><%@include file="../encl/enclTax.jsp"%><%	
+} else if("refund".equals(m)){
+%><%@include file="../encl/enclRefund.jsp"%><%	
+} else if("exchange".equals(m)){
+%><%@include file="../encl/enclExchange.jsp"%><%	
+}
+%>
+
 <!-- 우측 내용 끝 -->
 			</div>
 

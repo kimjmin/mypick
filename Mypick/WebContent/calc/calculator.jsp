@@ -61,8 +61,6 @@ if("fee".equals(m)){
 %><%@include file="../calc/calcVolume.jsp"%><%	
 }
 %>
-
-
 <!-- 우측 내용 끝 -->
 			</div>
 

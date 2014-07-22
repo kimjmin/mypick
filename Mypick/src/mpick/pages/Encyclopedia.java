@@ -15,6 +15,7 @@ public class Encyclopedia extends HttpServlet {
 		res.setContentType("text/html; charset=UTF-8");
 		
 		String uri = req.getRequestURI();
+		/*
 		String m = "atoz";
 		if(uri.indexOf("Tax") > 0){
 			m = "tax";
@@ -23,8 +24,8 @@ public class Encyclopedia extends HttpServlet {
 		} else if(uri.indexOf("Exchange") > 0){
 			m = "exchange";
 		}
-		
-		req.getRequestDispatcher("/encl/encyclopedia.jsp?m="+m).include(req, res);
+		*/
+		req.getRequestDispatcher("/encl/encyclopedia.jsp?uri="+uri).include(req, res);
 	}
 	
 }

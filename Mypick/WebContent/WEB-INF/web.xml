@@ -78,40 +78,14 @@
 	
 	<!-- Encyclopedia 관련 페이지 시작 -->
 	<servlet>
-		<servlet-name>EnclAtoz</servlet-name>
+		<servlet-name>Encl</servlet-name>
 		<servlet-class>mpick.pages.Encyclopedia</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>EnclAtoz</servlet-name>
-		<url-pattern>/Encl/Atoz/*</url-pattern>
+		<servlet-name>Encl</servlet-name>
+		<url-pattern>/Encl/*</url-pattern>
 	</servlet-mapping>
 	
-	<servlet>
-		<servlet-name>EnclTax</servlet-name>
-		<servlet-class>mpick.pages.Encyclopedia</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>EnclTax</servlet-name>
-		<url-pattern>/Encl/Tax/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>EnclRefund</servlet-name>
-		<servlet-class>mpick.pages.Encyclopedia</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>EnclRefund</servlet-name>
-		<url-pattern>/Encl/Refund/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>EnclExchange</servlet-name>
-		<servlet-class>mpick.pages.Encyclopedia</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>EnclExchange</servlet-name>
-		<url-pattern>/Encl/Exchange/*</url-pattern>
-	</servlet-mapping>
 	<!-- Encyclopedia 관련 페이지 끝 -->
 	
 	<!-- Community 관련 페이지 시작 -->

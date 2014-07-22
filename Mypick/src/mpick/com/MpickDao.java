@@ -272,12 +272,19 @@ public class MpickDao {
 		return result;
 	}
 	
+	/**
+	 * 배송대행업체 전체 삭제
+	 */
 	public void deleteAllShips(){
 		Dao dao = Dao.getInstance();
 		dao.deleteAll(property, "mp_ship");
 		dao.deleteAll(property, "mp_ship_levs");
 	}
 	
+	/**
+	 * 배송대행업체 불러오기
+	 * @return
+	 */
 	public DataEntity[] getShips(){
 		DataEntity[] data = null;
 		Dao dao = Dao.getInstance();
@@ -287,12 +294,62 @@ public class MpickDao {
 		return data;
 	}
 	
+	/**
+	 * 배송대행업체 등급 불러오기.
+	 * @param shipId
+	 * @return
+	 */
 	public DataEntity[] getShipLevs(String shipId){
 		DataEntity[] data = null;
 		Dao dao = Dao.getInstance();
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT * FROM mp_ship_levs where ship_id = ? order by lev_num");
 		String[] params = {shipId};
+		data = dao.getResult(property, sql.toString(), params);
+		return data;
+	}
+	
+	/**
+	 * 정보 저장.
+	 * @param userMail
+	 * @param encType
+	 * @param encText
+	 * @return
+	 */
+	public int insertArticle(String userMail, String encType, String encText ){
+		int result = 0;
+		DataEntity data = new DataEntity();
+		Dao dao = Dao.getInstance();
+		data.put("ar_type", encType);
+		data.put("ar_text", encText);
+		data.put("ar_mail", userMail);
+		data.put("ar_state", "ACTIVE");
+		result = dao.inertData(property, "mp_article", data);
+		return result;
+	}
+	
+	/**
+	 * 이전 정보 상태 변경.
+	 */
+	public void archiveArticle(String encType){
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE mp_article SET ar_state = 'ARCHIVE' where ar_type = ? ");
+		String[] params = {encType};
+		dao.updateSql(property, sql.toString(), params);
+	}
+	
+	/**
+	 * 
+	 * @param type
+	 * @return
+	 */
+	public DataEntity[] getArticle(String encType){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * FROM mp_article where ar_type = ? and ar_state = 'ACTIVE' ");
+		String[] params = {encType};
 		data = dao.getResult(property, sql.toString(), params);
 		return data;
 	}
