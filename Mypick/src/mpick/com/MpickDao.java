@@ -316,11 +316,14 @@ public class MpickDao {
 	 * @param encText
 	 * @return
 	 */
-	public int insertArticle(String userMail, String encType, String encText ){
+	public int insertArticle(String userMail, String menu, String cate1, String cate2, String title, String encText ){
 		int result = 0;
 		DataEntity data = new DataEntity();
 		Dao dao = Dao.getInstance();
-		data.put("ar_type", encType);
+		data.put("ar_menu_id", menu);
+		data.put("ar_cate_1", cate1);
+		data.put("ar_cate_2", cate2);
+		data.put("ar_title", title);
 		data.put("ar_text", encText);
 		data.put("ar_mail", userMail);
 		data.put("ar_state", "ACTIVE");
@@ -331,27 +334,193 @@ public class MpickDao {
 	/**
 	 * 이전 정보 상태 변경.
 	 */
-	public void archiveArticle(String encType){
+	public int archiveArticle(String menu, String cate1, String cate2, String title){
 		Dao dao = Dao.getInstance();
 		StringBuffer sql = new StringBuffer();
-		sql.append("UPDATE mp_article SET ar_state = 'ARCHIVE' where ar_type = ? ");
-		String[] params = {encType};
-		dao.updateSql(property, sql.toString(), params);
+		sql.append("UPDATE mp_article SET ar_state = 'ARCHIVE' \n");
+		sql.append("where ar_menu_id = ? \n");
+		sql.append("and ar_cate_1 = ? \n");
+		sql.append("and ar_cate_2 = ? \n");
+		sql.append("and ar_title = ? \n");
+		String[] params = {menu, cate1, cate2, title};
+		return dao.updateSql(property, sql.toString(), params);
 	}
 	
 	/**
-	 * 
+	 * 내용 불러오기
 	 * @param type
 	 * @return
 	 */
-	public DataEntity[] getArticle(String encType){
+	public DataEntity[] getArticle(String menu, String cate1, String cate2, String title){
 		DataEntity[] data = null;
 		Dao dao = Dao.getInstance();
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT * FROM mp_article where ar_type = ? and ar_state = 'ACTIVE' ");
-		String[] params = {encType};
+		sql.append("SELECT * FROM mp_article ");
+		sql.append("where ar_state = 'ACTIVE' ");
+		sql.append("and ar_menu_id = ? \n");
+		sql.append("and ar_cate_1 = ? \n");
+		sql.append("and ar_cate_2 = ? \n");
+		sql.append("and ar_title = ? \n");
+		String[] params = {menu, cate1, cate2, title};
 		data = dao.getResult(property, sql.toString(), params);
 		return data;
 	}
+	
+	/**
+	 * 제목 목록 불러오기
+	 * @param menu
+	 * @param cate1
+	 * @param cate2
+	 * @return
+	 */
+	public DataEntity[] getArcTitles(String menu, String cate1, String cate2){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT ar_title FROM mp_article ");
+		sql.append("where ar_state = 'ACTIVE' ");
+		sql.append("and ar_menu_id = ? \n");
+		sql.append("and ar_cate_1 = ? \n");
+		sql.append("and ar_cate_2 = ? \n");
+		sql.append("order by ar_date \n");
+		String[] params = {menu, cate1, cate2};
+		data = dao.getResult(property, sql.toString(), params);
+		return data;
+	}
+	
+	/**
+	 * 메뉴 저장
+	 * @param arOrd
+	 * @param arMenuId
+	 * @param arMenuName
+	 * @return
+	 */
+	public int insertMenus(int arOrd, String arMenuId, String arMenuName){
+		int result = 0;
+		DataEntity data = new DataEntity();
+		Dao dao = Dao.getInstance();
+		data.put("ar_ord", arOrd);
+		data.put("ar_menu_id", arMenuId);
+		data.put("ar_menu_name", arMenuName);
+		result = dao.inertData(property, "mp_ar_menu", data);
+		return result;
+	}
+	
+	/**
+	 * 카테고리 1 저장.
+	 * @param arOrd
+	 * @param arMenuId
+	 * @param arCateName
+	 * @return
+	 */
+	public int insertCate1(int arOrd, String arMenuId, String arCateName){
+		int result = 0;
+		DataEntity data = new DataEntity();
+		Dao dao = Dao.getInstance();
+		data.put("ar_ord", arOrd);
+		data.put("ar_menu_id", arMenuId);
+		data.put("ar_cate_name", arCateName);
+		result = dao.inertData(property, "mp_ar_cate_1", data);
+		return result;
+	}
+	
+	/**
+	 * 카테고리 2 저장.
+	 * @param arOrd
+	 * @param arMenuId
+	 * @param arCate1
+	 * @param arCateName
+	 * @return
+	 */
+	public int insertCate2(int arOrd, String arMenuId, String arCate1, String arCateName){
+		int result = 0;
+		DataEntity data = new DataEntity();
+		Dao dao = Dao.getInstance();
+		data.put("ar_ord", arOrd);
+		data.put("ar_menu_id", arMenuId);
+		data.put("ar_cate_1", arCate1);
+		data.put("ar_cate_name", arCateName);
+		result = dao.inertData(property, "mp_ar_cate_2", data);
+		return result;
+	}
+	
+	/**
+	 * 카테고리 전체 삭제
+	 */
+	public void deleteAllCates(){
+		Dao dao = Dao.getInstance();
+		dao.deleteAll(property, "mp_ar_menu");
+		dao.deleteAll(property, "mp_ar_cate_1");
+		dao.deleteAll(property, "mp_ar_cate_2");
+	}
+	
+	/**
+	 * 메뉴 불러오기.
+	 * @return
+	 */
+	public DataEntity[] getMenu(){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * FROM mp_ar_menu order by ar_ord ");
+		data = dao.getResult(property, sql.toString(), null);
+		return data;
+	}
+	
+	/**
+	 * 카테고리 1 불러오기.
+	 * @param menu
+	 * @return
+	 */
+	public DataEntity[] getCate1(String menu){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		
+		if(menu == null || "".equals(menu)){
+			sql.append("SELECT * FROM mp_ar_cate_1 order by ar_ord ");
+			data = dao.getResult(property, sql.toString(), null);
+		} else {
+			sql.append("SELECT * FROM mp_ar_cate_1 WHERE ar_menu_id = ? order by ar_ord ");
+			String[] param = { menu };
+			data = dao.getResult(property, sql.toString(), param);
+		}
+		return data;
+	}
+	
+	/**
+	 * 카테고리 2 불러오기.
+	 * @param menu
+	 * @param cate1
+	 * @return
+	 */
+	public DataEntity[] getCate2(String menu, String cate1){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		
+		if(menu == null || "".equals(menu)){
+			if(cate1 == null || "".equals(cate1)){
+				sql.append("SELECT * FROM mp_ar_cate_2 order by ar_ord ");
+				data = dao.getResult(property, sql.toString(), null);
+			} else {
+				sql.append("SELECT * FROM mp_ar_cate_2 WHERE ar_cate_1 = ? order by ar_ord ");
+				String[] param = { cate1 };
+				data = dao.getResult(property, sql.toString(), param);
+			}
+		} else {
+			if(cate1 == null || "".equals(cate1)){
+				sql.append("SELECT * FROM mp_ar_cate_2 WHERE ar_menu_id = ? order by ar_ord ");
+				String[] param = { menu };
+				data = dao.getResult(property, sql.toString(), param);
+			} else {
+				sql.append("SELECT * FROM mp_ar_cate_2 WHERE ar_menu_id = ? AND ar_cate_1 = ? order by ar_ord ");
+				String[] param = { menu, cate1 };
+				data = dao.getResult(property, sql.toString(), param);
+			}
+		}
+		return data;
+	}
+	
 	
 }

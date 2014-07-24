@@ -115,7 +115,60 @@ public class Confirm extends HttpServlet {
 			Article arc = new Article();
 			int arcRes = arc.saveArticle(req, res);
 			if(arcRes > 0){
-				res.sendRedirect(toUrl);
+//				res.sendRedirect(toUrl);
+				out.println("<form name='cateFrm' action='"+toUrl+"' method='POST'>\n");
+				out.println("<input type='hidden' name='enclTab' value='arc'/>\n");
+				out.println("</form>\n");
+				
+				out.println("<script>\n");
+				out.println("var frm = document.cateFrm;\n");
+				out.println("frm.submit();\n");
+				out.println("</script>\n");
+				
+			} else {
+				out.println("<script>");
+				out.println("	alert(\"정보를 저장하는 중 오류가 발생되었습니다.\");");
+				out.println("	history.go(-1);");
+				out.println("</script>");
+			}
+		} else if(toUrl != null && cmd != null && cmd.equals("delEncl")){
+			//백과사전 AtoZ 저장.
+			Article arc = new Article();
+			int arcRes = arc.delArticle(req, res);
+			if(arcRes > 0){
+//				res.sendRedirect(toUrl);
+				out.println("<form name='cateFrm' action='"+toUrl+"' method='POST'>\n");
+				out.println("<input type='hidden' name='enclTab' value='arc'/>\n");
+				out.println("</form>\n");
+				
+				out.println("<script>\n");
+				out.println("var frm = document.cateFrm;\n");
+				out.println("frm.submit();\n");
+				out.println("</script>\n");
+				
+			} else {
+				out.println("<script>");
+				out.println("	alert(\"삭제하는 중 오류가 발생되었습니다.\");");
+				out.println("	history.go(-1);");
+				out.println("</script>");
+			}
+		} else if(toUrl != null && cmd != null && cmd.equals("saveCate")){
+			//카테고리 저장.
+			Article arc = new Article();
+			int cateRes = arc.saveCate(req, res);
+			if(cateRes > 0){
+				arc.delNSaveCate(req, res);
+			}
+			if(cateRes > 0){
+//				res.sendRedirect(toUrl);
+				out.println("<form name='cateFrm' action='"+toUrl+"' method='POST'>\n");
+				out.println("<input type='hidden' name='enclTab' value='cate'/>\n");
+				out.println("</form>\n");
+				
+				out.println("<script>\n");
+				out.println("var frm = document.cateFrm;\n");
+				out.println("frm.submit();\n");
+				out.println("</script>\n");
 			} else {
 				out.println("<script>");
 				out.println("	alert(\"정보를 저장하는 중 오류가 발생되었습니다.\");");

@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="mpick.ctrl.Article"%>
 <% 
-Article arc = new Article(); 
-String encAtoz = arc.getArticle("ATOZ");
-String encTax = arc.getArticle("TAX");
-String encRefund = arc.getArticle("REFUND");
-String encExchange = arc.getArticle("EXCHANGE");
+String enclTab = request.getParameter("enclTab");
+if(enclTab == null || "".equals(enclTab)){
+	enclTab = "cate";
+}
+
 %>
 <script src="../js/tinymce/tinymce.min.js"></script>
 <script>
@@ -31,14 +30,6 @@ tinymce.init({
     ]
 });
 
-function saveEnc(encType){
-	var frm = document.encArticle;
-	$("#encType").val(encType);
-	frm.method="POST";
-	frm.action="../Control/Confirm";
-	frm.submit();
-}
-
 /**
  * 메뉴 추가, 삭제, 변경 시작.
  */
@@ -60,6 +51,20 @@ function delMenu(){
 			var cate1sVals = cate1sVal.split("|");
 			var preVals = preVal.split("|");
 			if(cate1sVals[0] === preVals[0] ){
+				
+				var preCate1Val = $("#cate1s option:eq("+i+")").val()+"";
+				var cate2Size = $("#cate2s option").size();
+				for(var j=(cate2Size-1); j>=0; j--){
+					var cate2sVal = $("#cate2s option:eq("+j+")").val() + "";
+					var cate2sVals = cate2sVal.split("|");
+					var preCate1Vals = preCate1Val.split("|");
+					if(cate2sVals[0] === preCate1Vals[0] && cate2sVals[1] === preCate1Vals[1]){
+						$("#cate2s option:eq("+j+")").remove();
+					}
+				}
+				$("#cate2cate option:eq("+i+")").remove();
+				$("#cate2cateMod option:eq("+i+")").remove();
+				
 				$("#cate1s option:eq("+i+")").remove();
 			}
 		}
@@ -93,6 +98,28 @@ function modifyMenu(){
 		var cate1sVals = cate1sVal.split("|");
 		var preVals = preVal.split("|");
 		if(cate1sVals[0] === preVals[0] ){
+			
+			var preCate1Val = $("#cate1s option:eq("+i+")").val()+"";
+			var preCate1Txt = $("#cate1s option:eq("+i+")").text()+"";
+			var preCate1Vals = preCate1Val.split("|");
+			var preCate1Txts = preCate1Txt.split("|");
+			var cate1IdVal = preCate1Vals[0];
+			var cate1NameVal = preCate1Vals[1];
+			var cate1IdText = preCate1Txts[0];
+			$("#cate2cate option:eq("+i+")").after('<option value="'+cate1IdVal+'|'+cate1NameVal+'" title="'+cate1IdText+' | '+cate1NameVal+'">'+cate1NameVal+'</option>');
+			$("#cate2cateMod option:eq("+i+")").after('<option value="'+cate1IdVal+'|'+cate1NameVal+'" title="'+cate1IdText+' | '+cate1NameVal+'">'+cate1NameVal+'</option>');
+			$("#cate2cate option:eq("+i+")").remove();
+			$("#cate2cateMod option:eq("+i+")").remove();
+			var cate2Size = $("#cate2s option").size();
+			for(var j=(cate2Size-1); j>=0; j--){
+				var cate2sVal = $("#cate2s option:eq("+j+")").val() + "";
+				var cate2sVals = cate2sVal.split("|");
+				if(cate2sVals[0] === preCate1Vals[0] && cate2sVals[1] === preCate1Vals[1]){
+					$("#cate2s option:eq("+j+")").val(cate1IdVal+'|'+cate1NameVal+'|'+cate2sVals[2]);
+					$("#cate2s option:eq("+j+")").text(cate1IdText+' | '+cate1NameVal+' | '+cate2sVals[2]);
+				}
+			}
+			
 			$("#cate1s option:eq("+i+")").val(menuIdVal+"|"+cate1sVals[1]);
 			$("#cate1s option:eq("+i+")").text(menuNameVal+" | "+cate1sVals[1]);
 		}
@@ -154,9 +181,9 @@ function delCate1(){
 				$("#cate2s option:eq("+i+")").remove();
 			}
 		}
-		$("#cate1s option:eq("+ind+")").remove();
 		$("#cate2cate option:eq("+ind+")").remove();
 		$("#cate2cateMod option:eq("+ind+")").remove();
+		$("#cate1s option:eq("+ind+")").remove();
 	}
 }
 function selCate1(){
@@ -184,8 +211,8 @@ function modifyCate1(){
 		var cate2sVals = cate2sVal.split("|");
 		var preVals = preVal.split("|");
 		if(cate2sVals[0] === preVals[0] && cate2sVals[1] === preVals[1]){
-			$("#cate2s option:eq("+i+")").val(cateIdVal+'|'+cateNameVal+"|"+cate2sVals[2]);
-			$("#cate2s option:eq("+i+")").text(cateIdText+' | '+cateNameVal+" | "+cate2sVals[2]);
+			$("#cate2s option:eq("+i+")").val(cateIdVal+'|'+cateNameVal+'|'+cate2sVals[2]);
+			$("#cate2s option:eq("+i+")").text(cateIdText+' | '+cateNameVal+' | '+cate2sVals[2]);
 		}
 	}
 }
@@ -280,19 +307,213 @@ function downCate2(){
 		$("#cate2s").val(opVal);
 	}
 }
+
+/**
+ * 메뉴, 카테고리 저장.
+ */
+function saveCate(){
+	$("#saveCateBtn").attr("disabled",true);
+	var frm = document.encCate;
+	var menusVal = "";
+	for(var i=0; i<$('#menus option').size(); i++){
+		menusVal += $('#menus option:eq('+i+')').val();
+		if(i<($('#menus option').size()-1)){
+			menusVal += ",";
+		}
+	}
+	var cate1sVal = "";
+	for(var i=0; i<$('#cate1s option').size(); i++){
+		cate1sVal += $('#cate1s option:eq('+i+')').val();
+		if(i<($('#cate1s option').size()-1)){
+			cate1sVal += ",";
+		}
+	}
+	var cate2sVal = "";
+	for(var i=0; i<$('#cate2s option').size(); i++){
+		cate2sVal += $('#cate2s option:eq('+i+')').val();
+		if(i<($('#cate2s option').size()-1)){
+			cate2sVal += ",";
+		}
+	}
+	$("#menusVal").val(menusVal);
+	$("#cate1sVal").val(cate1sVal);
+	$("#cate2sVal").val(cate2sVal);
+	
+	frm.method="POST";
+	frm.action="../Control/Confirm";
+	frm.submit();
+}
+
+var arcCateData;
+/**
+ * 메뉴, 카테고리 불러오기.
+ */
+$(document).ready(function(){
+	var paramCate="cmd=cateInfo";
+	$.ajax({
+		type : "GET",
+		data : paramCate,
+		url : "../Control/MpickAjax",
+		dataType:"json",
+		success : function(dataCate) {
+			for(var i=0; i < dataCate.menu_info.length; i++){
+				$("#menuId").val(dataCate.menu_info[i].menu_id);
+				$("#menuName").val(dataCate.menu_info[i].menu_name);
+				addMenu();
+			}
+			for(var i=0; i < dataCate.cate1_info.length; i++){
+				$("#cate1Menu").val(dataCate.cate1_info[i].menu_id);
+				$("#cate1Name").val(dataCate.cate1_info[i].cate_name);
+				addCate1();
+			}
+			for(var i=0; i < dataCate.cate2_info.length; i++){
+				var cate_2_id = dataCate.cate2_info[i].menu_id + '|' + dataCate.cate2_info[i].cate_1_name;
+				console.log(cate_2_id);
+				$("#cate2cate").val(cate_2_id);
+				$("#cate2Name").val(dataCate.cate2_info[i].cate_2_name);
+				addCate2();
+			}
+		}, error:function(e){  
+			console.log(e.responseText);  
+		}
+	});	
+	
+	var paramArcCate="cmd=arcCateInfo";
+	$.ajax({
+		type : "GET",
+		data : paramArcCate,
+		url : "../Control/MpickAjax",
+		dataType:"json",
+		success : function(dataArcCate) {
+			arcCateData = dataArcCate;
+			for(var i=0; i < arcCateData.menu_info.length; i++){
+				$("#arcMenu").append('<option value="'+arcCateData.menu_info[i].menu_id+'">'+arcCateData.menu_info[i].menu_name+'</option>');
+			}
+			arcMenuSel();
+		}, error:function(e){  
+			console.log(e.responseText);  
+		}
+	});	
+});
+
+function arcMenuSel(){
+	$('#arcCate1').find('option').remove().end();
+	var menuVal = $("#arcMenu").val()+"";
+	for(var i=0; i<arcCateData.menu_info.length; i++){
+		if(menuVal === arcCateData.menu_info[i].menu_id){
+			var cateObj = arcCateData.menu_info[i].cate1_info;
+			for(var j=0; j< cateObj.length; j++){
+				$("#arcCate1").append('<option value="'+cateObj[j].menu_id+'|'+cateObj[j].cate_name+'">'+cateObj[j].cate_name+'</option>');
+			}
+		}
+	}
+	arcCate1Sel();
+}
+function arcCate1Sel(){
+	$('#arcCate2').find('option').remove().end();
+	var menuVal = $("#arcCate1").val()+"";
+	var menuVals = menuVal.split('|'); 
+	for(var i=0; i<arcCateData.menu_info.length; i++){
+		if(menuVals[0] === arcCateData.menu_info[i].menu_id){
+			var cateObj = arcCateData.menu_info[i].cate1_info;
+			for(var j=0; j< cateObj.length; j++){
+				if(menuVals[1] === cateObj[j].cate_name){
+					var cate2Obj = cateObj[j].cate2_info;
+					for(var k=0; k< cate2Obj.length; k++){
+						$("#arcCate2").append('<option value="'+cate2Obj[k].menu_id+'|'+cate2Obj[k].cate_1_name+'|'+cate2Obj[k].cate_2_name+'">'+cate2Obj[k].cate_2_name+'</option>');
+					}
+				}
+			}
+		}
+	}
+	arcCate2Sel();
+}
+function arcCate2Sel(){
+	$('#arcTitleSel').find('option').remove().end();
+	$("#arcTitleSel").append('<option value="new">- 새 제목 -</option>');
+	var menuVal = $("#arcCate2").val()+"";
+	var menuVals = menuVal.split('|');
+	console.log(menuVals[0]);
+	console.log(menuVals[1]);
+	console.log(menuVals[2]);
+	
+	for(var i=0; i<arcCateData.menu_info.length; i++){
+		if(menuVals[0] === arcCateData.menu_info[i].menu_id){
+			console.log("=============== 1");
+			var cateObj = arcCateData.menu_info[i].cate1_info;
+			for(var j=0; j< cateObj.length; j++){
+				if(menuVals[1] === cateObj[j].cate_name){
+					console.log("=============== 2");
+					var cate2Obj = cateObj[j].cate2_info;
+					for(var k=0; k< cate2Obj.length; k++){
+						if(menuVals[2] === cate2Obj[k].cate_2_name){
+							console.log("=============== 3");
+							var titleObj = cate2Obj[k].title_info;
+							console.log("titleObj : " + titleObj);
+							console.log("titleObj.length : "+titleObj.length);
+							for(var l=0; l< titleObj.length; l++){
+								console.log(titleObj[l].title);
+								$("#arcTitleSel").append('<option value="'+titleObj[l].title+'">'+titleObj[l].title+'</option>');
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+function loadEnc(){
+	var arcCate2Val = $("#arcCate2").val()+"";
+	var arcTitleSelVal = $("#arcTitleSel").val()+"";
+	var params = "";
+	params += "cmd=arcText";
+	params += "&arcCate2="+arcCate2Val;
+	params += "&arcTitleSel="+arcTitleSelVal;
+	$.ajax({
+		type : "GET",
+		data : params,
+		url : "../Control/MpickAjax",
+		dataType:"text",
+		success : function(dataArcTxt) {
+			tinymce.get('elm').setContent(dataArcTxt);
+			$("#arcTitle").val(arcTitleSelVal);
+		}, error:function(e){  
+			console.log(e.responseText);  
+		}
+	});
+}
+
+function saveEnc(){
+	$("#saveEncBtn").attr("disabled",true);
+	var frm = document.encArticle;
+	frm.method="POST";
+	frm.action="../Control/Confirm";
+	frm.submit();
+}
+
+function delEnc(){
+	$("#delEncBtn").attr("disabled",true);
+	var frm = document.encArticle;
+	frm.cmd.value="delEncl";
+	frm.method="POST";
+	frm.action="../Control/Confirm";
+	frm.submit();
+}
+
 </script>
 
 <div class="container">
 <div class="row">
 	<ul id="fldFmtTab" class="nav nav-tabs">
-		<li class="active"><a href="#cate" data-toggle="tab">카테고리 편집</a></li>
-		<li ><a href="#arc" data-toggle="tab">백과사전 내용 입력</a></li>
+		<li <%if("cate".equals(enclTab)){out.print("class='active'");} %> ><a href="#cate" data-toggle="tab">카테고리 편집</a></li>
+		<li <%if("arc".equals(enclTab)){out.print("class='active'");} %> ><a href="#arc" data-toggle="tab">백과사전 내용 입력</a></li>
 	</ul>
 	
 	<div id="fldFmtTabContent" class="tab-content">
 
-<!-- CSV 형식 시작 -->
-<div class="tab-pane fade active in" id="cate">
+<!-- 카테고리 편집 탭 시작 -->
+<div class="tab-pane fade <%if("cate".equals(enclTab)){out.print("active");} %> in" id="cate">
 <form name="encCate">
 	<div class="row">
 		<div class="col-md-6">
@@ -301,7 +522,7 @@ function downCate2(){
 		</div>
 		<div class="col-md-2">
 			<h3>
-			<button type="button" class="btn btn-primary btn-block" onclick="saveCate();">저장</button>
+			<button type="button" class="btn btn-primary btn-block" id="saveCateBtn" onclick="saveCate();">저장</button>
 			</h3>
 		</div>
 		<div class="col-md-4"></div>
@@ -310,8 +531,7 @@ function downCate2(){
 <div class="container">
 	<h4>메뉴</h4>
 	<p class="text-muted">메뉴 id - 첫 글자만 대문자인 공백 없는 10자 이내의 영문자로 입력하세요. 접속 URL 주소가 됩니다.
-  	<br/>메뉴명 - 20자 이내의 한글/영문자로 입력하세요. | 문자는 사용하면 안됩니다.
-  	<br/>메뉴가 삭제되거나 변경되면 기존 메뉴에 등록된 카테고리들도 수정해야 합니다.
+  	<br/>메뉴명 - 20자 이내의 한글/영문자로 입력하세요. | , 특수 문자는 사용하면 안됩니다.
   	<br/>동시에 여러 메뉴 목록을 선택해서 작업하지 마세요. 오류가 날 수 있습니다.</p>
   	
 	<div class="row">
@@ -321,7 +541,8 @@ function downCate2(){
 			<input type="text" class="form-control" id="menuName" placeholder="메뉴명"  maxlength="20">
 		</div>
 		<div class="col-md-4">
-			<select multiple class="form-control" id="menus" onChange="selMenu()"></select>
+			<select multiple class="form-control" id="menus" onchange="selMenu()"></select>
+			<input type="hidden" id="menusVal" name="menus"/>
 		</div>
 		<div class="col-md-2">
 			<input type="text" class="form-control" id="menuIdMod">
@@ -353,8 +574,7 @@ function downCate2(){
 <div class="container">
 	<h4>카테고리 1</h4>
 	<p class="text-muted">카테고리가 포함될 메뉴를 선택하세요.
-  	<br/>카테고리명 - 20자 이내의 한글/영문자로 입력하세요. | 문자는 사용하면 안됩니다.
-  	<br/>카테고리가 삭제되거나 변경되면 카테고리1에 등록된 카테고리 2 목록들도 수정해야 합니다.
+  	<br/>카테고리명 - 20자 이내의 한글/영문자로 입력하세요. | , 특수 문자는 사용하면 안됩니다.
   	<br/>동시에 여러 카테고리 목록을 선택해서 작업하지 마세요. 오류가 날 수 있습니다.</p>
   	
 	<div class="row">
@@ -364,8 +584,8 @@ function downCate2(){
 			<input type="text" class="form-control" id="cate1Name" placeholder="카테고리명"  maxlength="20">
 		</div>
 		<div class="col-md-4">
-			<select multiple class="form-control" id="cate1s" onChange="selCate1()">
-			</select>
+			<select multiple class="form-control" id="cate1s" name="cate1s" onchange="selCate1()"></select>
+			<input type="hidden" id="cate1sVal" name="cate1s"/>
 		</div>
 		<div class="col-md-2">
 			<select class="form-control" id="cate1MenuMod"></select>
@@ -397,7 +617,7 @@ function downCate2(){
 <div class="container">
 	<h4>카테고리 2</h4>
 	<p class="text-muted">카테고리가 포함될 상위 카테고리를 선택하세요.
-  	<br/>카테고리명 - 20자 이내의 한글/영문자로 입력하세요. | 문자는 사용하면 안됩니다.
+  	<br/>카테고리명 - 20자 이내의 한글/영문자로 입력하세요. | , 특수 문자는 사용하면 안됩니다.
   	<br/>동시에 여러 카테고리 목록을 선택해서 작업하지 마세요. 오류가 날 수 있습니다.</p>
   	
 	<div class="row">
@@ -407,8 +627,8 @@ function downCate2(){
 			<input type="text" class="form-control" id="cate2Name" placeholder="카테고리명"  maxlength="20">
 		</div>
 		<div class="col-md-4">
-			<select multiple class="form-control" id="cate2s" onChange="selCate2()">
-			</select>
+			<select multiple class="form-control" id="cate2s" name="cate2s" onchange="selCate2()"></select>
+			<input type="hidden" id="cate2sVal" name="cate2s"/>
 		</div>
 		<div class="col-md-2">
 			<select class="form-control" id="cate2cateMod"></select>
@@ -436,30 +656,60 @@ function downCate2(){
 	</div>
 </div>
 	
+	<input type="hidden" name="cmd" value="saveCate" />
+	<input type="hidden" name="toUrl" value="../Admin/Encl" />
 </form>
 </div>
-
-<div class="tab-pane fade in" id="arc">
+<!-- 카테고리 편집 탭 끝 -->
+<!-- 내용 입력 탭 시작 -->
+<div class="tab-pane fade <%if("arc".equals(enclTab)){out.print("active");} %> in" id="arc">
 <form name="encArticle">
+	<br/>
 	<div class="row">
-		<div class="col-md-6">
-			<h3>내용 입력</h3>
+		<div class="col-md-2">
+			<select class="form-control" id="arcMenu" name="arcMenu" onchange="arcMenuSel();"></select>
 		</div>
 		<div class="col-md-2">
-			<h3>
-			<button type="button" class="btn btn-primary btn-block" onclick="saveEnc('TAX');">저장</button>
-			</h3>
+			<select class="form-control" id="arcCate1" name="arcCate1" onchange="arcCate1Sel();" ></select>
+		</div>
+		<div class="col-md-2">
+			<select class="form-control" id="arcCate2" name="arcCate2" onchange="arcCate2Sel();"></select>
+		</div>
+		<div class="col-md-2">
+			<select class="form-control" id="arcTitleSel" name="arcTitleSel"></select>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
+	<br/>
+	<div class="row">
+		<div class="col-md-2">
+			<input type="text" class="form-control" id="arcTitle" name="arcTitle" placeholder="제목"  maxlength="30">
+		</div>
+		<div class="col-md-2">
+			<button type="button" class="btn btn-success btn-block" onclick="loadEnc();">불러오기</button>
+		</div>
+		<div class="col-md-2">
+			<button type="button" class="btn btn-primary btn-block" id="saveEncBtn" onclick="saveEnc();">저장</button>
+		</div>
+		<div class="col-md-2">
+			<button type="button" class="btn btn-danger btn-block" id="delEncBtn" onclick="delEnc();">삭제</button>
 		</div>
 		<div class="col-md-4"></div>
 	</div>
+	<br/>
+	<div class="container">
+		<p class="text-muted">제목은 메뉴, 카테고리명으로 표현되는 구분값입니다. 페이지 내용에는 반영되지 않습니다. 
+	  	<br/>제목을 표현하려면 내용 창에 &lth1&gt 태그 등을 이용해서 표시하세요.</p>
+	</div>
 	<div class="row">
-		<textarea id="elm" name="encText1"><%=encAtoz%></textarea>
+		<textarea id="elm" name="encText"></textarea>
 	</div>
 	<input type="hidden" name="cmd" value="saveEncl" />
 	<input type="hidden" name="toUrl" value="../Admin/Encl" />
 	<input type="hidden" id="encType" name="encType" />
 </form>
 </div>
+<!-- 내용 입력 탭 끝 -->
 
 	</div>	
 </div>

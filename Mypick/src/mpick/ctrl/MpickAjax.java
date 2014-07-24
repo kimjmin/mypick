@@ -105,6 +105,102 @@ public class MpickAjax extends HttpServlet{
 				outStr.append("]");
 				outStr.append("}");
 				out.print(outStr.toString());
+			} else if(cmd.equals("cateInfo")){
+				DataEntity[] menuData = dao.getMenu();
+				DataEntity[] cate1Data = dao.getCate1(null);
+				DataEntity[] cate2Data = dao.getCate2(null, null);
+				StringBuffer outStr = new StringBuffer();
+				outStr.append("{");
+				
+				outStr.append("\"menu_info\":[");
+				for(int i=0; i < menuData.length; i++){
+					outStr.append("{");
+					outStr.append("\"menu_id\":\""+menuData[i].get("ar_menu_id")+"\",");
+					outStr.append("\"menu_name\":\""+menuData[i].get("ar_menu_name")+"\"");
+					outStr.append("}");
+					if(i < menuData.length-1){ outStr.append(","); }
+				}
+				outStr.append("]");
+				outStr.append(",");
+				
+				outStr.append("\"cate1_info\":[");
+				for(int i=0; i < cate1Data.length; i++){
+					outStr.append("{");
+					outStr.append("\"menu_id\":\""+cate1Data[i].get("ar_menu_id")+"\",");
+					outStr.append("\"cate_name\":\""+cate1Data[i].get("ar_cate_name")+"\"");
+					outStr.append("}");
+					if(i < cate1Data.length-1){ outStr.append(","); }
+				}
+				outStr.append("]");
+				outStr.append(",");
+				
+				outStr.append("\"cate2_info\":[");
+				for(int i=0; i < cate2Data.length; i++){
+					outStr.append("{");
+					outStr.append("\"menu_id\":\""+cate2Data[i].get("ar_menu_id")+"\",");
+					outStr.append("\"cate_1_name\":\""+cate2Data[i].get("ar_cate_1")+"\",");
+					outStr.append("\"cate_2_name\":\""+cate2Data[i].get("ar_cate_name")+"\"");
+					outStr.append("}");
+					if(i < cate2Data.length-1){ outStr.append(","); }
+				}
+				outStr.append("]");
+				
+				outStr.append("}");
+				out.print(outStr.toString());
+			} else if(cmd.equals("arcCateInfo")){
+				DataEntity[] menuData = dao.getMenu();
+				StringBuffer outStr = new StringBuffer();
+				outStr.append("{");
+				
+				outStr.append("\"menu_info\":[");
+				for(int i=0; i < menuData.length; i++){
+					outStr.append("{");
+					outStr.append("\"menu_id\":\""+menuData[i].get("ar_menu_id")+"\",");
+					outStr.append("\"menu_name\":\""+menuData[i].get("ar_menu_name")+"\",");
+					
+					outStr.append("\"cate1_info\":[");
+					DataEntity[] cate1Data = dao.getCate1((String)menuData[i].get("ar_menu_id"));
+					for(int j=0; j< cate1Data.length; j++){
+						outStr.append("{");
+						outStr.append("\"menu_id\":\""+cate1Data[j].get("ar_menu_id")+"\",");
+						outStr.append("\"cate_name\":\""+cate1Data[j].get("ar_cate_name")+"\",");
+						
+						outStr.append("\"cate2_info\":[");
+						DataEntity[] cate2Data = dao.getCate2((String)cate1Data[j].get("ar_menu_id"), (String)cate1Data[j].get("ar_cate_name"));
+						for(int k=0; k < cate2Data.length; k++){
+							outStr.append("{");
+							outStr.append("\"menu_id\":\""+cate2Data[k].get("ar_menu_id")+"\",");
+							outStr.append("\"cate_1_name\":\""+cate2Data[k].get("ar_cate_1")+"\",");
+							outStr.append("\"cate_2_name\":\""+cate2Data[k].get("ar_cate_name")+"\",");
+							
+							outStr.append("\"title_info\":[");
+							DataEntity[] titles = dao.getArcTitles((String)cate2Data[k].get("ar_menu_id"), (String)cate2Data[k].get("ar_cate_1"), (String)cate2Data[k].get("ar_cate_name"));
+							for(int l=0; l< titles.length; l++){
+								outStr.append("{");
+								outStr.append("\"title\":\""+titles[l].get("ar_title")+"\"");
+								outStr.append("}");
+								if(l < titles.length-1){ outStr.append(","); }
+								
+							}
+							outStr.append("]");
+							outStr.append("}");
+							if(k < cate2Data.length-1){ outStr.append(","); }
+						}
+						outStr.append("]");
+						outStr.append("}");
+						if(j < cate1Data.length-1){ outStr.append(","); }
+					}
+					outStr.append("]");
+					outStr.append("}");
+					if(i < menuData.length-1){ outStr.append(","); }
+				}
+				outStr.append("]");
+				
+				outStr.append("}");
+				out.print(outStr.toString());
+			} else if(cmd.equals("arcText")){
+				Article arc = new Article();
+				out.print(arc.getArticle(req, res));
 			}
 			
 		}
