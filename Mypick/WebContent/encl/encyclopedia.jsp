@@ -1,19 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="jm.net.DataEntity,mpick.com.MpickDao,mpick.ctrl.Article"%>
 <%
-/*
-String m = request.getParameter("m"); 
-if(m == null || m.equals("")){ m="atoz"; }
-*/
-String uri = request.getParameter("uri");
-String m = "atoz";
-if(uri.indexOf("Tax") > 0){
-	m = "tax";
-} else if(uri.indexOf("Refund") > 0){
-	m = "refund";
-} else if(uri.indexOf("Exchange") > 0){
-	m = "exchange";
-}
+String uriM = request.getParameter("uri");
+String selMenuM = uriM.substring(uriM.lastIndexOf("Encl/")+5);
 
+MpickDao daoM = MpickDao.getInstance();
+DataEntity[] menuDatas = daoM.getMenu();
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -45,12 +37,19 @@ if(uri.indexOf("Tax") > 0){
 <p class="text-muted">쇼퍼를 위한 백과사전</p>
 
 <!-- 메뉴 링크 목록 시작 -->
+
 <div class="list-group">
-	<a href="../Encl/Atoz" class="list-group-item <%if("atoz".equals(m)){out.print("active");}%>">초보를 위한 A to Z</a>
-	<a href="../Encl/Tax" class="list-group-item <%if("tax".equals(m)){out.print("active");}%>">요금 / 관 부과세 관련</a>
-	<a href="../Encl/Refund" class="list-group-item <%if("refund".equals(m)){out.print("active");}%>">쇼핑 환급 관련</a>
-	<a href="../Encl/Exchange" class="list-group-item <%if("exchange".equals(m)){out.print("active");}%>">교환 / 환불 관련</a>
+<%
+for(DataEntity menuData : menuDatas){
+	String menuId = (String)menuData.get("ar_menu_id");
+	String menuName = (String)menuData.get("ar_menu_name");
+%>
+	<a href="../Encl/<%=menuId%>" class="list-group-item <%if(selMenuM.equals(menuId)){out.print("active");}%>"><%=menuName%></a>
+<%	
+}
+%>
 </div>
+
 <!-- 메뉴 링크 목록 끝 -->
 
 <!-- 환율 정보 시작 -->
@@ -62,18 +61,7 @@ if(uri.indexOf("Tax") > 0){
 			
 			<div class="col-sm-9">
 <!-- 우측 내용 시작 -->
-<%
-if("atoz".equals(m)){
-%><%@include file="../encl/enclAtoz.jsp"%><%		
-} else if("tax".equals(m)){
-%><%@include file="../encl/enclTax.jsp"%><%	
-} else if("refund".equals(m)){
-%><%@include file="../encl/enclRefund.jsp"%><%	
-} else if("exchange".equals(m)){
-%><%@include file="../encl/enclExchange.jsp"%><%	
-}
-%>
-
+<%@include file="../encl/enclBody.jsp"%>
 <!-- 우측 내용 끝 -->
 			</div>
 

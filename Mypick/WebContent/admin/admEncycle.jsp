@@ -368,7 +368,6 @@ $(document).ready(function(){
 			}
 			for(var i=0; i < dataCate.cate2_info.length; i++){
 				var cate_2_id = dataCate.cate2_info[i].menu_id + '|' + dataCate.cate2_info[i].cate_1_name;
-				console.log(cate_2_id);
 				$("#cate2cate").val(cate_2_id);
 				$("#cate2Name").val(dataCate.cate2_info[i].cate_2_name);
 				addCate2();
@@ -433,26 +432,17 @@ function arcCate2Sel(){
 	$("#arcTitleSel").append('<option value="new">- 새 제목 -</option>');
 	var menuVal = $("#arcCate2").val()+"";
 	var menuVals = menuVal.split('|');
-	console.log(menuVals[0]);
-	console.log(menuVals[1]);
-	console.log(menuVals[2]);
 	
 	for(var i=0; i<arcCateData.menu_info.length; i++){
 		if(menuVals[0] === arcCateData.menu_info[i].menu_id){
-			console.log("=============== 1");
 			var cateObj = arcCateData.menu_info[i].cate1_info;
 			for(var j=0; j< cateObj.length; j++){
 				if(menuVals[1] === cateObj[j].cate_name){
-					console.log("=============== 2");
 					var cate2Obj = cateObj[j].cate2_info;
 					for(var k=0; k< cate2Obj.length; k++){
 						if(menuVals[2] === cate2Obj[k].cate_2_name){
-							console.log("=============== 3");
 							var titleObj = cate2Obj[k].title_info;
-							console.log("titleObj : " + titleObj);
-							console.log("titleObj.length : "+titleObj.length);
 							for(var l=0; l< titleObj.length; l++){
-								console.log(titleObj[l].title);
 								$("#arcTitleSel").append('<option value="'+titleObj[l].title+'">'+titleObj[l].title+'</option>');
 							}
 						}
