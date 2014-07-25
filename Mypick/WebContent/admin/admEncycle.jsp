@@ -283,7 +283,7 @@ function modifyCate2(){
 	var cate1Txt = $("#cate1s option:selected").text();
 	$("#cate1s option:selected").removeAttr("selected");
 	var cateNameVal = $("#cate2NameMod").val();
-	var ind = $("#cate2s option").index($("#cate1s option:selected"));	
+	var ind = $("#cate2s option").index($("#cate2s option:selected"));	
 	$("#cate2s option:eq("+ind+")").text(cate1Txt+' | '+cateNameVal);
 	$("#cate2s option:eq("+ind+")").val(cateIdVal+'|'+cateNameVal);
 }
@@ -578,7 +578,7 @@ function delEnc(){
 			<input type="text" class="form-control" id="cate1Name" placeholder="카테고리명"  maxlength="20">
 		</div>
 		<div class="col-md-4">
-			<select multiple class="form-control" id="cate1s" name="cate1s" onchange="selCate1()"></select>
+			<select multiple class="form-control" id="cate1s" onchange="selCate1()"></select>
 			<input type="hidden" id="cate1sVal" name="cate1s"/>
 		</div>
 		<div class="col-md-2">
@@ -621,7 +621,7 @@ function delEnc(){
 			<input type="text" class="form-control" id="cate2Name" placeholder="카테고리명"  maxlength="20">
 		</div>
 		<div class="col-md-4">
-			<select multiple class="form-control" id="cate2s" name="cate2s" onchange="selCate2()"></select>
+			<select multiple class="form-control" id="cate2s" onchange="selCate2()"></select>
 			<input type="hidden" id="cate2sVal" name="cate2s"/>
 		</div>
 		<div class="col-md-2">
@@ -707,7 +707,6 @@ function delEnc(){
 
 	</div>	
 </div>
-
 </div>
 
 <br/><br/>
