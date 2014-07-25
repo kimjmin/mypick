@@ -34,8 +34,11 @@ function getArcTxt(cate2,title){
 	<div class="col-md-8">
 <%
 if(cate1s == null || cate1s.length == 0){
+	String arcTabTxt = "";
 	DataEntity[] arcCate1Data = dao.getArticle(selMenu, "", "", "");
-	String arcTabTxt = (String)arcCate1Data[0].get("ar_text");
+	if(arcCate1Data != null && arcCate1Data.length == 1){
+		arcTabTxt = (String)arcCate1Data[0].get("ar_text");
+	}
 %>
 		<div><%=arcTabTxt%></div>
 <%	
@@ -63,7 +66,9 @@ for(int i=0; i<cate1s.length; i++){
 DataEntity[] cate2s = dao.getCate2(selMenu, cate1Name);
 if(cate2s == null || cate2s.length == 0){
 	DataEntity[] arcCate2Data = dao.getArticle(selMenu, cate1Name, "", "");
-	arcTxt = (String)arcCate2Data[0].get("ar_text");
+	if(arcCate2Data != null && arcCate2Data.length == 1){
+		arcTxt = (String)arcCate2Data[0].get("ar_text");
+	}
 } else {
 %>
 <div class="btn-group">
