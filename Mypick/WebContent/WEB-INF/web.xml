@@ -127,4 +127,14 @@
 		<url-pattern>/Admin/Comm/*</url-pattern>
 	</servlet-mapping>
 	<!-- Admin 관련 페이지 끝 -->
+	
+	<servlet>
+		<servlet-name>FileCtrl</servlet-name>
+		<servlet-class>mpick.ctrl.FileCtrl</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileCtrl</servlet-name>
+		<url-pattern>/Control/FileCtrl/*</url-pattern>
+	</servlet-mapping>
+	
 </web-app>

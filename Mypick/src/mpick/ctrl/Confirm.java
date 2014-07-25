@@ -176,6 +176,8 @@ public class Confirm extends HttpServlet {
 				out.println("</script>");
 			}
 		} else {
+			System.out.println("cmd : "+cmd);
+			System.out.println("toUrl : "+toUrl);
 			out.println("<script>");
 			out.println("	alert(\"잘못된 접근입니다.\");");
 			out.println("	history.go(-1);");
