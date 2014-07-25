@@ -497,8 +497,8 @@ function delEnc(){
 
 </script>
 
-<div class="container">
 <div class="row">
+<div class="col-md-11">
 	<ul id="fldFmtTab" class="nav nav-tabs">
 		<li <%if("cate".equals(enclTab)){out.print("class='active'");} %> ><a href="#cate" data-toggle="tab">카테고리 편집</a></li>
 		<li <%if("arc".equals(enclTab)){out.print("class='active'");} %> ><a href="#arc" data-toggle="tab">백과사전 내용 입력</a></li>
@@ -510,35 +510,34 @@ function delEnc(){
 <div class="tab-pane fade <%if("cate".equals(enclTab)){out.print("active");} %> in" id="cate">
 <form name="encCate">
 	<div class="row">
-		<div class="col-md-6">
+		<div class="col-md-9">
 			<h3>카테고리 편집</h3>
 			<p class="text-muted">메뉴, 카테고리1, 카테고리 2를 전부 편집 한 후에 저장버튼을 눌러 저장하세요.</p>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<h3>
 			<button type="button" class="btn btn-primary btn-block" id="saveCateBtn" onclick="saveCate();">저장</button>
 			</h3>
 		</div>
-		<div class="col-md-4"></div>
+		
 	</div>
 	
-<div class="container">
+
 	<h4>메뉴</h4>
 	<p class="text-muted">메뉴 id - 첫 글자만 대문자인 공백 없는 10자 이내의 영문자로 입력하세요. 접속 URL 주소가 됩니다.
   	<br/>메뉴명 - 20자 이내의 한글/영문자로 입력하세요. | , 특수 문자는 사용하면 안됩니다.
   	<br/>동시에 여러 메뉴 목록을 선택해서 작업하지 마세요. 오류가 날 수 있습니다.</p>
-  	
 	<div class="row">
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<input type="text" class="form-control" id="menuId" placeholder="메뉴 id" maxlength="10">
 			<br/>
 			<input type="text" class="form-control" id="menuName" placeholder="메뉴명"  maxlength="20">
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<select multiple class="form-control" id="menus" onchange="selMenu()"></select>
 			<input type="hidden" id="menusVal" name="menus"/>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<input type="text" class="form-control" id="menuIdMod">
 			<br/>
 			<input type="text" class="form-control" id="menuNameMod">
@@ -546,42 +545,40 @@ function delEnc(){
 	</div>
 <br/>
 	<div class="row">
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<button type="button" class="btn btn-info btn-block" onclick="addMenu();">메뉴 추가</button>
 		</div>
-		<div class="col-md-1">
+		<div class="col-md-2">
 			<button type="button" class="btn btn-warning btn-block" onclick="upMenu();">올리기</button>
 		</div>
-		<div class="col-md-1">
+		<div class="col-md-2">
 			<button type="button" class="btn btn-warning btn-block" onclick="downMenu();">내리기</button>
 		</div>
 		<div class="col-md-2">
-			<button type="button" class="btn btn-danger btn-block" onclick="delMenu();">선택 메뉴 삭제</button>
+			<button type="button" class="btn btn-danger btn-block" onclick="delMenu();">삭제</button>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<button type="button" class="btn btn-success btn-block" onclick="modifyMenu();">메뉴명 / id 수정</button>
 		</div>
 	</div>
-</div>
 
 <br/>
-<div class="container">
 	<h4>카테고리 1</h4>
 	<p class="text-muted">카테고리가 포함될 메뉴를 선택하세요.
   	<br/>카테고리명 - 20자 이내의 한글/영문자로 입력하세요. | , 특수 문자는 사용하면 안됩니다.
   	<br/>동시에 여러 카테고리 목록을 선택해서 작업하지 마세요. 오류가 날 수 있습니다.</p>
   	
 	<div class="row">
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<select class="form-control" id="cate1Menu"></select>
 			<br/>
 			<input type="text" class="form-control" id="cate1Name" placeholder="카테고리명"  maxlength="20">
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<select multiple class="form-control" id="cate1s" onchange="selCate1()"></select>
 			<input type="hidden" id="cate1sVal" name="cate1s"/>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<select class="form-control" id="cate1MenuMod"></select>
 			<br/>
 			<input type="text" class="form-control" id="cate1NameMod">
@@ -589,42 +586,40 @@ function delEnc(){
 	</div>
 <br/>
 	<div class="row">
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<button type="button" class="btn btn-info btn-block" onclick="addCate1();">카테고리 추가</button>
 		</div>
-		<div class="col-md-1">
+		<div class="col-md-2">
 			<button type="button" class="btn btn-warning btn-block" onclick="upCate1();">올리기</button>
 		</div>
-		<div class="col-md-1">
+		<div class="col-md-2">
 			<button type="button" class="btn btn-warning btn-block" onclick="downCate1();">내리기</button>
 		</div>
 		<div class="col-md-2">
-			<button type="button" class="btn btn-danger btn-block" onclick="delCate1();">선택 카테고리 삭제</button>
+			<button type="button" class="btn btn-danger btn-block" onclick="delCate1();">삭제</button>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<button type="button" class="btn btn-success btn-block" onclick="modifyCate1();">카테고리 수정</button>
 		</div>
 	</div>
-</div>
 
 <br/>
-<div class="container">
 	<h4>카테고리 2</h4>
 	<p class="text-muted">카테고리가 포함될 상위 카테고리를 선택하세요.
   	<br/>카테고리명 - 20자 이내의 한글/영문자로 입력하세요. | , 특수 문자는 사용하면 안됩니다.
   	<br/>동시에 여러 카테고리 목록을 선택해서 작업하지 마세요. 오류가 날 수 있습니다.</p>
   	
 	<div class="row">
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<select class="form-control" id="cate2cate"></select>
 			<br/>
 			<input type="text" class="form-control" id="cate2Name" placeholder="카테고리명"  maxlength="20">
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-6">
 			<select multiple class="form-control" id="cate2s" onchange="selCate2()"></select>
 			<input type="hidden" id="cate2sVal" name="cate2s"/>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<select class="form-control" id="cate2cateMod"></select>
 			<br/>
 			<input type="text" class="form-control" id="cate2NameMod">
@@ -632,23 +627,22 @@ function delEnc(){
 	</div>
 <br/>
 	<div class="row">
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<button type="button" class="btn btn-info btn-block" onclick="addCate2();">카테고리 추가</button>
 		</div>
-		<div class="col-md-1">
+		<div class="col-md-2">
 			<button type="button" class="btn btn-warning btn-block" onclick="upCate2();">올리기</button>
 		</div>
-		<div class="col-md-1">
+		<div class="col-md-2">
 			<button type="button" class="btn btn-warning btn-block" onclick="downCate2();">내리기</button>
 		</div>
 		<div class="col-md-2">
-			<button type="button" class="btn btn-danger btn-block" onclick="delCate2();">선택 카테고리 삭제</button>
+			<button type="button" class="btn btn-danger btn-block" onclick="delCate2();">삭제</button>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<button type="button" class="btn btn-success btn-block" onclick="modifyCate2();">카테고리 수정</button>
 		</div>
 	</div>
-</div>
 	
 	<input type="hidden" name="cmd" value="saveCate" />
 	<input type="hidden" name="toUrl" value="../Admin/Encl" />
@@ -660,35 +654,33 @@ function delEnc(){
 <form name="encArticle">
 	<br/>
 	<div class="row">
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<select class="form-control" id="arcMenu" name="arcMenu" onchange="arcMenuSel();"></select>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<select class="form-control" id="arcCate1" name="arcCate1" onchange="arcCate1Sel();" ></select>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<select class="form-control" id="arcCate2" name="arcCate2" onchange="arcCate2Sel();"></select>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<select class="form-control" id="arcTitleSel" name="arcTitleSel"></select>
 		</div>
-		<div class="col-md-2"></div>
 	</div>
 	<br/>
 	<div class="row">
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<input type="text" class="form-control" id="arcTitle" name="arcTitle" placeholder="제목"  maxlength="30">
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<button type="button" class="btn btn-success btn-block" onclick="loadEnc();">불러오기</button>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<button type="button" class="btn btn-primary btn-block" id="saveEncBtn" onclick="saveEnc();">저장</button>
 		</div>
-		<div class="col-md-2">
+		<div class="col-md-3">
 			<button type="button" class="btn btn-danger btn-block" id="delEncBtn" onclick="delEnc();">삭제</button>
 		</div>
-		<div class="col-md-4"></div>
 	</div>
 	<br/>
 	<div class="container">

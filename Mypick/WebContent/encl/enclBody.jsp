@@ -28,10 +28,7 @@ function getArcTxt(cate2,title){
 }
 </script>
 
-<div class="container">
 <div class="row">
-<div class="row">
-	<div class="col-md-8">
 <%
 if(cate1s == null || cate1s.length == 0){
 	String arcTabTxt = "";
@@ -40,7 +37,9 @@ if(cate1s == null || cate1s.length == 0){
 		arcTabTxt = (String)arcCate1Data[0].get("ar_text");
 	}
 %>
+	<div class="col-md-12">
 		<div><%=arcTabTxt%></div>
+	</div>
 <%	
 } else {
 %>
@@ -113,10 +112,8 @@ if(cate2s == null || cate2s.length == 0){
 <%
 }
 %>
-<div class="row">
-	<div class="col-md-8">
-		<div id='arcTxt'><%=arcTxt%></div>
-	</div>
+<div class="col-md-12">
+	<div id='arcTxt'><%=arcTxt%></div>
 </div>
 
 		</div>
@@ -128,8 +125,4 @@ if(cate2s == null || cate2s.length == 0){
 <%
 }
 %>
-</div>
-</div>
-
-</div>
 </div>
