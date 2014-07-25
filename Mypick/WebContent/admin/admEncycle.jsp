@@ -454,10 +454,14 @@ function arcCate2Sel(){
 }
 
 function loadEnc(){
+	var arcMenuVal = $("#arcMenu").val()+"";
+	var arcCate1Val = $("#arcCate1").val()+"";
 	var arcCate2Val = $("#arcCate2").val()+"";
 	var arcTitleSelVal = $("#arcTitleSel").val()+"";
 	var params = "";
 	params += "cmd=arcText";
+	params += "&arcMenu="+arcMenuVal;
+	params += "&arcCate1="+arcCate1Val;
 	params += "&arcCate2="+arcCate2Val;
 	params += "&arcTitleSel="+arcTitleSelVal;
 	$.ajax({

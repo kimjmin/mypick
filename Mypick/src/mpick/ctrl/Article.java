@@ -15,29 +15,72 @@ public class Article {
 		HttpSession session = req.getSession();
 		MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
 		String userMail = userObj.getEmail();
-		String arcCate = req.getParameter("arcCate2");
+		String arcMenu = req.getParameter("arcMenu");
+		String arcCate1 = req.getParameter("arcCate1");
+		String arcCate2 = req.getParameter("arcCate2");
 		String arcTitleSel = req.getParameter("arcTitleSel");
 		String arcTitle = req.getParameter("arcTitle");
 		String encText = req.getParameter("encText");
-		String[] arcCates = arcCate.split("[|]");
 		MpickDao dao = MpickDao.getInstance();
-		if(!"new".equals(arcTitleSel) && arcCates.length == 3){
-			dao.archiveArticle(arcCates[0], arcCates[1], arcCates[2], arcTitleSel);
+		
+		if(arcCate2 != null && !"".equals(arcCate2)){
+			String[] arcCates = arcCate2.split("[|]");
+			if(arcCates.length == 3){
+				if(!"new".equals(arcTitleSel)){
+					dao.archiveArticle(arcCates[0], arcCates[1], arcCates[2], arcTitleSel);
+				}
+				result = dao.insertArticle(userMail, arcCates[0], arcCates[1], arcCates[2], arcTitle, encText);
+			}
+		} else if(arcCate1 != null && !"".equals(arcCate1)){
+			String[] arcCates = arcCate1.split("[|]");
+			if(arcCates.length == 2){
+				dao.archiveArticle(arcCates[0], arcCates[1], "", "");
+				result = dao.insertArticle(userMail, arcCates[0], arcCates[1], "", "", encText);
+			}
+		} else if(arcMenu != null && !"".equals(arcMenu)){
+			dao.archiveArticle(arcMenu, "", "", "");
+			result = dao.insertArticle(userMail, arcMenu, "", "", "", encText);
 		}
-		result = dao.insertArticle(userMail, arcCates[0], arcCates[1], arcCates[2], arcTitle, encText);
 		return result;
 	}
 	
 	public String getArticle(HttpServletRequest req, HttpServletResponse res){
 		String result = "";
 		DataEntity[] data = null;
-		String arcCate = req.getParameter("arcCate2");
+		String arcMenu = req.getParameter("arcMenu");
+		String arcCate1 = req.getParameter("arcCate1");
+		String arcCate2 = req.getParameter("arcCate2");
 		String arcTitleSel = req.getParameter("arcTitleSel");
-		String[] arcCates = arcCate.split("[|]");
+		if("new".equals(arcTitleSel)){
+			arcTitleSel = "";
+		}
+//		System.out.println("arcTitleSel: "+arcTitleSel);
+//		System.out.println("arcMenu: "+arcMenu);
+//		System.out.println("arcCate1: "+arcCate1);
+//		System.out.println("arcCate2: "+arcCate2);
+		
 		MpickDao dao = MpickDao.getInstance();
-		data =  dao.getArticle(arcCates[0], arcCates[1], arcCates[2], arcTitleSel);
-		if(data != null && data.length > 0){
-			result = (String)data[0].get("ar_text");
+		if(arcCate2 != null && !"".equals(arcCate2) && !"null".equals(arcCate2)){
+			String[] arcCates = arcCate2.split("[|]");
+			if(arcCates.length == 3){
+				data =  dao.getArticle(arcCates[0], arcCates[1], arcCates[2], arcTitleSel);
+				if(data != null && data.length > 0){
+					result = (String)data[0].get("ar_text");
+				}
+			}
+		} else if(arcCate1 != null && !"".equals(arcCate1) && !"null".equals(arcCate1)){
+			String[] arcCates = arcCate1.split("[|]");
+			if(arcCates.length == 2){
+				data =  dao.getArticle(arcCates[0], arcCates[1], "", arcTitleSel);
+				if(data != null && data.length > 0){
+					result = (String)data[0].get("ar_text");
+				}
+			}
+		} else if(arcMenu != null && !"".equals(arcMenu) && !"null".equals(arcMenu)){
+			data =  dao.getArticle(arcMenu, "", "", arcTitleSel);
+			if(data != null && data.length > 0){
+				result = (String)data[0].get("ar_text");
+			}
 		}
 		return result;
 	}
