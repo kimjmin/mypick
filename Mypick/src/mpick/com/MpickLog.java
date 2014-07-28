@@ -64,13 +64,7 @@ public class MpickLog {
 		String os = "";
 		try{
 			if(header.indexOf("MSIE") != -1){
-				//IE 인 경우.
 				os = header.substring(header.indexOf("Windows"));
-				if(os.indexOf("Trident") != -1){
-					os = os.substring(0,os.indexOf("Trident"));
-				} else {
-					os = os.substring(0,os.indexOf(";"));
-				}
 			} else {
 				//IE 외의 브라우저.
 				os = header.substring(header.indexOf("(")+1,header.indexOf(")"));
@@ -79,13 +73,9 @@ public class MpickLog {
 				}
 				os = os.substring(0,os.indexOf(";"));
 			}
-			if("Gecko".equals(os)){
-				os = "IE";
-			}
 		} catch(Exception e){
 			// 파싱 오류 발생시 DEVICE 에 모든 헤더를 넣고 BRW 는 빈 값으로 설정. 
 			e.getStackTrace();
-			os = header;
 		}
 		return os;
 	}
@@ -94,21 +84,20 @@ public class MpickLog {
 		String header = req.getHeader("User-Agent");
 		String browser = "";
 		try{
-			if(header.indexOf("MSIE") != -1){
-				browser = header.substring(header.indexOf("MSIE"));
-				browser = browser.substring(0,browser.indexOf(";"));
+			if(header.indexOf("Trident") != -1){
+				browser = "MSIE";
 			} else {
 				browser = header.substring(header.lastIndexOf(")")+1);
 				if(browser.indexOf("Chrome") != -1){
 					browser = browser.substring(browser.indexOf("Chrome"));
 					browser = browser.substring(0,browser.indexOf(" "));
-				} else if(browser.indexOf("Trident") != -1){ 
-					browser = "MSIE";
 				} else {
 					browser = browser.substring(browser.lastIndexOf(" "));
 				}
 			}
-			browser = browser.substring(0, browser.indexOf("/"));
+			if(browser.indexOf("/") > 0){
+				browser = browser.substring(0, browser.indexOf("/"));
+			}
 		} catch(Exception e){
 			// 파싱 오류 발생시 DEVICE 에 모든 헤더를 넣고 BRW 는 빈 값으로 설정. 
 			e.getStackTrace();
