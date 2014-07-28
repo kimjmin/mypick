@@ -1,5 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="mpick.com.MpickMsg,java.text.SimpleDateFormat"%>
+<%
+	//사용자 로그인 체크하는 로직. 모든 페이지에 반드시 포함할것.
+	MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
+	if(userObj == null || "".equals(userObj.getEmail())){
+		out.print(MpickMsg.loginError());
+	} else {
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,12 +31,6 @@
 <!-- 상단 네비게이션 메뉴 시작 -->	
 <%@include file="../ctrl/navbar.jsp"%>
 <!-- 상단 네비게이션 메뉴 끝 -->
-<%
-if(userObj == null){
-	out.print(MpickMsg.loginError());
-} else {
-%>
-
 		<div class="container">
 		<form class="form-inline" role="form" name="signinFrm" action="javascript:modify();">
 		

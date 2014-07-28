@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="mpick.com.MpickMsg"%>
 <%
-
+	//사용자 로그인 체크하는 로직. 모든 페이지에 반드시 포함할것.
+	MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
+	if(userObj == null || "".equals(userObj.getEmail())){
+		out.print(MpickMsg.approachError());
+	} else {
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -240,3 +245,6 @@ function setBDate(){
 	
 </body>
 </html>
+<%
+	}
+%>

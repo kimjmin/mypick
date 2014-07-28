@@ -30,6 +30,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>ControlReady</servlet-name>
+		<servlet-class>mpick.ctrl.Ready</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ControlReady</servlet-name>
+		<url-pattern>/Control/Ready/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>ControlModify</servlet-name>
 		<servlet-class>mpick.ctrl.Modify</servlet-class>
 	</servlet>

@@ -19,6 +19,7 @@ function goComm(){
 	frm.action="../Comm/Mypage";
 	frm.submit();
 }
+
 function login(navForm){
 	var frm = document.getElementById("navFrm");
 	if (frm.loginEmail.value.length == 0) {

@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="mpick.com.MpickUserObj"%>
+<%@ page import="mpick.com.MpickUserObj,mpick.com.MpickLog"%>
 <%
-	//사용자 로그인 체크하는 로직. 모든 페이지에 반드시 포함할것.
-	MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
-	
+	MpickLog.debug(request);
+	MpickUserObj userObjNav = (MpickUserObj) session.getAttribute("mpUserObj");
 	String toUrl = request.getRequestURI();
 	if (toUrl == null || toUrl.equals("")){ toUrl = "Calc/Fee"; }
 	String pageName = "";
@@ -33,12 +32,14 @@
 		<ul class="nav navbar-nav">
 			<li id="navLiCal" <%if("Calc".equals(pageName)){ out.print("class=\"active\"");} %>><a href="javascript:goCalc(this.form);"><i class="glyphicon glyphicon-usd"></i> Calculator</a></li>
 			<li id="navLiEncycle" <%if("Encl".equals(pageName)){ out.print("class=\"active\"");} %>><a href="javascript:goEncl(this.form);"><i class="glyphicon glyphicon-book"></i> Encyclopedia</a></li>
+<%--
 			<li id="navLiComm" <%if("Comm".equals(pageName)){ out.print("class=\"active\"");} %>><a href="javascript:goComm(this.form);"><i class="glyphicon glyphicon-user"></i> Community</a></li>
-<% if(userObj!=null && "ADMIN".equals(userObj.getState())){ %>
+--%>
+<% if(userObjNav!=null && "ADMIN".equals(userObjNav.getState())){ %>
 			<li id="navLiAdmin" <%if("Admin".equals(pageName)){ out.print("class=\"active\"");} %>><a href="javascript:goAdmin(this.form);"><i class="glyphicon glyphicon-hdd"></i> Admin</a></li>
 <% } %>
 		</ul>
-<% if(userObj!=null && "ADMIN".equals(userObj.getState())){ %>
+<% if(userObjNav!=null && "ADMIN".equals(userObjNav.getState())){ %>
 <script>
 function goAdmin(){
 	var frm = document.getElementById("navFrm");
@@ -51,7 +52,7 @@ function goAdmin(){
 <% } %>
 
 <%
-if(userObj == null){
+if(userObjNav == null){
 %>
 		<form id="navFrm" name="navFrm" class="navbar-form navbar-right btn-group" action="javascript:login(this);">
 			<div class="form-group">
@@ -83,8 +84,8 @@ if(userObj == null){
 			<input type="hidden" id="toUrl" name="toUrl" value="<%=toUrl%>" />
 		</form>
 		<ul class="nav navbar-nav navbar-right">
-			<li><a><span class="text-white"><%=userObj.getNicname()%> 님</span></a></li>
-			<li><a><button class="btn btn-warning btn-xs"><%=userObj.getPoint()%></button></a></li>
+			<li><a><span class="text-white"><%=userObjNav.getNicname()%> 님</span></a></li>
+			<li><a><button class="btn btn-warning btn-xs"><%=userObjNav.getPoint()%></button></a></li>
 		</ul>
 <%
 }
