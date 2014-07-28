@@ -77,7 +77,7 @@ public class MpickLog {
 			// 파싱 오류 발생시 DEVICE 에 모든 헤더를 넣고 BRW 는 빈 값으로 설정. 
 			e.getStackTrace();
 		}
-		return os;
+		return os.trim();
 	}
 	
 	private static String getBrowser(HttpServletRequest req){
@@ -101,9 +101,8 @@ public class MpickLog {
 		} catch(Exception e){
 			// 파싱 오류 발생시 DEVICE 에 모든 헤더를 넣고 BRW 는 빈 값으로 설정. 
 			e.getStackTrace();
-			browser = header;
 		}
-		return browser;
+		return browser.trim();
 	}
 		
 }
