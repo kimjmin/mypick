@@ -94,6 +94,9 @@ function modifyMenu(){
 	var menuNameVal = $("#menuNameMod").val();
 	var ind = $("#menus option").index($("#menus option:selected"));
 	var preVal = $("#menus option:eq("+ind+")").val()+"";
+	var preVals = preVal.split("|");
+	$("#encCate").append("<input type='hidden' name='menuChg' value='"+preVals[0]+","+menuIdVal+"'>");
+	
 	$("#menus option:eq("+ind+")").text(menuIdVal+' - '+menuNameVal);
 	$("#menus option:eq("+ind+")").val(menuIdVal+'|'+menuNameVal);
 	
@@ -106,9 +109,7 @@ function modifyMenu(){
 	for(var i=(cate1Size-1); i>=0; i--){
 		var cate1sVal = $("#cate1s option:eq("+i+")").val() + "";
 		var cate1sVals = cate1sVal.split("|");
-		var preVals = preVal.split("|");
 		if(cate1sVals[0] === preVals[0] ){
-			
 			var preCate1Val = $("#cate1s option:eq("+i+")").val()+"";
 			var preCate1Txt = $("#cate1s option:eq("+i+")").text()+"";
 			var preCate1Vals = preCate1Val.split("|");
@@ -207,6 +208,8 @@ function modifyCate1(){
 	var cateNameVal = $("#cate1NameMod").val();
 	var ind = $("#cate1s option").index($("#cate1s option:selected"));
 	var preVal = $("#cate1s option:eq("+ind+")").val()+"";
+	var preVals = preVal.split("|");
+	
 	$("#cate1s option:eq("+ind+")").text(cateIdText+' | '+cateNameVal);
 	$("#cate1s option:eq("+ind+")").val(cateIdVal+'|'+cateNameVal);
 	
@@ -219,12 +222,12 @@ function modifyCate1(){
 	for(var i=(cate2Size-1); i>=0; i--){
 		var cate2sVal = $("#cate2s option:eq("+i+")").val() + "";
 		var cate2sVals = cate2sVal.split("|");
-		var preVals = preVal.split("|");
 		if(cate2sVals[0] === preVals[0] && cate2sVals[1] === preVals[1]){
 			$("#cate2s option:eq("+i+")").val(cateIdVal+'|'+cateNameVal+'|'+cate2sVals[2]);
 			$("#cate2s option:eq("+i+")").text(cateIdText+' | '+cateNameVal+' | '+cate2sVals[2]);
 		}
 	}
+	$("#encCate").append("<input type='hidden' name='cage1Chg' value='"+preVal+","+cateIdVal+"|"+cateNameVal+"'>");
 }
 function upCate1(){
 	var ind = $("#cate1s option").index($("#cate1s option:selected"));
@@ -288,6 +291,7 @@ function selCate2(){
 	$("#cate2NameMod").val(selVals[2]);
 }
 function modifyCate2(){
+	var preVal = $("#cate2s option:selected").val()+"";
 	var cateIdVal = $("#cate2cateMod option:selected").val()+'';
 	$("#cate1s").val(cateIdVal);
 	var cate1Txt = $("#cate1s option:selected").text();
@@ -296,6 +300,8 @@ function modifyCate2(){
 	var ind = $("#cate2s option").index($("#cate2s option:selected"));	
 	$("#cate2s option:eq("+ind+")").text(cate1Txt+' | '+cateNameVal);
 	$("#cate2s option:eq("+ind+")").val(cateIdVal+'|'+cateNameVal);
+	
+	$("#encCate").append("<input type='hidden' name='cage2Chg' value='"+preVal+","+cateIdVal+"|"+cateNameVal+"'>");
 }
 function upCate2(){
 	var ind = $("#cate2s option").index($("#cate2s option:selected"));
@@ -526,7 +532,7 @@ function fileUp(){
 
 <!-- 카테고리 편집 탭 시작 -->
 <div class="tab-pane fade <%if("cate".equals(enclTab)){out.print("active");} %> in" id="cate">
-<form name="encCate">
+<form name="encCate" id="encCate">
 	<div class="row">
 		<div class="col-md-9">
 			<h3>카테고리 편집</h3>

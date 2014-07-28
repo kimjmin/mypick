@@ -149,7 +149,50 @@ public class Article {
 	public int delNSaveCate(HttpServletRequest req, HttpServletResponse res){
 		MpickDao dao = MpickDao.getInstance();
 		dao.deleteAllCates();
+		this.modifArcCate(req, res);
 		return saveCate(req, res);
+	}
+	
+	private void modifArcCate(HttpServletRequest req, HttpServletResponse res){
+		String[] menuChg = req.getParameterValues("menuChg");
+		String[] cage1Chg = req.getParameterValues("cage1Chg");
+		String[] cage2Chg = req.getParameterValues("cage2Chg");
+		MpickDao dao = MpickDao.getInstance();
+		
+		if(menuChg != null && menuChg.length > 0){
+			for(int i=0; i<menuChg.length; i++){
+				String[] menus = menuChg[i].split(",");
+				if(menus.length == 2){
+					dao.updateArcMenu(menus[0], menus[1]);
+				}
+			}
+		}
+		
+		if(cage1Chg != null && cage1Chg.length > 0){
+			for(int i=0; i<cage1Chg.length; i++){
+				String[] cate1s = cage1Chg[i].split(",");
+				if(cate1s.length == 2){
+					String[] cate1s0 = cate1s[0].split("[|]");
+					String[] cate1s1 = cate1s[1].split("[|]");
+					if(cate1s0.length == 2 && cate1s1.length == 2){
+						dao.updateArcCate1(cate1s0[0], cate1s0[1], cate1s1[0], cate1s1[1]);
+					}
+				}
+			}
+		}
+		
+		if(cage2Chg != null && cage2Chg.length > 0){
+			for(int i=0; i<cage2Chg.length; i++){
+				String[] cate2s = cage2Chg[i].split(",");
+				if(cate2s.length == 2){
+					String[] cate2s0 = cate2s[0].split("[|]");
+					String[] cate2s1 = cate2s[1].split("[|]");
+					if(cate2s0.length == 3 && cate2s1.length == 3){
+						dao.updateArcCate2(cate2s0[0], cate2s0[1], cate2s0[2], cate2s1[0], cate2s1[1], cate2s1[2]);
+					}
+				}
+			}
+		}
 	}
 	
 }

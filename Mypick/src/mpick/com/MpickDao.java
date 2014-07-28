@@ -346,6 +346,43 @@ public class MpickDao {
 		return dao.updateSql(property, sql.toString(), params);
 	}
 	
+	
+	public int updateArcMenu(String menu, String new_menu){
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE mp_article  \n");
+		sql.append("SET ar_menu_id = ? \n");
+		sql.append("where ar_menu_id = ? \n");
+		String[] params = {new_menu, menu };
+		return dao.updateSql(property, sql.toString(), params);
+	}
+	
+	public int updateArcCate1(String menu, String cate1, String new_menu, String new_cate1){
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE mp_article  \n");
+		sql.append("SET ar_menu_id = ? \n");
+		sql.append(", ar_cate_1 = ? \n");
+		sql.append("where ar_menu_id = ? \n");
+		sql.append("and ar_cate_1 = ? \n");
+		String[] params = {new_menu, new_cate1, menu, cate1 };
+		return dao.updateSql(property, sql.toString(), params);
+	}
+	
+	public int updateArcCate2(String menu, String cate1, String cate2, String new_menu, String new_cate1, String new_cate2){
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE mp_article  \n");
+		sql.append("SET ar_menu_id = ? \n");
+		sql.append(", ar_cate_1 = ? \n");
+		sql.append(", ar_cate_2 = ? \n");
+		sql.append("where ar_menu_id = ? \n");
+		sql.append("and ar_cate_1 = ? \n");
+		sql.append("and ar_cate_2 = ? \n");
+		String[] params = {new_menu, new_cate1, new_cate2, menu, cate1, cate2 };
+		return dao.updateSql(property, sql.toString(), params);
+	}
+	
 	/**
 	 * 내용 불러오기
 	 * @param type
