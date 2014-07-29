@@ -45,10 +45,6 @@ public class MpickLog {
 		str.append("\"browser\":");
 		str.append("\""+getBrowser(req)+"\"");
 		
-		str.append(",");
-		str.append("\"ip\":");
-		str.append("\""+ipAddr+"\"");
-		
 		String page = req.getRequestURI();
 		str.append(",");
 		str.append("\"page\":");
