@@ -216,6 +216,10 @@ public class FileCtrlXls extends HttpServlet {
 	}
 	
 	private void appendXls(File file){
+		String sheetNm = "";
+		int rawNum = 0;
+		int columNu= 0;
+		
 		try {
 			MpickDao dao = MpickDao.getInstance();
 			dao.deleteAllSh();
@@ -226,7 +230,7 @@ public class FileCtrlXls extends HttpServlet {
 			for(int cn = 0; cn < sheetCn; cn++){
 				//0번째 sheet 정보 취득
 				XSSFSheet sheet = workbook.getSheetAt(cn);
-				
+				sheetNm = sheet.getSheetName();
 				//취득된 sheet에서 rows수 취득
 				int rows = sheet.getLastRowNum();
 //				System.out.println(workbook.getSheetName(cn) + " sheet의 row수 : " + rows);
@@ -249,6 +253,7 @@ public class FileCtrlXls extends HttpServlet {
 				
 				XSSFRow wRw = sheet.getRow(2);
 				for(int rw=3; rw < rows; rw++){
+					rawNum = rw;
 					XSSFRow row = sheet.getRow(rw);
 					if(row != null){
 						int cols = row.getLastCellNum();
@@ -259,6 +264,7 @@ public class FileCtrlXls extends HttpServlet {
 						}
 						
 						for(int cl=1; cl < cols; cl++){
+							columNu = cl;
 							XSSFCell wCell = wRw.getCell(cl);
 							XSSFCell cell = row.getCell(cl);
 							if(cell != null){
@@ -276,6 +282,9 @@ public class FileCtrlXls extends HttpServlet {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("sheetNm : "+sheetNm);
+			System.out.println("rawNum : "+rawNum);
+			System.out.println("columNu : "+columNu);
 		}
 	}
 	
