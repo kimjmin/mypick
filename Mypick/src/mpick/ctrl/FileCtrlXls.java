@@ -99,6 +99,7 @@ public class FileCtrlXls extends HttpServlet {
 			if (file.exists()) {
 				System.out.println("엑셀 적용 시작.");
 				this.appendXls(file);
+				System.out.println("엑셀 적용 끝.");
 			}
 //			getFileList(req, res);
 		} else {
@@ -226,14 +227,16 @@ public class FileCtrlXls extends HttpServlet {
 			FileInputStream inputStream = new FileInputStream(file);
 			XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
 			int sheetCn = workbook.getNumberOfSheets();
-//			System.out.println("sheet수 : " + sheetCn);
+			System.out.println("sheet수 : " + sheetCn);
+			
 			for(int cn = 0; cn < sheetCn; cn++){
 				//0번째 sheet 정보 취득
 				XSSFSheet sheet = workbook.getSheetAt(cn);
 				sheetNm = sheet.getSheetName();
 				//취득된 sheet에서 rows수 취득
 				int rows = sheet.getLastRowNum();
-//				System.out.println(workbook.getSheetName(cn) + " sheet의 row수 : " + rows);
+				System.out.println(workbook.getSheetName(cn) + " sheet의 row수 : " + rows);
+				
 				XSSFCell shipId = null;
 				
 				//배송대행지 메인 정보 저장.
