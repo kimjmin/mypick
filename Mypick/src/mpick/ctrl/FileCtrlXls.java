@@ -218,6 +218,7 @@ public class FileCtrlXls extends HttpServlet {
 	private void appendXls(File file){
 		try {
 			MpickDao dao = MpickDao.getInstance();
+			dao.deleteAllSh();
 			FileInputStream inputStream = new FileInputStream(file);
 			XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
 			int sheetCn = workbook.getNumberOfSheets();
