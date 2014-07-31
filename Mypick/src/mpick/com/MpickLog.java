@@ -62,10 +62,9 @@ public class MpickLog {
 			if(header.indexOf("MSIE") != -1){
 				os = header.substring(header.indexOf("Windows"));
 			} else {
-				//IE 외의 브라우저.
 				os = header.substring(header.indexOf("(")+1,header.indexOf(")"));
 				if(os.indexOf("Android") != -1){
-					os = os.substring(os.indexOf("Android"));
+					os = "Android";
 				}
 				os = os.substring(0,os.indexOf(";"));
 			}

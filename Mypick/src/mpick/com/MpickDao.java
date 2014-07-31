@@ -559,5 +559,118 @@ public class MpickDao {
 		return data;
 	}
 	
+	/**
+	 * 배송대행업체 엑셀 메인 입력.
+	 * @param onum
+	 * @param shipId
+	 * @param ShipName
+	 * @param shipUrl
+	 * @param wUnit
+	 * @param aUnit
+	 * @return
+	 */
+	public int insertShMain(int onum, String shipId, String shipName, String shipUrl, String wUnit, String aUnit){
+		int result = 0;
+		DataEntity data = new DataEntity();
+		Dao dao = Dao.getInstance();
+		data.put("onum", onum);
+		data.put("ship_id", shipId);
+		data.put("ship_name", shipName);
+		data.put("ship_url", shipUrl);
+		data.put("wunit", wUnit);
+		data.put("aunit", aUnit);
+		result = dao.inertData(property, "mp_sh_main", data);
+		return result;
+	}
 	
+	/**
+	 * 배송대행업체 엑셀 레벨 입력.
+	 * @param shipId
+	 * @param levNum
+	 * @param levName
+	 * @return
+	 */
+	public int insertShLevs(String shipId, int levNum, String levName){
+		int result = 0;
+		DataEntity data = new DataEntity();
+		Dao dao = Dao.getInstance();
+		data.put("ship_id", shipId);
+		data.put("lev_num", levNum);
+		data.put("lev_name", levName);
+		result = dao.inertData(property, "mp_sh_levs", data);
+		return result;
+	}
+	
+	/**
+	 * 배송대행업체 엑셀 레벨 입력.
+	 * @param shipId
+	 * @param levNum
+	 * @param levName
+	 * @return
+	 */
+	public int insertShVals(String shipId, int levNum, String valWeight, String valAmount){
+		int result = 0;
+		DataEntity data = new DataEntity();
+		Dao dao = Dao.getInstance();
+		data.put("ship_id", shipId);
+		data.put("lev_num", levNum);
+		data.put("val_weight", valWeight);
+		data.put("val_amount", valAmount);
+		result = dao.inertData(property, "mp_sh_vals", data);
+		return result;
+	}
+	
+	/**
+	 * 배송대행업체 전체 삭제
+	 */
+	public void deleteAllSh(){
+		Dao dao = Dao.getInstance();
+		dao.deleteAll(property, "mp_sh_main");
+		dao.deleteAll(property, "mp_sh_levs");
+		dao.deleteAll(property, "mp_sh_vals");
+	}
+	
+	/**
+	 * 배송대행업체 불러오기
+	 * @return
+	 */
+	public DataEntity[] getShMain(){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * FROM mp_sh_main order by onum");
+		data = dao.getResult(property, sql.toString(), null);
+		return data;
+	}
+	
+	/**
+	 * 배송대행업체 등급 불러오기.
+	 * @param shipId
+	 * @return
+	 */
+	public DataEntity[] getShLevs(String shipId){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * FROM mp_sh_levs where ship_id = ? order by lev_num");
+		String[] params = {shipId};
+		data = dao.getResult(property, sql.toString(), params);
+		return data;
+	}
+	
+	/**
+	 * 배송대행업체 값 불러오기.
+	 * @param shipId
+	 * @param levName
+	 * @return
+	 */
+	public DataEntity[] getShVals(String shipId, String levName){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * FROM mp_sh_vals where ship_id = ? and lev_num = ? order by val_weight");
+		String[] params = {shipId, levName};
+		data = dao.getResult(property, sql.toString(), params);
+		return data;
+	}
 }

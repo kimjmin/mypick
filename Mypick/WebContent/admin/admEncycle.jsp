@@ -4,7 +4,6 @@ String enclTab = request.getParameter("enclTab");
 if(enclTab == null || "".equals(enclTab)){
 	enclTab = "cate";
 }
-
 %>
 <link rel="stylesheet" href="../css/jquery.fileupload.css">
 <link rel="stylesheet" href="../css/jquery.fileupload-ui.css">
@@ -21,7 +20,7 @@ if(enclTab == null || "".equals(enclTab)){
 tinymce.init({
     selector: "textarea#elm",
     theme: "modern",
-    width: 800,
+    width: 840,
     height: 400,
     plugins: [
          "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
@@ -521,7 +520,7 @@ function fileUp(){
 </script>
 
 <div class="row">
-<div class="col-md-11">
+<div class="col-md-12">
 	<ul id="fldFmtTab" class="nav nav-tabs">
 		<li <%if("cate".equals(enclTab)){out.print("class='active'");} %> ><a href="#cate" data-toggle="tab">카테고리 편집</a></li>
 		<li <%if("arc".equals(enclTab)){out.print("class='active'");} %> ><a href="#arc" data-toggle="tab">백과사전 내용 입력</a></li>
@@ -711,9 +710,8 @@ function fileUp(){
 	<p class="text-muted">제목은 메뉴, 카테고리명으로 표현되는 구분값입니다. 페이지 내용에는 반영되지 않습니다. 
 	<br/>제목을 표현하려면 내용 창에 &lth1&gt 태그 등을 이용해서 표시하세요.</p>
 	
-	<div class="row">
-		<textarea id="elm" name="encText"></textarea>
-	</div>
+	<textarea id="elm" name="encText"></textarea>
+	
 	<input type="hidden" name="cmd" value="saveEncl" />
 	<input type="hidden" name="toUrl" value="../Admin/Encl" />
 </form>

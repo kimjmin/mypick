@@ -146,4 +146,13 @@
 		<url-pattern>/Control/FileCtrl/*</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>FileCtrlXls</servlet-name>
+		<servlet-class>mpick.ctrl.FileCtrlXls</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>FileCtrlXls</servlet-name>
+		<url-pattern>/Control/FileCtrlXls/*</url-pattern>
+	</servlet-mapping>
+	
 </web-app>
