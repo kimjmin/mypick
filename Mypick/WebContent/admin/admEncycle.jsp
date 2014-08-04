@@ -486,7 +486,11 @@ function loadEnc(){
 		dataType:"text",
 		success : function(dataArcTxt) {
 			tinymce.get('elm').setContent(dataArcTxt);
-			$("#arcTitle").val(arcTitleSelVal);
+			if(arcTitleSelVal == "new"){
+				$("#arcTitle").val("");
+			} else {
+				$("#arcTitle").val(arcTitleSelVal);
+			}
 		}, error:function(e){  
 			console.log(e.responseText);  
 		}
