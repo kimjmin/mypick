@@ -57,10 +57,10 @@ public class MpickLog {
 	
 	private static String getOS(HttpServletRequest req){
 		String header = req.getHeader("User-Agent");
-		String os = "";
+		String os = "os_error";
 		try{
-			if(header.indexOf("MSIE") != -1){
-				os = header.substring(header.indexOf("Windows"));
+			if(header.indexOf("Windows") > -1){
+				os = os.substring(0,os.indexOf(";"));
 			} else {
 				os = header.substring(header.indexOf("(")+1,header.indexOf(")"));
 				if(os.indexOf("Android") != -1){
@@ -68,16 +68,15 @@ public class MpickLog {
 				}
 				os = os.substring(0,os.indexOf(";"));
 			}
-		} catch(Exception e){
-			// 파싱 오류 발생시 DEVICE 에 모든 헤더를 넣고 BRW 는 빈 값으로 설정. 
-			e.getStackTrace();
+		} catch(Exception e){ 
+			// e.getStackTrace();
 		}
 		return os.trim();
 	}
 	
 	private static String getBrowser(HttpServletRequest req){
 		String header = req.getHeader("User-Agent");
-		String browser = "";
+		String browser = "bw_error";
 		try{
 			if(header.indexOf("Trident") != -1){
 				browser = "MSIE";
@@ -95,7 +94,7 @@ public class MpickLog {
 			}
 		} catch(Exception e){
 			// 파싱 오류 발생시 DEVICE 에 모든 헤더를 넣고 BRW 는 빈 값으로 설정. 
-			e.getStackTrace();
+			// e.getStackTrace();
 		}
 		return browser.trim();
 	}
