@@ -2,3 +2,32 @@
 .text-blue {color:blue}
 .text-white {color:#FFFFFF }
 * {font-family:'Nanum Barun Gothic';}
+
+.my-column {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.my-column-in{
+	padding-top: 0px;
+    padding-bottom: 0px;
+    padding-left: 1px;
+    padding-right: 1px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+.my-column-unit{
+	padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 1px;
+    padding-right: 1px;
+}
+.my-column:first-child {
+}
+.inner-content {
+    background: #eee;
+    border: #999;
+    border-radius: 5px;
+    padding: 2px;
+}

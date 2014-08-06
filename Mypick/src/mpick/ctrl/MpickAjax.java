@@ -82,6 +82,7 @@ public class MpickAjax extends HttpServlet{
 				StringBuffer outStr = new StringBuffer();
 				outStr.append("{");
 				if(shipMain.length == 1){
+					outStr.append("\"onum\":"+shipMain[0].get("onum")+",");
 					outStr.append("\"ship_id\":\""+shipMain[0].get("ship_id")+"\",");
 					outStr.append("\"ship_name\":\""+shipMain[0].get("ship_name")+"\",");
 					outStr.append("\"ship_url\":\""+shipMain[0].get("ship_url")+"\",");
