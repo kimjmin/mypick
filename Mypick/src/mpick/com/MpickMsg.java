@@ -11,7 +11,7 @@ public class MpickMsg {
 		
 		msg.append("<script> \n");
 		msg.append("	alert(\"로그인 후 이용해 주시기 바랍니다.\"); \n");
-		msg.append("	history.go(-1); \n");
+		msg.append("	location.replace('http://mypick.kr'); \n");
 		msg.append("</script> \n");
 		
 		return msg.toString();

@@ -92,6 +92,7 @@ for(int i=0; i < shMains.length; i++){
 </div>
 
 <script>
+var shipObj = new Array();
 $(function(){
     $("#shipIds").click(function(){
         var chk = $(this).is(":checked");
@@ -106,6 +107,7 @@ $(function(){
     $("#shipsSelected").click(function(){
     	var shList = "";
     	var shId = $(".shipId:checked");
+    	var sh=0;
     	for(var i=0; i<shId.length; i++){
     		
     		var param="cmd=shipInfo";
@@ -116,13 +118,18 @@ $(function(){
     			data : param,
     			url : "../Control/MpickAjax",
     			dataType:"json",
-    			success : function(dataCate) {
-    				
+    			success : function(dataShip) {
+    				shipObj[sh] = dataShip;
+    				sh++;
+    				console.log("sh: "+sh);
+					console.log("shId.length: "+shId.length);
+    				if(sh == shId.length){
+    					setShObj();
+    				}
     			}, error:function(e){  
     				console.log(e.responseText);  
     			}
     		});	
-    		
     		
     		shList += "<br/> "+shId.eq(i).val();
     		var shSel = $("#"+shId.eq(i).val()+"Sel");
@@ -132,6 +139,16 @@ $(function(){
     	$("#shipList").append(shList);
     });
 });
+
+function setShObj(){
+	console.log(shipObj.length);
+	for(var sh=0; sh < shipObj.length; sh++){
+		console.log(shipObj[sh]);
+		console.log(shipObj[sh].ship_name);
+		console.log(shipObj[sh].ship_levs[0].lev_name);
+		console.log(shipObj[sh].ship_levs[0].lev_vals[0].val_amount);
+	}
+}
 </script>
 
 

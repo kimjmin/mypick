@@ -77,41 +77,10 @@ public class MpickAjax extends HttpServlet{
 				outStr.append("}");
 				out.print(outStr.toString());
 			} else if(cmd.equals("shipInfo")){
-				/*
-				DataEntity[] shipData = dao.getShips();
-				StringBuffer outStr = new StringBuffer();
-				outStr.append("{");
-				outStr.append("\"ship_info\":[");
-				for(int i=0; i < shipData.length; i++){
-					outStr.append("{");
-					outStr.append("\"ship_id\":\""+shipData[i].get("ship_id")+"\",");
-					outStr.append("\"ship_name\":\""+shipData[i].get("ship_name")+"\",");
-					outStr.append("\"ship_url\":\""+shipData[i].get("ship_url")+"\",");
-					outStr.append("\"ship_levs\":[");
-					
-					DataEntity[] shipLevData = dao.getShipLevs(shipData[i].get("ship_id")+"");
-					for(int j=0; j < shipLevData.length; j++){
-						outStr.append("{");
-						outStr.append("\"lev_name\":\""+shipLevData[j].get("lev_name")+"\",");
-						outStr.append("\"lev_val\":\""+shipLevData[j].get("lev_val")+"\",");
-						outStr.append("\"lev_unit\":\""+shipLevData[j].get("lev_unit")+"\"");
-						outStr.append("}");
-						if(j < shipLevData.length-1){ outStr.append(","); }
-					}
-					
-					outStr.append("]");	
-					outStr.append("}");
-					if(i < shipData.length-1){ outStr.append(","); }
-				}
-				outStr.append("]");
-				outStr.append("}");
-				out.print(outStr.toString());
-				*/
 				String shipId = req.getParameter("shipId");
 				DataEntity[] shipMain = dao.getShMain(shipId);
 				StringBuffer outStr = new StringBuffer();
 				outStr.append("{");
-				outStr.append("\"ship_info\":{");
 				if(shipMain.length == 1){
 					outStr.append("\"ship_id\":\""+shipMain[0].get("ship_id")+"\",");
 					outStr.append("\"ship_name\":\""+shipMain[0].get("ship_name")+"\",");
@@ -127,9 +96,13 @@ public class MpickAjax extends HttpServlet{
 						outStr.append("\"lev_name\":\""+shipLev[j].get("lev_name")+"\",");
 						
 						outStr.append("\"lev_vals\":[");
-						DataEntity[] shipVals = dao.getShVals(shipId, (String)shipLev[j].get("lev_num"));
-						for(int k=0; k < shipLev.length; k++){
-							
+						DataEntity[] shipVals = dao.getShVals(shipId,shipLev[j].get("lev_num")+"");
+						for(int k=0; k < shipVals.length; k++){
+							outStr.append("{");
+							outStr.append("\"val_weight\":"+shipVals[k].get("val_weight")+",");
+							outStr.append("\"val_amount\":"+shipVals[k].get("val_amount")+"");
+							outStr.append("}");
+							if(k < shipVals.length-1){ outStr.append(","); }
 						}
 						outStr.append("]");	
 						
@@ -138,9 +111,7 @@ public class MpickAjax extends HttpServlet{
 					}
 					
 					outStr.append("]");	
-					outStr.append("}");
 				}
-				outStr.append("}");
 				outStr.append("}");
 				out.print(outStr.toString());
 			} else if(cmd.equals("cateInfo")){

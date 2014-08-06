@@ -106,7 +106,7 @@
     <tr class="template-download fade">
         <td>
             <span class="preview">
-                <button class="btn btn-success" data-type="GET" data-loading-text="적용중..." data-url="{%=file.appendUrl%}">
+                <button class="btn btn-success delete" data-type="GET" data-url="{%=file.appendUrl%}">
 					적용
 				</button>
             </span>
