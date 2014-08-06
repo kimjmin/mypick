@@ -9,7 +9,7 @@ DataEntity[] cate1s = dao.getCate1(selMenu);
 %>
 <script>
 
-function getArcTxt(cate2,title){
+function getArcTxt(cnt,cate2,title){
 	var params = "";
 	params += "cmd=arcText";
 	params += "&arcCate2="+cate2;
@@ -20,7 +20,8 @@ function getArcTxt(cate2,title){
 		url : "../Control/MpickAjax",
 		dataType:"text",
 		success : function(dataArcTxt) {
-			$("#arcTxt").html(dataArcTxt);
+			console.log(dataArcTxt);
+			$("#arcTxt"+cnt).html(dataArcTxt);
 		}, error:function(e){  
 			console.log(e.responseText);  
 		}
@@ -80,7 +81,7 @@ if(cate2s == null || cate2s.length == 0){
 	DataEntity[] titles = dao.getArcTitles(selMenu, cate1Name, cate2Name);
 	if(titles != null && titles.length == 1 && "".equals((String)titles[0].get("ar_title"))){
 	%>
-	<button type="button" class="btn btn-info" onclick='getArcTxt("<%=selMenu+"|"+cate1Name+"|"+cate2Name%>","");'><%=cate2Name%></button>
+	<button type="button" class="btn btn-info" onclick='getArcTxt("<%=i+""%>","<%=selMenu+"|"+cate1Name+"|"+cate2Name%>","");'><%=cate2Name%></button>
 	<%
 	} else {
 	%>
@@ -96,7 +97,7 @@ if(cate2s == null || cate2s.length == 0){
 				arcTxt = (String)arcData[0].get("ar_text");
 			}
 		%>
-		<li><a href='javascript:getArcTxt("<%=selMenu+"|"+cate1Name+"|"+cate2Name%>","<%=title%>");'><%=title%></a></li>
+		<li><a href='javascript:getArcTxt("<%=i+""%>","<%=selMenu+"|"+cate1Name+"|"+cate2Name%>","<%=title%>");'><%=title%></a></li>
 		<%
 		}
 		%>
@@ -113,7 +114,7 @@ if(cate2s == null || cate2s.length == 0){
 }
 %>
 <div class="col-md-12">
-	<div id='arcTxt'><%=arcTxt%></div>
+	<div id='arcTxt<%=i+""%>'><%=arcTxt%></div>
 </div>
 
 		</div>

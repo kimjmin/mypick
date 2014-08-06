@@ -234,7 +234,7 @@ public class FileCtrlXls extends HttpServlet {
 				XSSFSheet sheet = workbook.getSheetAt(cn);
 				sheetNm = sheet.getSheetName();
 				//취득된 sheet에서 rows수 취득
-				int rows = sheet.getLastRowNum();
+				int rows = sheet.getLastRowNum() + 1;
 				System.out.println(workbook.getSheetName(cn) + " sheet의 row수 : " + rows);
 				
 				XSSFCell shipId = null;
@@ -252,34 +252,35 @@ public class FileCtrlXls extends HttpServlet {
 						
 						dao.insertShMain(cn, shipId.toString(), shipName.toString(), shipUrl.toString(), wUnit.toString(), aUnit.toString());
 					}
-				}
-				
-				XSSFRow wRw = sheet.getRow(2);
-				for(int rw=3; rw < rows; rw++){
-					rawNum = rw;
-					XSSFRow row = sheet.getRow(rw);
-					if(row != null){
-						int cols = row.getLastCellNum();
-						// 배송대행지 등급 정보 저장.
-						if(cols > 1){
-							XSSFCell levName = row.getCell(0);
-							dao.insertShLevs(shipId.toString(), rw, levName.toString());
-						}
-						
-						for(int cl=1; cl < cols; cl++){
-							columNu = cl;
-							XSSFCell wCell = wRw.getCell(cl);
-							XSSFCell cell = row.getCell(cl);
-							if(cell != null){
-								try{
-									dao.insertShVals(shipId.toString(), rw, wCell.getRawValue(), cell.getRawValue());
-								} catch(Exception e) {
-									e.printStackTrace();
+					
+					XSSFRow wRw = sheet.getRow(2);
+					for(int rw=0; rw < (rows-3); rw++){
+						rawNum = rw;
+						XSSFRow row = sheet.getRow(rw);
+						if(row != null){
+							int rcols = row.getLastCellNum();
+							// 배송대행지 등급 정보 저장.
+							if(rcols > 1){
+								XSSFCell levName = row.getCell(0);
+								dao.insertShLevs(shipId.toString(), rw, levName.toString());
+							}
+							
+							for(int cl=1; cl < rcols; cl++){
+								columNu = cl;
+								XSSFCell wCell = wRw.getCell(cl);
+								XSSFCell cell = row.getCell(cl);
+								if(cell != null){
+									try{
+										dao.insertShVals(shipId.toString(), rw, wCell.getRawValue(), cell.getRawValue());
+									} catch(Exception e) {
+										e.printStackTrace();
+									}
+									
 								}
-								
 							}
 						}
 					}
+					
 				}
 			}
 		} catch (IOException e) {

@@ -17,10 +17,10 @@
 <form class="form-horizontal" role="form" action="javascript:transUnit();">
 <div class="row">
   <div class="form-group">
-    <div class="col-sm-2">
+    <div class="col-md-2">
 		<input type="number" class="form-control" id="wInput" max="1000000000" min="0" step="0.001" placeholder="무게">
     </div>
-    <div class="col-sm-2">
+    <div class="col-md-2">
 	    <select class="form-control" id="wSel">
 			<option value="lb" selected="selected">lb (파운드)</option>
 			<option value="kg">kg (킬로그램)</option>
@@ -28,13 +28,13 @@
 			<option value="oz">oz (온스)</option>
 		</select>		
     </div>
-    <div class="col-sm-1">
+    <div class="col-md-1">
     	<button type="submit" class="btn btn-primary">확인</button>
     </div>
   </div>
 </div>
 <div class="row">
-	<div class="col-sm-7">
+	<div class="col-md-7">
 	<table class="table table-bordered text-center">
 		<thead >
 		<tr class="info">
@@ -59,23 +59,23 @@
 <br/>
 <div class="row">
   <div class="form-group">
-    <div class="col-sm-2">
+    <div class="col-md-2">
 		<input type="number" class="form-control" id="lInput" max="1000000000" min="0" step="0.001" placeholder="길이">
     </div>
-    <div class="col-sm-2">
+    <div class="col-md-2">
 	    <select class="form-control" id="lSel">					
 			<option value="cm">cm (센티미터)</option>
 			<option value="in">in (인치)</option>
 			<option value="ft">ft (피트)</option>
 		</select>		
     </div>
-    <div class="col-sm-1">
+    <div class="col-md-1">
     	<button type="submit" class="btn btn-success">확인</button>
     </div>
   </div>
 </div>
 <div class="row">
-	<div class="col-sm-7">
+	<div class="col-md-7">
 	<table class="table table-bordered text-center">
 		<thead >
 		<tr class="success">
@@ -98,10 +98,10 @@
 <br/>
 <div class="row">
   <div class="form-group">
-    <div class="col-sm-2">
+    <div class="col-md-2">
 		<input type="number" class="form-control" id="vInput" max="1000000000" min="0" step="0.001" placeholder="부피">
     </div>
-    <div class="col-sm-3">
+    <div class="col-md-3">
 	    <select class="form-control" id="vSel">
 			<option value="floz">fl.oz (액량온스)</option>
 			<option value="gal">gal (갤런)</option>
@@ -109,13 +109,13 @@
 			<option value="cc">mL (밀리리터) / cc (씨씨)</option>
 		</select>
     </div>
-    <div class="col-sm-1">
+    <div class="col-md-1">
     	<button type="submit" class="btn btn-warning">확인</button>
     </div>
   </div>
 </div>
 <div class="row">
-	<div class="col-sm-7">
+	<div class="col-md-7">
 	<table class="table table-bordered text-center">
 		<thead >
 		<tr class="warning">

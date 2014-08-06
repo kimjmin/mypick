@@ -51,7 +51,6 @@ public class MpickLog {
 		str.append("\""+page+"\"");
 		str.append("}");
 		
-//		System.out.println(str.toString());
 		log.debug(str.toString());
 	}
 	
