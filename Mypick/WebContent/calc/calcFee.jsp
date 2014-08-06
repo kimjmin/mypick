@@ -123,6 +123,7 @@ $(function(){
     			}
     		});	
     		
+    		
     		shList += "<br/> "+shId.eq(i).val();
     		var shSel = $("#"+shId.eq(i).val()+"Sel");
     		shList += " "+shSel.val();

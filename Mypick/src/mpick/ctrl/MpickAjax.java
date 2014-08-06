@@ -108,33 +108,39 @@ public class MpickAjax extends HttpServlet{
 				out.print(outStr.toString());
 				*/
 				String shipId = req.getParameter("shipId");
-				DataEntity[] shipData = dao.getShLevs(shipId);
-				
+				DataEntity[] shipMain = dao.getShMain(shipId);
 				StringBuffer outStr = new StringBuffer();
 				outStr.append("{");
-				outStr.append("\"ship_info\":[");
-				for(int i=0; i < shipData.length; i++){
-					outStr.append("{");
-					outStr.append("\"ship_id\":\""+shipData[i].get("ship_id")+"\",");
-					outStr.append("\"ship_name\":\""+shipData[i].get("ship_name")+"\",");
-					outStr.append("\"ship_url\":\""+shipData[i].get("ship_url")+"\",");
+				outStr.append("\"ship_info\":{");
+				if(shipMain.length == 1){
+					outStr.append("\"ship_id\":\""+shipMain[0].get("ship_id")+"\",");
+					outStr.append("\"ship_name\":\""+shipMain[0].get("ship_name")+"\",");
+					outStr.append("\"ship_url\":\""+shipMain[0].get("ship_url")+"\",");
+					outStr.append("\"wunit\":\""+shipMain[0].get("wunit")+"\",");
+					outStr.append("\"aunit\":\""+shipMain[0].get("aunit")+"\",");
 					outStr.append("\"ship_levs\":[");
 					
-					DataEntity[] shipLevData = dao.getShipLevs(shipData[i].get("ship_id")+"");
-					for(int j=0; j < shipLevData.length; j++){
+					DataEntity[] shipLev = dao.getShLevs(shipId);
+					for(int j=0; j < shipLev.length; j++){
 						outStr.append("{");
-						outStr.append("\"lev_name\":\""+shipLevData[j].get("lev_name")+"\",");
-						outStr.append("\"lev_val\":\""+shipLevData[j].get("lev_val")+"\",");
-						outStr.append("\"lev_unit\":\""+shipLevData[j].get("lev_unit")+"\"");
+						outStr.append("\"lev_num\":\""+shipLev[j].get("lev_num")+"\",");
+						outStr.append("\"lev_name\":\""+shipLev[j].get("lev_name")+"\",");
+						
+						outStr.append("\"lev_vals\":[");
+						DataEntity[] shipVals = dao.getShVals(shipId, (String)shipLev[j].get("lev_num"));
+						for(int k=0; k < shipLev.length; k++){
+							
+						}
+						outStr.append("]");	
+						
 						outStr.append("}");
-						if(j < shipLevData.length-1){ outStr.append(","); }
+						if(j < shipLev.length-1){ outStr.append(","); }
 					}
 					
 					outStr.append("]");	
 					outStr.append("}");
-					if(i < shipData.length-1){ outStr.append(","); }
 				}
-				outStr.append("]");
+				outStr.append("}");
 				outStr.append("}");
 				out.print(outStr.toString());
 			} else if(cmd.equals("cateInfo")){

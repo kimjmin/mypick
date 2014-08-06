@@ -20,7 +20,6 @@ function getArcTxt(cnt,cate2,title){
 		url : "../Control/MpickAjax",
 		dataType:"text",
 		success : function(dataArcTxt) {
-			console.log(dataArcTxt);
 			$("#arcTxt"+cnt).html(dataArcTxt);
 		}, error:function(e){  
 			console.log(e.responseText);  

@@ -642,7 +642,15 @@ public class MpickDao {
 		data = dao.getResult(property, sql.toString(), null);
 		return data;
 	}
-	
+	public DataEntity[] getShMain(String shipId){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * FROM mp_sh_main where ship_id = ? order by onum");
+		String[] params = {shipId};
+		data = dao.getResult(property, sql.toString(), params);
+		return data;
+	}
 	/**
 	 * 배송대행업체 등급 불러오기.
 	 * @param shipId
@@ -664,12 +672,12 @@ public class MpickDao {
 	 * @param levName
 	 * @return
 	 */
-	public DataEntity[] getShVals(String shipId, String levName){
+	public DataEntity[] getShVals(String shipId, String levNum){
 		DataEntity[] data = null;
 		Dao dao = Dao.getInstance();
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT * FROM mp_sh_vals where ship_id = ? and lev_num = ? order by val_weight");
-		String[] params = {shipId, levName};
+		String[] params = {shipId, levNum};
 		data = dao.getResult(property, sql.toString(), params);
 		return data;
 	}
