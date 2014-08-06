@@ -254,7 +254,7 @@ public class FileCtrlXls extends HttpServlet {
 					}
 					
 					XSSFRow wRw = sheet.getRow(2);
-					for(int rw=0; rw < (rows-3); rw++){
+					for(int rw=3; rw < rows; rw++){
 						rawNum = rw;
 						XSSFRow row = sheet.getRow(rw);
 						if(row != null){
@@ -262,7 +262,7 @@ public class FileCtrlXls extends HttpServlet {
 							// 배송대행지 등급 정보 저장.
 							if(rcols > 1){
 								XSSFCell levName = row.getCell(0);
-								dao.insertShLevs(shipId.toString(), rw, levName.toString());
+								dao.insertShLevs(shipId.toString(), (rw-3), levName.toString());
 							}
 							
 							for(int cl=1; cl < rcols; cl++){
@@ -271,7 +271,7 @@ public class FileCtrlXls extends HttpServlet {
 								XSSFCell cell = row.getCell(cl);
 								if(cell != null){
 									try{
-										dao.insertShVals(shipId.toString(), rw, wCell.getRawValue(), cell.getRawValue());
+										dao.insertShVals(shipId.toString(), (rw-3), wCell.getRawValue(), cell.getRawValue());
 									} catch(Exception e) {
 										e.printStackTrace();
 									}
