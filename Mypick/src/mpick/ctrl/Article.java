@@ -82,6 +82,8 @@ public class Article {
 				result = (String)data[0].get("ar_text");
 			}
 		}
+		//이미지 리사이징 적용.
+		result = result.replaceAll("<img ", "<img class=\"img-responsive\"");
 		return result;
 	}
 	
