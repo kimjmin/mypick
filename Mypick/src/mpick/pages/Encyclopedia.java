@@ -38,6 +38,8 @@ public class Encyclopedia extends HttpServlet {
 				if(menuDatas.length > 0){
 					uri = (String)menuDatas[0].get("ar_menu_id");
 				}
+			} else {
+				uri = subUri;
 			}
 			req.getRequestDispatcher("/encl/encyclopedia.jsp?uri="+uri).include(req, res);
 		}
