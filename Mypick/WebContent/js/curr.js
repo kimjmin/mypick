@@ -5,7 +5,7 @@ function initCurr(){
 	$.ajax({
 		type : "GET",
 		data : params,
-		url : "../Control/MpickAjax",
+		url : hostUrl+"/Control/MpickAjax",
 		dataType:"json",
 		success : function(data) {
 			currData = data;

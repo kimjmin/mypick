@@ -16,7 +16,7 @@
 		pageName = "Comm";
 	}
 %>
-<script src="../js/nav.js"></script>
+<script src="<%=MpickParam.hostUrl%>/js/nav.js"></script>
 
 <nav class="navbar navbar-inverse" role="navigation">
 	<div class="navbar-header">
@@ -45,7 +45,7 @@ function goAdmin(){
 	var frm = document.getElementById("navFrm");
 	frm.toUrl.value="Admin";
 	frm.method="POST";
-	frm.action="../Admin/Ship";
+	frm.action="<%=MpickParam.hostUrl%>/Admin/Ship";
 	frm.submit();
 }
 </script>
@@ -73,7 +73,7 @@ if(userObjNav == null){
 				<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="../User/Modify">사용자정보 변경</a></li>
+				<li><a href="<%=MpickParam.hostUrl%>/User/Modify">사용자정보 변경</a></li>
 				<li><a href="#">환경설정</a></li>
 				<li class="divider"></li>
 				<li><a href="#">고객지원</a></li>

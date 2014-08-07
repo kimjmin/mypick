@@ -28,15 +28,20 @@ public class Calculator extends HttpServlet {
 			out.print(MpickMsg.loginError());
 		} else {
 			String uri = req.getRequestURI();
-			String m = "fee";
-			if(uri.indexOf("Tax") > 0){
-				m = "tax";
-			} else if(uri.indexOf("Trans") > 0){
-				m = "trans";
-			} else if(uri.indexOf("Volume") > 0){
-				m = "volume";
+			String subUri = uri.substring(uri.lastIndexOf("Calc/")+5);
+			if(subUri.indexOf("/") > 0){
+				out.print(MpickMsg.approachError());
+			} else {
+				String m = "fee";
+				if(uri.indexOf("Tax") > 0){
+					m = "tax";
+				} else if(uri.indexOf("Trans") > 0){
+					m = "trans";
+				} else if(uri.indexOf("Volume") > 0){
+					m = "volume";
+				}
+				req.getRequestDispatcher("/calc/calculator.jsp?m="+m).include(req, res);
 			}
-			req.getRequestDispatcher("/calc/calculator.jsp?m="+m).include(req, res);
 		}
 		
 	}

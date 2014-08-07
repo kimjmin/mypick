@@ -4,10 +4,10 @@
 * {font-family:'Nanum Barun Gothic';}
 
 .my-column {
-    padding-top: 3px;
-    padding-bottom: 3px;
-    padding-left: 3px;
-    padding-right: 3px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 .my-column-in{
 	padding-top: 0px;
@@ -22,8 +22,6 @@
     padding-bottom: 10px;
     padding-left: 1px;
     padding-right: 1px;
-}
-.my-column:first-child {
 }
 .inner-content {
     background: #eee;

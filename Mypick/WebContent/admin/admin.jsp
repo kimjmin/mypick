@@ -9,13 +9,9 @@ if(m == null || m.equals("")){ m="fee"; }
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Admin/MyPick</title>
-
-<!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="../css/bootstrap.min.css">
-<link rel="stylesheet" href="../css/mypick.css">
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/jquery.number.min.js"></script>
+<!-- 공통 라이브러리 시작 -->
+<%@include file="../ctrl/header.jsp"%>
+<!-- 공통 라이브러리 시작 -->
 </head>
 <body>
 	<div class="container">
@@ -54,7 +50,7 @@ if("ship".equals(m)){
 } else if("encl".equals(m)){
 %><%@include file="../admin/admEncycle.jsp"%><%	
 } else if("comm".equals(m)){
-%><%@include file="../admin/amdComm.jsp"%><%	
+%><%@include file="../admin/admComm.jsp"%><%	
 }
 %>
 

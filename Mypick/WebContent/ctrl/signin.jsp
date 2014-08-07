@@ -7,13 +7,10 @@
 <meta name="author" content="">
 
 <title>MyPick 회원 가입</title>
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<!-- 공통 라이브러리 시작 -->
+<%@include file="../ctrl/header.jsp"%>
+<!-- 공통 라이브러리 시작 -->
 <script src="../js/signin.js"></script>
-
-<!-- Bootstrap core CSS -->
-<link rel="stylesheet" href="../css/bootstrap.min.css">
-<link rel="stylesheet" href="../css/style.css">
 		
 </head>
 <body>

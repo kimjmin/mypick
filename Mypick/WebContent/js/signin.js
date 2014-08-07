@@ -23,7 +23,7 @@ function checkMail() {
 	$.ajax({
 		type : "GET",
 		data : "cmd=checkMail&email=" + tEmail,
-		url : "../Control/MpickAjax",
+		url : hostUrl+"/Control/MpickAjax",
 		dataType:"json",
 		success : function(data) {
 			console.log(data);
@@ -43,7 +43,7 @@ function checkNick(){
 	$.ajax({
 		type : "GET",
 		data : "cmd=checkNick&nicname=" + nick,
-		url : "../Control/MpickAjax",
+		url : hostUrl+"/Control/MpickAjax",
 		dataType:"json",
 		success : function(data) {
 			console.log(data);
@@ -84,8 +84,8 @@ function signup() {
 			console.log($("#email").val());
 			frm.method="post";
 			frm.cmd.value="insert";
-			frm.toUrl.value="../Calc/Fee";
-			frm.action="../Control/Confirm";
+			frm.toUrl.value=hostUrl+"/Calc/Fee";
+			frm.action=hostUrl+"/Control/Confirm";
 			frm.submit();
 		}
 	} else if(confVal.email == "N"){
@@ -109,7 +109,7 @@ function checkModifNick(preNick){
 		$.ajax({
 			type : "GET",
 			data : "cmd=checkNick&nicname=" + nick,
-			url : "../Control/MpickAjax",
+			url : hostUrl+"/Control/MpickAjax",
 			dataType:"json",
 			success : function(data) {
 				console.log(data);
@@ -131,8 +131,8 @@ function modify(){
 		if(confirm("회원 정보를 수정하시겠습니까?")){
 			frm.method="post";
 			frm.cmd.value="modify";
-			frm.toUrl.value="../Calc/Fee";
-			frm.action="../Control/Confirm";
+			frm.toUrl.value=hostUrl+"/Calc/Fee";
+			frm.action=hostUrl+"/Control/Confirm";
 			frm.submit();
 		}
 	} else if(confVal.passwd == "N"){

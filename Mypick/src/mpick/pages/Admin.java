@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import mpick.com.MpickMsg;
-import mpick.com.MpickParam;
 import mpick.com.MpickUserObj;
 
 public class Admin extends HttpServlet {
@@ -28,13 +27,18 @@ public class Admin extends HttpServlet {
 			out.print(MpickMsg.approachError());
 		} else {
 			String uri = req.getRequestURI();
-			String m = "ship";
-			if(uri.indexOf("Encl") > 0){
-				m = "encl";
-			} else if(uri.indexOf("Comm") > 0){
-				m = "comm";
+			String subUri = uri.substring(uri.lastIndexOf("Admin/")+6);
+			if(subUri.indexOf("/") > 0){
+				out.print(MpickMsg.approachError());
+			} else {
+				String m = "ship";
+				if(uri.indexOf("Encl") > 0){
+					m = "encl";
+				} else if(uri.indexOf("Comm") > 0){
+					m = "comm";
+				}
+				req.getRequestDispatcher("/admin/admin.jsp?m="+m).include(req, res);
 			}
-			req.getRequestDispatcher("/admin/admin.jsp?m="+m).include(req, res);
 		}
 		
 	}
