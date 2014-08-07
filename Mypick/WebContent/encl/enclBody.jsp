@@ -74,6 +74,12 @@ if(cate2s == null || cate2s.length == 0){
 	<%
 	for(int j=0; j<cate2s.length; j++){
 		String cate2Name = (String)cate2s[j].get("ar_cate_name");
+		if(j==0){
+			DataEntity[] arcCate3Data = dao.getArticle(selMenu, cate1Name, cate2Name, "");
+			if(arcCate3Data != null && arcCate3Data.length == 1){
+				arcTxt = (String)arcCate3Data[0].get("ar_text");
+			}
+		}
 	%>
 <div class="btn-group">
 	<%
@@ -93,7 +99,9 @@ if(cate2s == null || cate2s.length == 0){
 			String title = (String)titles[k].get("ar_title");
 			if(j==0 && k==0){
 				DataEntity[] arcData = dao.getArticle(selMenu, cate1Name, cate2Name, title);
-				arcTxt = (String)arcData[0].get("ar_text");
+				if(arcData != null && arcData.length == 1){
+					arcTxt = (String)arcData[0].get("ar_text");
+				}
 			}
 		%>
 		<li><a href='javascript:getArcTxt("<%=i+""%>","<%=selMenu+"|"+cate1Name+"|"+cate2Name%>","<%=title%>");'><%=title%></a></li>
