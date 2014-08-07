@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="jm.net.DataEntity,mpick.com.MpickDao,mpick.ctrl.Article"%>
 <%
-String uri = request.getParameter("uri");
-String selMenu = uri.substring(uri.lastIndexOf("Encl/")+5);
-
+String selMenu = request.getParameter("uri");
 MpickDao dao = MpickDao.getInstance();
 DataEntity[] cate1s = dao.getCate1(selMenu);
 %>

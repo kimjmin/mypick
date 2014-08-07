@@ -1,12 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="mpick.com.MpickMsg"%>
-<%
-	//사용자 로그인 체크하는 로직. 모든 페이지에 반드시 포함할것.
-	MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
-	if(userObj == null || !"ADMIN".equals(userObj.getState())){
-		out.print(MpickMsg.loginError());
-	} else {
-%>
 <%
 String m = request.getParameter("m"); 
 if(m == null || m.equals("")){ m="fee"; }
@@ -31,11 +23,7 @@ if(m == null || m.equals("")){ m="fee"; }
 <!-- 상단 네비게이션 메뉴 시작 -->	
 <%@include file="../ctrl/navbar.jsp"%>
 <!-- 상단 네비게이션 메뉴 끝 -->
-<%
-if(userObj == null){
-	out.print(MpickMsg.approachError());
-} else {
-%>
+
 		<div class="row">
 			<div class="col-sm-3">			
 <!-- 좌측 메뉴 시작 -->
@@ -79,7 +67,3 @@ if("ship".equals(m)){
 
 </body>
 </html>
-<% } %>
-<% 
-} 
-%>

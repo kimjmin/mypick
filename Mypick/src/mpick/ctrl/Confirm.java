@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import mpick.com.MpickDao;
+import mpick.com.MpickParam;
 import mpick.com.MpickUserObj;
 
 public class Confirm extends HttpServlet {
@@ -96,7 +97,7 @@ public class Confirm extends HttpServlet {
 			if(toUrl != null && !toUrl.equals("")){
 				res.sendRedirect(toUrl);
 			} else {
-				res.sendRedirect("../Calc/Fee");
+				res.sendRedirect(MpickParam.hostUrl);
 			}
 		} else if(toUrl != null && cmd != null && cmd.equals("saveShip")){
 			//배송대행지 저장.

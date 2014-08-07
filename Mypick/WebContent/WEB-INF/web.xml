@@ -2,6 +2,25 @@
 <web-app>
 	<display-name>Mpick</display-name>
 	
+	<!-- JSP 직접 접근 차단 시작 -->
+	<security-constraint>
+		<display-name>JSP Protection</display-name>
+		<web-resource-collection>
+			<web-resource-name>SecureJSPPages</web-resource-name>
+			<url-pattern>*.jsp</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			<role-name>nobody</role-name>
+		</auth-constraint>
+	</security-constraint>
+	
+	<security-role>
+		<description>Nobody should be in this role so JSP files are protected from direct access.</description>
+		<role-name>nobody</role-name>
+	</security-role>
+	<!-- JSP 직접 접근 차단 끝 -->
+	
+	<!-- Control 서블릿 시작 -->
 	<servlet>
 		<servlet-name>ControlConfirm</servlet-name>
 		<servlet-class>mpick.ctrl.Confirm</servlet-class>
@@ -19,69 +38,38 @@
 		<servlet-name>ControlMpickAjax</servlet-name>
 		<url-pattern>/Control/MpickAjax/*</url-pattern>
 	</servlet-mapping>
+	<!-- Control 서블릿 끝 -->
 	
+	<!-- 사용자 관련 페이지 시작 -->
 	<servlet>
-		<servlet-name>ControlSignin</servlet-name>
-		<servlet-class>mpick.ctrl.Signin</servlet-class>
+		<servlet-name>User</servlet-name>
+		<servlet-class>mpick.pages.User</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>ControlSignin</servlet-name>
-		<url-pattern>/Control/Signin/*</url-pattern>
+		<servlet-name>User</servlet-name>
+		<url-pattern>/User/*</url-pattern>
 	</servlet-mapping>
+	<!-- 사용자 관련 페이지 끝 -->
 	
+	<!-- 시작 페이지 시작 -->
 	<servlet>
-		<servlet-name>ControlReady</servlet-name>
-		<servlet-class>mpick.ctrl.Ready</servlet-class>
+		<servlet-name>PageInit</servlet-name>
+		<servlet-class>mpick.pages.Init</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>ControlReady</servlet-name>
-		<url-pattern>/Control/Ready/*</url-pattern>
+		<servlet-name>PageInit</servlet-name>
+		<url-pattern>/Page/Welcome/*</url-pattern>
 	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>ControlModify</servlet-name>
-		<servlet-class>mpick.ctrl.Modify</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ControlModify</servlet-name>
-		<url-pattern>/Control/Modify/*</url-pattern>
-	</servlet-mapping>
+	<!-- 시작 페이지 끝 -->
 	
 	<!-- Calculator 관련 페이지 시작 -->
 	<servlet>
-		<servlet-name>CalcFee</servlet-name>
+		<servlet-name>Calc</servlet-name>
 		<servlet-class>mpick.pages.Calculator</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>CalcFee</servlet-name>
-		<url-pattern>/Calc/Fee/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>CalcTax</servlet-name>
-		<servlet-class>mpick.pages.Calculator</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>CalcTax</servlet-name>
-		<url-pattern>/Calc/Tax/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>CalcTrans</servlet-name>
-		<servlet-class>mpick.pages.Calculator</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>CalcTrans</servlet-name>
-		<url-pattern>/Calc/Trans/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>CalcVolume</servlet-name>
-		<servlet-class>mpick.pages.Calculator</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>CalcVolume</servlet-name>
-		<url-pattern>/Calc/Volume/*</url-pattern>
+		<servlet-name>Calc</servlet-name>
+		<url-pattern>/Calc/*</url-pattern>
 	</servlet-mapping>
 	<!-- Calculator 관련 페이지 끝 -->
 	
@@ -94,7 +82,6 @@
 		<servlet-name>Encl</servlet-name>
 		<url-pattern>/Encl/*</url-pattern>
 	</servlet-mapping>
-	
 	<!-- Encyclopedia 관련 페이지 끝 -->
 	
 	<!-- Community 관련 페이지 시작 -->
@@ -110,33 +97,16 @@
 	
 	<!-- Admin 관련 페이지 시작 -->
 	<servlet>
-		<servlet-name>AdminShip</servlet-name>
+		<servlet-name>Admin</servlet-name>
 		<servlet-class>mpick.pages.Admin</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>AdminShip</servlet-name>
-		<url-pattern>/Admin/Ship/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>AdminEncl</servlet-name>
-		<servlet-class>mpick.pages.Admin</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AdminEncl</servlet-name>
-		<url-pattern>/Admin/Encl/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
-		<servlet-name>AdminComm</servlet-name>
-		<servlet-class>mpick.pages.Admin</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>AdminComm</servlet-name>
-		<url-pattern>/Admin/Comm/*</url-pattern>
+		<servlet-name>Admin</servlet-name>
+		<url-pattern>/Admin/*</url-pattern>
 	</servlet-mapping>
 	<!-- Admin 관련 페이지 끝 -->
 	
+	<!-- 파일 처리 관련 페이지 시작 -->
 	<servlet>
 		<servlet-name>FileCtrl</servlet-name>
 		<servlet-class>mpick.ctrl.FileCtrl</servlet-class>
@@ -154,5 +124,6 @@
 		<servlet-name>FileCtrlXls</servlet-name>
 		<url-pattern>/Control/FileCtrlXls/*</url-pattern>
 	</servlet-mapping>
+	<!-- 파일 처리 관련 페이지 끝 -->
 	
 </web-app>

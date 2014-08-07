@@ -13,28 +13,27 @@ import mpick.com.MpickMsg;
 import mpick.com.MpickParam;
 import mpick.com.MpickUserObj;
 
-public class Admin extends HttpServlet {
+public class User extends HttpServlet {
 	
 	private static final long serialVersionUID = -58333958913951824L;
 	
 	public void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		res.setContentType("text/html; charset=UTF-8");
-		
 		HttpSession session = req.getSession();
 		MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
 		PrintWriter out = res.getWriter();
-		//무조건 로그인 해야 보임. ADMIN 일 때만.
-		if(userObj == null || !"ADMIN".equals(userObj.getState())){
+		//로그인 체크. MpickParam.login == true 일 때만 체크.
+		if( "true".equals(MpickParam.login) && (userObj == null || "".equals(userObj.getEmail())) ){
 			out.print(MpickMsg.approachError());
 		} else {
 			String uri = req.getRequestURI();
-			String m = "ship";
-			if(uri.indexOf("Encl") > 0){
-				m = "encl";
-			} else if(uri.indexOf("Comm") > 0){
-				m = "comm";
+			String nextUrl = MpickParam.hostUrl;
+			if(uri.indexOf("Modify") > 0){
+				nextUrl = "/ctrl/user_modify.jsp";
+			} else if(uri.indexOf("Signin") > 0){
+				nextUrl = "/ctrl/signin.jsp";
 			}
-			req.getRequestDispatcher("/admin/admin.jsp?m="+m).include(req, res);
+			req.getRequestDispatcher(nextUrl).include(req, res);
 		}
 		
 	}

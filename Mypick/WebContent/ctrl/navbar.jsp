@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="mpick.com.MpickUserObj,mpick.com.MpickLog"%>
+<%@ page import="mpick.com.MpickParam,mpick.com.MpickUserObj,mpick.com.MpickLog"%>
 <%
 	MpickLog.debug(request);
 	MpickUserObj userObjNav = (MpickUserObj) session.getAttribute("mpUserObj");
 	String toUrl = request.getRequestURI();
-	if (toUrl == null || toUrl.equals("")){ toUrl = "Calc/Fee"; }
+	if (toUrl == null || toUrl.equals("")){ toUrl = MpickParam.initPage; }
 	String pageName = "";
 	if (toUrl.indexOf("Admin") > 0){
 		pageName = "Admin";
@@ -73,7 +73,7 @@ if(userObjNav == null){
 				<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="../Control/Modify">사용자정보 변경</a></li>
+				<li><a href="../User/Modify">사용자정보 변경</a></li>
 				<li><a href="#">환경설정</a></li>
 				<li class="divider"></li>
 				<li><a href="#">고객지원</a></li>

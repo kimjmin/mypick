@@ -1,16 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="jm.net.DataEntity,mpick.com.MpickDao,mpick.ctrl.Article"%>
-<%@ page import="mpick.com.MpickMsg"%>
-<%
-	//사용자 로그인 체크하는 로직. 모든 페이지에 반드시 포함할것.
-	MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
-	if(userObj == null || "".equals(userObj.getEmail())){
-		out.print(MpickMsg.loginError());
-	} else {
-%>
 <%
 String uriM = request.getParameter("uri");
-String selMenuM = uriM.substring(uriM.lastIndexOf("Encl/")+5);
 
 MpickDao daoM = MpickDao.getInstance();
 DataEntity[] menuDatas = daoM.getMenu();
@@ -53,7 +44,7 @@ for(DataEntity menuData : menuDatas){
 	String menuId = (String)menuData.get("ar_menu_id");
 	String menuName = (String)menuData.get("ar_menu_name");
 %>
-	<a href="../Encl/<%=menuId%>" class="list-group-item <%if(selMenuM.equals(menuId)){out.print("active");}%>"><%=menuName%></a>
+	<a href="../Encl/<%=menuId%>" class="list-group-item <%if(uriM.equals(menuId)){out.print("active");}%>"><%=menuName%></a>
 <%	
 }
 %>
@@ -79,6 +70,3 @@ for(DataEntity menuData : menuDatas){
 
 </body>
 </html>
-<%
-}
-%>

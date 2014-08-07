@@ -1,12 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="mpick.com.MpickMsg"%>
-<%
-	//사용자 로그인 체크하는 로직. 모든 페이지에 반드시 포함할것.
-	MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
-	if(userObj == null || "".equals(userObj.getEmail())){
-		out.print(MpickMsg.loginError());
-	} else {
-%>
 <%
 String m = request.getParameter("m"); 
 if(m == null || m.equals("")){ m="fee"; }
@@ -77,6 +69,3 @@ if("fee".equals(m)){
 
 </body>
 </html>
-<%
-}
-%>
