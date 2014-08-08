@@ -120,7 +120,7 @@ $(function(){
     		$.ajax({
     			type : "GET",
     			data : param,
-    			url : "../Control/MpickAjax",
+    			url : hostUrl+"/Control/MpickAjax",
     			dataType:"json",
     			success : function(dataShip) {
 //    				var onum = Number(dataShip.onum);
@@ -142,6 +142,7 @@ $(function(){
  * 배송대행지 선택 후 추가.
  */
 function setShObj(){
+	amtOrderObj = new Object();
 	$("#shipList").html("");
 	setShListTitle();
 	for(var sh=0; sh < shipObj.length; sh++){

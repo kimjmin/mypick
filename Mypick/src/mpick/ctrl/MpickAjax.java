@@ -1,5 +1,7 @@
 package mpick.ctrl;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -7,8 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import jm.com.JmProperties;
 import jm.net.DataEntity;
 import mpick.com.MpickDao;
+import mpick.com.MpickParam;
 
 public class MpickAjax extends HttpServlet{
 	
@@ -211,6 +220,125 @@ public class MpickAjax extends HttpServlet{
 			} else if(cmd.equals("arcText")){
 				Article arc = new Article();
 				out.print(arc.getArticle(req, res));
+			} else if(cmd.equals("shipXl")){
+				String xlCmd = req.getParameter("xlCmd");
+				String fileName = req.getParameter("fileName");
+				if(( xlCmd != null && !xlCmd.equals("") ) && ( fileName != null && !fileName.equals("") )){
+					JmProperties property = new JmProperties(MpickParam.property);
+					File xlsPath = new File(property.get("xlsPath"));
+					File file = new File(xlsPath, fileName);
+					String retJson = "";
+					
+					int shNum = 0;
+					int levNum = 0;
+					int valNum= 0;
+					
+					try {
+						FileInputStream inputStream = new FileInputStream(file);
+						XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
+						if(xlCmd.equals("workBook")){
+							dao.deleteAllSh();
+							int sheetCn = workbook.getNumberOfSheets();
+							retJson += "{\"sheetCnt\":"+sheetCn+"}";
+							
+						} else if(xlCmd.equals("insShip")){
+							shNum = Integer.parseInt(req.getParameter("shipNum"));
+							XSSFSheet sheet = workbook.getSheetAt(shNum);
+							int rows = sheet.getLastRowNum()+1;
+							if(rows>1){
+								XSSFRow row1 = sheet.getRow(1);
+								XSSFCell shipId = null;
+								int cols = row1.getLastCellNum();
+								if(cols == 5){
+									shipId = row1.getCell(0);
+									XSSFCell shipName = row1.getCell(1);
+									XSSFCell shipUrl = row1.getCell(2);
+									XSSFCell wUnit = row1.getCell(3);
+									XSSFCell aUnit = row1.getCell(4);
+									
+									retJson += "{";
+									retJson += "\"shipId\":\""+shipId+"\",";
+									retJson += "\"shipName\":\""+shipName+"\",";
+									retJson += "\"shipUrl\":\""+shipUrl+"\",";
+									retJson += "\"wUnit\":\""+wUnit+"\",";
+									retJson += "\"aUnit\":\""+aUnit+"\",";
+									retJson += "\"levs\":\""+(rows-3)+"\",";
+									retJson += "\"rows\":\""+rows+"\",";
+									retJson += "\"levNames\":[";
+									for(int lv=3; lv<rows; lv++){
+										XSSFRow lnRow = sheet.getRow(lv);
+										XSSFCell levName = lnRow.getCell(0);
+										retJson += "\""+levName.toString()+"\"";
+										if(lv < (rows-1)){
+											retJson += ",";
+										}
+									}
+									retJson += "]";
+									retJson += "}";
+									dao.insertShMain(shNum, shipId.toString(), shipName.toString(), shipUrl.toString(), wUnit.toString(), aUnit.toString());
+								} else {
+									retJson += (shNum+1)+"번 째 Sheet 오류 : ";
+									retJson += "업체 정보가 불충분하거나 명확하지 않습니다. A2~E2 셀을 확인하세요.";
+								}
+							} else {
+								retJson += (shNum+1)+"번 째 Sheet 오류 : ";
+								retJson += "정보가 없습니다.";
+							}
+						} else if(xlCmd.equals("insLevs")){
+							shNum = Integer.parseInt(req.getParameter("shipNum"));
+							levNum = Integer.parseInt(req.getParameter("levNum"));
+							XSSFSheet sheet = workbook.getSheetAt(shNum);
+							int rows = sheet.getLastRowNum()+1;
+							StringBuffer errMsg = new StringBuffer();
+							if(rows>2){
+								XSSFRow row1 = sheet.getRow(1);
+								XSSFRow wRw = sheet.getRow(2);
+								XSSFCell shipId = row1.getCell(0);
+								retJson += "{";
+								retJson += "\"shipId\":\""+shipId+"\",";
+								XSSFRow row = sheet.getRow(levNum+3);
+								if(row != null){
+									int rcols = row.getLastCellNum();
+									if(rcols > 1){
+										XSSFCell levName = row.getCell(0);
+										retJson += "\"levName\":\""+levName.toString()+"\",";
+										dao.insertShLevs(shipId.toString(), levNum, levName.toString());
+										for(int cl=1; cl < rcols; cl++){
+											valNum = cl;
+											XSSFCell wCell = wRw.getCell(cl);
+											XSSFCell cell = row.getCell(cl);
+											
+											if(cell != null){
+												try{
+													dao.insertShVals(shipId.toString(), levNum, wCell.getRawValue(), cell.getRawValue());
+												} catch(Exception e){
+													errMsg.append((valNum)+", ");
+												}
+											}
+										}
+									}
+									retJson += "\"errMsg\":\""+errMsg.toString()+"\",";
+									retJson += "\"valNums\":"+(rcols-1)+"";
+								}
+								retJson += "}";
+							} else {
+								retJson += (levNum+1)+"번 째 등급 오류 : ";
+								retJson += "정보가 없습니다.";
+							}
+						}
+						
+					} catch (IOException e) {
+						e.printStackTrace();
+						StringBuffer errorMsg = new StringBuffer();
+						errorMsg.append("오류 발생 : \n");
+						errorMsg.append((shNum+1)+ "\t번째 Sheet \n");
+						errorMsg.append((levNum+1)+ "\t번째 레벨\n");
+						errorMsg.append((valNum)+"\t번째 값.\n");
+						System.out.println(errorMsg.toString());
+						out.print(errorMsg.toString());
+					}
+					out.println(retJson);
+				}
 			}
 			
 		}

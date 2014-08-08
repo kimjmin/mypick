@@ -10,21 +10,160 @@
 	<link rel="stylesheet" href="../css/jquery.fileupload-ui-noscript.css">
 </noscript>
 
-<blockquote>
-  <p>파일명은 반드시 영문으로, .xlsx 형식으로 저장하십시오.<br/>
-  각 Sheet 별로 하나의 배송대행지 정보를 입력하십시오.<br/>
-  2열에는 업체 id, 업체명, 업체URL, 요율단위, 환율단위가 차례대로 들어갑니다.<br/>
-   - 업체 id 는 10자 내의 알파벳 소문자로 입력하십시오.<br/>
-   - 요율 단위는 : lb, kg, g, oz 중 하나로 입력한다. 소문자 알파벳으로만 입력하십시오.<br/>
-   - 환율 단위는 : USD, JPY, KRW 과 같이 3자리 알파벳 대문자로 입력하십시오.<br/>
-  A3 셀은 비워둡니다.<br/>
-  B3~ 부터 3열에 요율을 입력합니다. 입력은 반드시 숫자로만 입력합니다.<br/>
-  A4~ 부터 A행에 등급명을 입력합니다. 등급명은 20자 내로 입력합니다.<br/>
-  B4~ 부터 각 행/열 의 등급별 요율에 해당하는 금액을 숫자로만 입력합니다.<br/>
-  자료가 끝날 때 까지 공백 행 또는 열이 있으면 안됩니다.<br/>
-  합쳐진 셀이 있으면 안됩니다.</p>
-</blockquote>
+<ul class="list-unstyled">
+	<li>파일명은 반드시 영문으로, .xlsx 형식으로 저장하십시오.</li>
+	<li>각 Sheet 별로 하나의 배송대행지 정보를 입력하십시오.</li>
+	<li>2열에는 업체 id, 업체명, 업체URL, 요율단위, 환율단위가 차례대로 들어갑니다.</li>
+	<ul>
+		<li>업체 id 는 <span class="text-primary">10자 내의 알파벳 소문자</span>로 입력하십시오.</li>
+		<li>요율 단위는 : <code>lb</code>, <code>kg</code>, <code>g</code>, <code>oz</code> 중 하나만, 소문자 알파벳으로만 입력하십시오.</li>
+		<li>환율 단위는 : <code>USD</code>, <code>JPY</code>, <code>KRW</code> 과 같이 3자리 알파벳 대문자로 입력하십시오.</li>
+	</ul>
+	<li>A3 셀은 비워둡니다.</li>
+	<li>B3~ 부터 3열에 요율을 입력합니다. 반드시 숫자만 입력합니다.</li>
+	<li>A4~ 부터 A행에 등급명을 입력합니다. 등급명은 20자 내로 입력합니다.</li>
+	<li>B4~ 부터 각 행/열 의 등급별 요율에 해당하는 금액을 숫자로만 입력합니다.</li>
+	<li>자료가 끝날 때 까지 공백 행 또는 열이 있으면 안되며 합쳐진 셀 또한 있으면 안됩니다.</li>
+</ul>
 
+<div class="modal fade" id="xStatlModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      
+      <div class="modal-body">
+      
+<div class="progress progress-striped active">
+  <div id="xlProgBar" class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100">
+    <span id="xlProgTxt"></span>
+  </div>
+</div>
+
+<textarea id="xlLog" class="form-control" rows="6"></textarea>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+var shNums=0;
+var levNums=0;
+var levObj = new Object();
+function getWorbook(fileName){
+	$("#xlLog").val(fileName+" 파일 읽는중\t");
+	
+	var param="cmd=shipXl";
+	param += "&";
+	param += "xlCmd=workBook";
+	param += "&";
+	param += "fileName="+fileName;
+	$.ajax({
+		type : "GET",
+		data : param,
+		url : hostUrl+"/Control/MpickAjax",
+		dataType:"json",
+		success : function(xl) {
+			$("#xlLog").val($("#xlLog").val()+"- \t로딩 완료.\n전체 Sheet 수 - "+xl.sheetCnt);
+			shNums = Number(xl.sheetCnt);
+			getSheet(fileName, 0, 0);
+		}, error:function(e){  
+			$("#xlLog").append("오류 발생 :\n"+e.responseText);
+			console.log(e.responseText);  
+		}
+	});	
+}
+function getSheet(fileName, shCnt, levCnt){
+	$("#xlLog").val($("#xlLog").val()+"\n\n\tSheet "+(shCnt+1)+": 입력 시작.");
+	var param="cmd=shipXl";
+	param += "&";
+	param += "xlCmd=insShip";
+	param += "&";
+	param += "fileName="+fileName;
+	param += "&";
+	param += "shipNum="+shCnt;
+	$.ajax({
+		type : "GET",
+		data : param,
+		url : hostUrl+"/Control/MpickAjax",
+		dataType:"json",
+		success : function(xl) {
+			levObj = xl;
+			levNums = xl.levs;
+			$("#xlLog").val($("#xlLog").val()+"\n\t\t업체명 - "+xl.shipName+"\t/\t전체 등급 수 - "+levNums);
+			getRow(fileName, shCnt, levCnt);
+		}, error:function(e){  
+			$("#xlLog").append("오류 발생 :\n"+e.responseText);
+			console.log(e.responseText);  
+		}
+	});
+}
+function getRow(fileName, shCnt, levCnt){
+	$("#xlLog").val($("#xlLog").val()+"\n\t\t\t"+(levCnt+1)+".\t["+levObj.levNames[levCnt]+"]");
+	var param="cmd=shipXl";
+	param += "&";
+	param += "xlCmd=insLevs";
+	param += "&";
+	param += "fileName="+fileName;
+	param += "&";
+	param += "shipNum="+shCnt;
+	param += "&";
+	param += "levNum="+levCnt;
+	$.ajax({
+		type : "GET",
+		data : param,
+		url : hostUrl+"/Control/MpickAjax",
+		dataType:"json",
+		success : function(xl) {
+			$("#xlLog").val($("#xlLog").val()+"\t-\t완료");
+			$("#xlLog").val($("#xlLog").val()+"\t/\t등급 갯수 : "+xl.valNums);
+			$("#xlLog").val($("#xlLog").val()+"\t/\t입력 오류 행 : "+xl.errMsg);
+			levCnt++;
+			if(levCnt < levNums){
+				getRow(fileName, shCnt, levCnt);
+			} else {
+				shCnt++;
+				progress(shCnt, shNums);
+				if(shCnt < shNums){
+					getSheet(fileName, shCnt, 0);
+				} else {
+					$("#xlLog").val($("#xlLog").val()+"\n"+fileName+" 파일 입력 완료.");
+					var selBtn = document.getElementById(fileName+"Btn");
+					selBtn.removeAttribute("disabled");
+				}
+			}
+		}, error:function(e){  
+			$("#xlLog").append("오류 발생 :\n"+e.responseText);
+			console.log(e.responseText);  
+		}
+	});
+}
+
+function insertXl(fileName){
+	console.log(fileName);
+	$('#xStatlModal').modal();
+	/*
+	$('#xStatlModal').on('hidden.bs.modal', function () {
+		var selBtn = document.getElementById(fileName+"Btn");
+		selBtn.removeAttribute("disabled");
+		//왜그런지 모르겠는데 제이쿼리 안먹음.
+	});
+	*/
+	getWorbook(fileName);
+}
+function progress(don,tot){
+	var donPer = 0;
+	if(tot > 0){
+		donPer = (don / tot) * 100;
+	}
+	$("#xlProgBar").attr("style","width: "+donPer+"%");
+	$("#xlProgTxt").html("("+don + "/" +tot+") 완료");
+}
+</script>
+
+<br/>
 	<form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
         <!-- Redirect browsers with JavaScript disabled to the origin page -->
         <noscript><input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/"></noscript>
@@ -106,8 +245,8 @@
     <tr class="template-download fade">
         <td>
             <span class="preview">
-                <button class="btn btn-success delete" data-type="GET" data-url="{%=file.appendUrl%}">
-					적용
+                <button class="btn btn-info start" id="{%=file.name%}Btn" onclick="insertXl('{%=file.name%}',this);">
+					엑셀자료 입력
 				</button>
             </span>
         </td>
