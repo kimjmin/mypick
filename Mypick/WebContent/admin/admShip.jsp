@@ -117,8 +117,8 @@ function getRow(fileName, shCnt, levCnt){
 		url : hostUrl+"/Control/MpickAjax",
 		dataType:"json",
 		success : function(xl) {
-			$("#xlLog").val($("#xlLog").val()+"\t-\t완료");
-			$("#xlLog").val($("#xlLog").val()+"\t/\t등급 갯수 : "+xl.valNums);
+			$("#xlLog").val($("#xlLog").val()+"\t-\t완료 ");
+			$("#xlLog").val($("#xlLog").val()+"\t/\t등급 개수 : "+xl.valNums);
 			$("#xlLog").val($("#xlLog").val()+"\t/\t입력 오류 행 : "+xl.errMsg);
 			levCnt++;
 			if(levCnt < levNums){

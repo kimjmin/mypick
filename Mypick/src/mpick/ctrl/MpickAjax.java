@@ -266,9 +266,13 @@ public class MpickAjax extends HttpServlet{
 									retJson += "\"rows\":\""+rows+"\",";
 									retJson += "\"levNames\":[";
 									for(int lv=3; lv<rows; lv++){
-										XSSFRow lnRow = sheet.getRow(lv);
-										XSSFCell levName = lnRow.getCell(0);
-										retJson += "\""+levName.toString()+"\"";
+										try{
+											XSSFRow lnRow = sheet.getRow(lv);
+											XSSFCell levName = lnRow.getCell(0);
+											retJson += "\""+levName.toString()+"\"";
+										} catch(Exception e){
+											retJson += "\""+"!!입력오류!!"+"\"";
+										}
 										if(lv < (rows-1)){
 											retJson += ",";
 										}
@@ -297,8 +301,10 @@ public class MpickAjax extends HttpServlet{
 								retJson += "{";
 								retJson += "\"shipId\":\""+shipId+"\",";
 								XSSFRow row = sheet.getRow(levNum+3);
+								int tCols = 0;
 								if(row != null){
 									int rcols = row.getLastCellNum();
+									tCols = rcols-1;
 									if(rcols > 1){
 										XSSFCell levName = row.getCell(0);
 										retJson += "\"levName\":\""+levName.toString()+"\",";
@@ -317,9 +323,9 @@ public class MpickAjax extends HttpServlet{
 											}
 										}
 									}
-									retJson += "\"errMsg\":\""+errMsg.toString()+"\",";
-									retJson += "\"valNums\":"+(rcols-1)+"";
 								}
+								retJson += "\"errMsg\":\""+errMsg.toString()+"\",";
+								retJson += "\"valNums\":"+tCols+"";
 								retJson += "}";
 							} else {
 								retJson += (levNum+1)+"번 째 등급 오류 : ";
