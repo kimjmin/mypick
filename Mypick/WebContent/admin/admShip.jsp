@@ -144,13 +144,7 @@ function getRow(fileName, shCnt, levCnt){
 function insertXl(fileName){
 	console.log(fileName);
 	$('#xStatlModal').modal();
-	/*
-	$('#xStatlModal').on('hidden.bs.modal', function () {
-		var selBtn = document.getElementById(fileName+"Btn");
-		selBtn.removeAttribute("disabled");
-		//왜그런지 모르겠는데 제이쿼리 안먹음.
-	});
-	*/
+	progress(0, 1);
 	getWorbook(fileName);
 }
 function progress(don,tot){

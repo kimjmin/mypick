@@ -271,7 +271,7 @@ public class MpickAjax extends HttpServlet{
 											XSSFCell levName = lnRow.getCell(0);
 											retJson += "\""+levName.toString()+"\"";
 										} catch(Exception e){
-											retJson += "\""+"!!입력오류!!"+"\"";
+											retJson += "\""+"!등급오류!"+"\"";
 										}
 										if(lv < (rows-1)){
 											retJson += ",";
