@@ -364,10 +364,11 @@ public class MpickAjax extends HttpServlet{
 						 * 자바 프로그램에서 샌다면, 위에 답변된 것처럼 계속 참조할 필요가 없는 클래스가 다른 클래스에 의해 계속 참조가 되는지,
 						 * static으로 선언된 Collection 클래스들이 정말 static이어야 하는지 다시 한번 살펴 보세요.
 						 */
+						/*
 						long totalMemory = Runtime.getRuntime().totalMemory();
 						long javaMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 						System.out.println("totalMemory:\t"+totalMemory + "\t\tjavaMemory:\t"+javaMemory);
-						
+						*/
 					} catch (IOException e) {
 						e.printStackTrace();
 						StringBuffer errorMsg = new StringBuffer();
