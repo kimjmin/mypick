@@ -278,15 +278,6 @@ public class MpickAjax extends HttpServlet{
 										} else {
 											retJson += "\""+"!등급오류!"+"\"";
 										}
-										/*
-										try{
-											XSSFRow lnRow = sheet.getRow(lv);
-											XSSFCell levName = lnRow.getCell(0);
-											retJson += "\""+levName.toString()+"\"";
-										} catch(Exception e){
-											retJson += "\""+"!등급오류!"+"\"";
-										}
-										*/
 										if(lv < (rows-1)){
 											retJson += ",";
 										}
@@ -328,7 +319,7 @@ public class MpickAjax extends HttpServlet{
 											levNameVal = levName.toString();
 										}
 										retJson += "\"levName\":\""+levNameVal+"\",";
-										if("".equals(levNameVal) || "!등급오류!".equals(levNameVal)){
+										if(levNameVal == null || "".equals(levNameVal)){
 											tCols = 0;
 											errMsg.append("전체");
 										} else {
@@ -349,21 +340,14 @@ public class MpickAjax extends HttpServlet{
 													} else {
 														errMsg.append((valNum)+", ");
 													}
-													/*
-													try{
-														if(!"http://localhost:8080/Mypick".equals(MpickParam.hostUrl)){
-															dao.insertShVals(shipId.toString(), levNum, wCell.getRawValue(), cell.getRawValue());
-														}
-													} catch(Exception e){
-														errMsg.append((valNum)+", ");
-													}
-													*/
 												} else {
 													errMsg.append((valNum)+", ");	
 												}
 											}
 										}
 									}
+								} else {
+									errMsg.append("전체");
 								}
 								retJson += "\"errMsg\":\""+errMsg.toString()+"\",";
 								retJson += "\"valNums\":"+tCols+"";

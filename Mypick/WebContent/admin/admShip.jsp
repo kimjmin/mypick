@@ -129,7 +129,7 @@ function getRow(fileName, shCnt, levCnt){
 				if(shCnt < shNums){
 					getSheet(fileName, shCnt, 0);
 				} else {
-					$("#xlLog").val($("#xlLog").val()+"\n"+fileName+" 파일 입력 완료.");
+					$("#xlLog").val($("#xlLog").val()+"\n\n"+fileName+" 파일 입력 완료.");
 					var selBtn = document.getElementById(fileName+"Btn");
 					selBtn.removeAttribute("disabled");
 				}
