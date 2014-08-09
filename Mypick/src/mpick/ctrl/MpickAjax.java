@@ -358,6 +358,16 @@ public class MpickAjax extends HttpServlet{
 							}
 						}
 						
+						/**
+						 * 매번 수행이 될 때마다 토탈이 증가하면 자바외에 다른데서 메모리가 새는 것이고,
+						 * 자바 메모리가 증가하면 수행 중인 자바 프로그램에서 메모리가 샌다고 보면 됩니다.
+						 * 자바 프로그램에서 샌다면, 위에 답변된 것처럼 계속 참조할 필요가 없는 클래스가 다른 클래스에 의해 계속 참조가 되는지,
+						 * static으로 선언된 Collection 클래스들이 정말 static이어야 하는지 다시 한번 살펴 보세요.
+						 */
+						long totalMemory = Runtime.getRuntime().totalMemory();
+						long javaMemory = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+						System.out.println("totalMemory:\t"+totalMemory + "\t\tjavaMemory:\t"+javaMemory);
+						
 					} catch (IOException e) {
 						e.printStackTrace();
 						StringBuffer errorMsg = new StringBuffer();
