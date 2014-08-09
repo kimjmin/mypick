@@ -237,10 +237,11 @@ public class MpickAjax extends HttpServlet{
 						FileInputStream inputStream = new FileInputStream(file);
 						XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
 						if(xlCmd.equals("workBook")){
-							dao.deleteAllSh();
+							if(!"http://localhost:8080/Mypick".equals(MpickParam.hostUrl)){
+								dao.deleteAllSh();
+							}
 							int sheetCn = workbook.getNumberOfSheets();
 							retJson += "{\"sheetCnt\":"+sheetCn+"}";
-							
 						} else if(xlCmd.equals("insShip")){
 							shNum = Integer.parseInt(req.getParameter("shipNum"));
 							XSSFSheet sheet = workbook.getSheetAt(shNum);
@@ -266,6 +267,18 @@ public class MpickAjax extends HttpServlet{
 									retJson += "\"rows\":\""+rows+"\",";
 									retJson += "\"levNames\":[";
 									for(int lv=3; lv<rows; lv++){
+										XSSFRow lnRow = sheet.getRow(lv);
+										if(lnRow != null){
+											XSSFCell levName = lnRow.getCell(0);
+											if(levName != null){
+												retJson += "\""+levName.toString()+"\"";
+											} else {
+												retJson += "\""+"!등급오류!"+"\"";
+											}
+										} else {
+											retJson += "\""+"!등급오류!"+"\"";
+										}
+										/*
 										try{
 											XSSFRow lnRow = sheet.getRow(lv);
 											XSSFCell levName = lnRow.getCell(0);
@@ -273,13 +286,16 @@ public class MpickAjax extends HttpServlet{
 										} catch(Exception e){
 											retJson += "\""+"!등급오류!"+"\"";
 										}
+										*/
 										if(lv < (rows-1)){
 											retJson += ",";
 										}
 									}
 									retJson += "]";
 									retJson += "}";
-									dao.insertShMain(shNum, shipId.toString(), shipName.toString(), shipUrl.toString(), wUnit.toString(), aUnit.toString());
+									if(!"http://localhost:8080/Mypick".equals(MpickParam.hostUrl)){
+										dao.insertShMain(shNum, shipId.toString(), shipName.toString(), shipUrl.toString(), wUnit.toString(), aUnit.toString());
+									}
 								} else {
 									retJson += (shNum+1)+"번 째 Sheet 오류 : ";
 									retJson += "업체 정보가 불충분하거나 명확하지 않습니다. A2~E2 셀을 확인하세요.";
@@ -307,18 +323,43 @@ public class MpickAjax extends HttpServlet{
 									tCols = rcols-1;
 									if(rcols > 1){
 										XSSFCell levName = row.getCell(0);
-										retJson += "\"levName\":\""+levName.toString()+"\",";
-										dao.insertShLevs(shipId.toString(), levNum, levName.toString());
-										for(int cl=1; cl < rcols; cl++){
-											valNum = cl;
-											XSSFCell wCell = wRw.getCell(cl);
-											XSSFCell cell = row.getCell(cl);
-											
-											if(cell != null){
-												try{
-													dao.insertShVals(shipId.toString(), levNum, wCell.getRawValue(), cell.getRawValue());
-												} catch(Exception e){
-													errMsg.append((valNum)+", ");
+										String levNameVal = "";
+										if(levName != null){
+											levNameVal = levName.toString();
+										}
+										retJson += "\"levName\":\""+levNameVal+"\",";
+										if("".equals(levNameVal) || "!등급오류!".equals(levNameVal)){
+											tCols = 0;
+											errMsg.append("전체");
+										} else {
+											if(!"http://localhost:8080/Mypick".equals(MpickParam.hostUrl)){
+												dao.insertShLevs(shipId.toString(), levNum, levNameVal);
+											}
+											for(int cl=1; cl < rcols; cl++){
+												valNum = cl;
+												XSSFCell wCell = wRw.getCell(cl);
+												XSSFCell cell = row.getCell(cl);
+												if(wCell != null && cell != null){
+													String vName = wCell.getRawValue();
+													String vVal = cell.getRawValue();
+													if((vName != null && !"".equals(vName)) && (vVal != null && !"".equals(vVal))){
+														if(!"http://localhost:8080/Mypick".equals(MpickParam.hostUrl)){
+															dao.insertShVals(shipId.toString(), levNum, vName, vVal);
+														}
+													} else {
+														errMsg.append((valNum)+", ");
+													}
+													/*
+													try{
+														if(!"http://localhost:8080/Mypick".equals(MpickParam.hostUrl)){
+															dao.insertShVals(shipId.toString(), levNum, wCell.getRawValue(), cell.getRawValue());
+														}
+													} catch(Exception e){
+														errMsg.append((valNum)+", ");
+													}
+													*/
+												} else {
+													errMsg.append((valNum)+", ");	
 												}
 											}
 										}
