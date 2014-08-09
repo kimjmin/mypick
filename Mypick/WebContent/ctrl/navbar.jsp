@@ -17,7 +17,6 @@
 	}
 %>
 <script src="<%=MpickParam.hostUrl%>/js/nav.js"></script>
-
 <nav class="navbar navbar-inverse" role="navigation">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
@@ -56,8 +55,8 @@ if(userObjNav == null){
 %>
 		<form id="navFrm" name="navFrm" class="navbar-form navbar-right btn-group" action="javascript:login(this);">
 			<div class="form-group">
-				<input id="loginEmail" name="loginEmail" type="email" class="form-control" required="required" placeholder="이메일">
-				<input id="loginPw" name="loginPw" type="password" class="form-control" required="required" placeholder="비밀번호">
+				<input id="loginEmail" size="10" name="loginEmail" type="email" class="form-control" required="required" placeholder="이메일">
+				<input id="loginPw" size="8" name="loginPw" type="password" class="form-control" required="required" placeholder="비밀번호">
 				<button type="submit" class="btn btn-primary">로그인</button>
 				<button type="button" class="btn btn-success" onclick="signin(this.form);">회원가입</button>
 			</div>

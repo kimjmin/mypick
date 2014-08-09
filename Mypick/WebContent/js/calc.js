@@ -112,6 +112,11 @@ $(function(){
     	
     	var shId = $(".shipId:checked");
     	var sh=0;
+    	
+    	shipObj = new Array();
+    	amtOrderObj = new Object();
+    	$("#shipList").html("");
+    	
     	for(var i=0; i<shId.length; i++){
     		
     		var param="cmd=shipInfo";
@@ -142,8 +147,6 @@ $(function(){
  * 배송대행지 선택 후 추가.
  */
 function setShObj(){
-	amtOrderObj = new Object();
-	$("#shipList").html("");
 	setShListTitle();
 	for(var sh=0; sh < shipObj.length; sh++){
 		setShList(sh);

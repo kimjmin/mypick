@@ -42,6 +42,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">
         <span aria-hidden="true"></span><span class="sr-only">Close</span></button>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h4 class="modal-title" id="myModalLabel">배송대행지 선택</h4>
       </div>
       <div class="modal-body">
@@ -84,6 +85,7 @@ for(int i=0; i < shMains.length; i++){
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-success" data-dismiss="modal" id="shipsSelected">선택 완료</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
       </div>
     </div>
   </div>

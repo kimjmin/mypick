@@ -13,7 +13,7 @@ if(m == null || m.equals("")){ m="fee"; }
 <!-- 공통 라이브러리 시작 -->
 <%@include file="../ctrl/header.jsp"%>
 <!-- 공통 라이브러리 시작 -->
-<script src="../js/calc.js"></script>
+<script src="<%=MpickParam.hostUrl%>/js/calc.js"></script>
 </head>
 <body>
 	<div class="container">
