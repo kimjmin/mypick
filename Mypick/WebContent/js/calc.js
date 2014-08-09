@@ -189,10 +189,17 @@ function setShListTitle(){
 	
 	$("#shipList").append(shList);
 }
-function setShList(sh){
+function setShList(sh,lowVal){
 	var shList = "";
 	shList += "<div id='shList"+sh+"'>";
-	shList += "<div class='row'>";
+	
+	var lovValCss = "";
+	if(typeof(lowVal) != "undefined"){
+		if(sh === amtOrderObj[""+lowVal].sh){
+			lovValCss = "style='background-color: #dff0d8; border-color: #d6e9c6;'";
+		}
+	}
+	shList += "<div class='row' "+lovValCss+">";
 	
 	shList += "<div class='col-md-4 my-column'>";
 	shList += "	<div class='col-md-6'>";
@@ -225,10 +232,10 @@ function setShList(sh){
 	shList += "<input type='number' class='form-control' id='"+shipObj[sh].ship_id+"DisAmt' max='10000000' min='0' step='0.01' placeholder='할인액'>";
 	shList += "</div>";
 	shList += "<div class='col-xs-5 my-column-in'>";
-	shList += "<label class='my-column-in'>";
+	shList += "<label class='my-column-check'>";
 	shList += "<input type='radio' class='my-column-in "+shipObj[sh].ship_id+"DisRad' name='"+shipObj[sh].ship_id+"DisRad' checked='checked' value='CURR'> "+shipObj[sh].aunit+"";
 	shList += "</label><br/>";
-	shList += "<label class='my-column-in'>";
+	shList += "<label class='my-column-check'>";
 	shList += "<input type='radio' class='my-column-in "+shipObj[sh].ship_id+"DisRad' name='"+shipObj[sh].ship_id+"DisRad' value='PERC'> %";
 	shList += "</label>";
 	shList += "</div>";
@@ -263,7 +270,7 @@ function calcShip(){
 	amtOrderObj = new Object();
 	var w = $("#wVal").val();
 	var wSel = $("#wSel").val();
-	console.log("w : "+w);
+//	console.log("w : "+w);
 	var twVal = 0;
 	var lbVal = 0;
 	var kgVal = 0;
@@ -301,6 +308,7 @@ function calcShip(){
 		} else if(shipObj[sh].wunit == "oz"){
 			twVal = ozVal;
 		}
+		console.log(" =========== "+shipObj[sh].ship_name+" 시작 =========== ");
 		console.log(shipObj[sh].ship_name+" 무게 : "+twVal+" ("+shipObj[sh].wunit+")");
 		var selLev = Number($("#"+shipObj[sh].ship_id+"LevSel").val());
 		console.log(shipObj[sh].ship_name+" 선택 등급 : "+shipObj[sh].ship_levs[selLev].lev_name);
@@ -349,7 +357,7 @@ function calcShip(){
 		ftAmt = Math.round(ftAmt * 10000) / 10000;
 		while(typeof(amtOrderObj[""+ftAmt]) != "undefined"){
 			ftAmt = Math.round((ftAmt + 0.0001) * 10000) / 10000;
-			console.log("ftAmt: "+ftAmt);
+//			console.log("ftAmt: "+ftAmt);
 		}
 		amtOrderObj[""+ftAmt] = {};
 		amtOrderObj[""+ftAmt].sh = sh;
@@ -370,7 +378,7 @@ function sortShip(){
 	setShListTitle();
 	for(var i=0; i<amtOrderArr.length; i++){
 		var sh = amtOrderObj[""+amtOrderArr[i]].sh;
-		setShList(sh);
+		setShList(sh,amtOrderArr[0]);
 		$("#"+shipObj[sh].ship_id+"LevSel").val(amtOrderObj[""+amtOrderArr[i]].lev_num);
 		var disRad = amtOrderObj[""+amtOrderArr[i]].disRad;
 		$("."+shipObj[sh].ship_id+"DisRad:input[value='"+disRad+"']").attr('checked', 'checked');
