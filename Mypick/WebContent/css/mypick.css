@@ -37,3 +37,32 @@
     border-radius: 5px;
     padding: 2px;
 }
+
+#bbs {
+	font-size: 13px;
+	font-style: normal;
+}
+#bbs > tbody > tr > td > a {
+	color : #1061A6;
+}
+#bbs > tbody > tr > td > a:HOVER, #bbs > tbody > tr > td > a:ACTIVE {
+	color: #C00;
+}
+.pager li > a, .pager li > span {
+    display: inline-block;
+    padding: 2px 7px;
+    background-color: #FFF;
+    border: 1px solid #BBB;
+    border-radius: 3px;
+    font-size: 12px;
+}
+.pager li.active a {
+	z-index: 2;
+    color: #FFF;
+    background-color: #428BCA;
+    border-color: #428BCA;
+}
+.pager li.previous a , .pager li.next a {
+	color: #000;
+	font-size: 13px;
+}

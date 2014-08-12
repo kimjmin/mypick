@@ -83,7 +83,7 @@ public class Article {
 			}
 		}
 		//이미지 리사이징 적용.
-		result = result.replaceAll("<img ", "<img class=\"img-responsive\"");
+		result = result.replaceAll("<img ", "<img class=\"img-responsive\" ");
 		return result;
 	}
 	

@@ -6,14 +6,14 @@ if(enclTab == null || "".equals(enclTab)){
 	enclTab = "cate";
 }
 %>
-<link rel="stylesheet" href="../css/jquery.fileupload.css">
-<link rel="stylesheet" href="../css/jquery.fileupload-ui.css">
+<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload.css">
+<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload-ui.css">
 <!-- CSS adjustments for browsers with JavaScript disabled -->
 <noscript>
-	<link rel="stylesheet" href="../css/jquery.fileupload-noscript.css">
+	<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload-noscript.css">
 </noscript>
 <noscript>
-	<link rel="stylesheet" href="../css/jquery.fileupload-ui-noscript.css">
+	<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload-ui-noscript.css">
 </noscript>
 
 <script src="<%=MpickParam.hostUrl%>/js/tinymce/tinymce.min.js"></script>
@@ -29,7 +29,7 @@ tinymce.init({
          "save table contextmenu directionality emoticons template paste textcolor"
    ],
    content_css: "css/content.css",
-   toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | l      ink image | print preview media fullpage | forecolor backcolor emoticons", 
+   toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons", 
    style_formats: [
 		{title: 'Header 1', block: 'h1'},
 		{title: 'Header 2', block: 'h2'},
@@ -356,7 +356,7 @@ function saveCate(){
 	$("#cate2sVal").val(cate2sVal);
 	
 	frm.method="POST";
-	frm.action="../Control/Confirm";
+	frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
 	frm.submit();
 }
 
@@ -369,7 +369,7 @@ $(document).ready(function(){
 	$.ajax({
 		type : "GET",
 		data : paramCate,
-		url : "../Control/MpickAjax",
+		url : "<%=MpickParam.hostUrl%>/Control/MpickAjax",
 		dataType:"json",
 		success : function(dataCate) {
 			for(var i=0; i < dataCate.menu_info.length; i++){
@@ -397,7 +397,7 @@ $(document).ready(function(){
 	$.ajax({
 		type : "GET",
 		data : paramArcCate,
-		url : "../Control/MpickAjax",
+		url : "<%=MpickParam.hostUrl%>/Control/MpickAjax",
 		dataType:"json",
 		success : function(dataArcCate) {
 			arcCateData = dataArcCate;
@@ -483,7 +483,7 @@ function loadEnc(){
 	$.ajax({
 		type : "GET",
 		data : params,
-		url : "../Control/MpickAjax",
+		url : "<%=MpickParam.hostUrl%>/Control/MpickAjax",
 		dataType:"text",
 		success : function(dataArcTxt) {
 			tinymce.get('elm').setContent(dataArcTxt);
@@ -502,7 +502,7 @@ function saveEnc(){
 	$("#saveEncBtn").attr("disabled",true);
 	var frm = document.encArticle;
 	frm.method="POST";
-	frm.action="../Control/Confirm";
+	frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
 	frm.submit();
 }
 
@@ -511,14 +511,14 @@ function delEnc(){
 	var frm = document.encArticle;
 	frm.cmd.value="delEncl";
 	frm.method="POST";
-	frm.action="../Control/Confirm";
+	frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
 	frm.submit();
 }
 
 function fileUp(){
 	var frm = document.encFileUp;
 	frm.method="POST";
-	frm.action="../Control/FileCtrl";
+	frm.action="<%=MpickParam.hostUrl%>/Control/FileCtrl";
 	frm.submit();
 }
 
@@ -673,7 +673,7 @@ function fileUp(){
 	</div>
 	
 	<input type="hidden" name="cmd" value="saveCate" />
-	<input type="hidden" name="toUrl" value="../Admin/Encl" />
+	<input type="hidden" name="toUrl" value="<%=MpickParam.hostUrl%>/Admin/Encl" />
 </form>
 </div>
 <!-- 카테고리 편집 탭 끝 -->
@@ -718,7 +718,7 @@ function fileUp(){
 	<textarea id="elm" name="encText"></textarea>
 	
 	<input type="hidden" name="cmd" value="saveEncl" />
-	<input type="hidden" name="toUrl" value="../Admin/Encl" />
+	<input type="hidden" name="toUrl" value="<%=MpickParam.hostUrl%>/Admin/Encl" />
 </form>
 </div>
 <!-- 내용 입력 탭 끝 -->

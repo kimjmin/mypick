@@ -196,10 +196,10 @@ function setShList(sh,lowVal){
 	var lovValCss = "";
 	if(typeof(lowVal) != "undefined"){
 		if(sh === amtOrderObj[""+lowVal].sh){
-			lovValCss = "style='background-color: #dff0d8; border-color: #d6e9c6;'";
+			lovValCss = " bg-info";
 		}
 	}
-	shList += "<div class='row' "+lovValCss+">";
+	shList += "<div class='row "+lovValCss+"'>";
 	
 	shList += "<div class='col-md-4 my-column'>";
 	shList += "	<div class='col-md-6'>";

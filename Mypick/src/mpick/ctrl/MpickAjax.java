@@ -220,6 +220,35 @@ public class MpickAjax extends HttpServlet{
 			} else if(cmd.equals("arcText")){
 				Article arc = new Article();
 				out.print(arc.getArticle(req, res));
+			} else if(cmd.equals("commInfo")){
+				DataEntity[] menuData = dao.getCommMenu();
+				DataEntity[] cateData = dao.getCommCate(null);
+				StringBuffer outStr = new StringBuffer();
+				outStr.append("{");
+				
+				outStr.append("\"menu_info\":[");
+				for(int i=0; i < menuData.length; i++){
+					outStr.append("{");
+					outStr.append("\"menu_id\":\""+menuData[i].get("bbs_menu_id")+"\",");
+					outStr.append("\"menu_name\":\""+menuData[i].get("bbs_menu_name")+"\"");
+					outStr.append("}");
+					if(i < menuData.length-1){ outStr.append(","); }
+				}
+				outStr.append("]");
+				outStr.append(",");
+				
+				outStr.append("\"cate_info\":[");
+				for(int i=0; i < cateData.length; i++){
+					outStr.append("{");
+					outStr.append("\"menu_id\":\""+cateData[i].get("bbs_menu_id")+"\",");
+					outStr.append("\"cate_name\":\""+cateData[i].get("bbs_cate_name")+"\"");
+					outStr.append("}");
+					if(i < cateData.length-1){ outStr.append(","); }
+				}
+				outStr.append("]");
+				
+				outStr.append("}");
+				out.print(outStr.toString());
 			} else if(cmd.equals("shipXl")){
 				String xlCmd = req.getParameter("xlCmd");
 				String fileName = req.getParameter("fileName");

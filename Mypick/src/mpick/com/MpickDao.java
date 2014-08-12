@@ -681,4 +681,189 @@ public class MpickDao {
 		data = dao.getResult(property, sql.toString(), params);
 		return data;
 	}
+	
+	
+	
+
+	/**
+	 * 커뮤니티 저장.
+	 * @param userMail
+	 * @param encType
+	 * @param encText
+	 * @return
+	 */
+	public int insertCommText(String userMail, String menu, String cate, String title, String encText ){
+		int result = 0;
+		DataEntity data = new DataEntity();
+		Dao dao = Dao.getInstance();
+		data.put("ar_menu_id", menu);
+		data.put("ar_cate_1", cate);
+		data.put("ar_title", title);
+		data.put("ar_text", encText);
+		data.put("ar_mail", userMail);
+		data.put("ar_state", "ACTIVE");
+		result = dao.inertData(property, "mp_article", data);
+		return result;
+	}
+	
+	/**
+	 * 커뮤니티 상태 변경.
+	 */
+	public int archiveCommText(String menu, String cate, String title){
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE mp_article SET ar_state = 'ARCHIVE' \n");
+		sql.append("where ar_menu_id = ? \n");
+		sql.append("and ar_cate_1 = ? \n");
+		sql.append("and ar_cate_2 = ? \n");
+		sql.append("and ar_title = ? \n");
+		String[] params = {menu, cate, title};
+		return dao.updateSql(property, sql.toString(), params);
+	}
+	
+	
+	public int updateCommMenu(String menu, String new_menu){
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE mp_article  \n");
+		sql.append("SET ar_menu_id = ? \n");
+		sql.append("where ar_menu_id = ? \n");
+		String[] params = {new_menu, menu };
+		return dao.updateSql(property, sql.toString(), params);
+	}
+	
+	public int updateCommCate(String menu, String cate, String new_menu, String new_cate){
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE mp_article  \n");
+		sql.append("SET ar_menu_id = ? \n");
+		sql.append(", ar_cate_1 = ? \n");
+		sql.append("where ar_menu_id = ? \n");
+		sql.append("and ar_cate_1 = ? \n");
+		String[] params = {new_menu, new_cate, menu, cate };
+		return dao.updateSql(property, sql.toString(), params);
+	}
+	
+	/**
+	 * 내용 불러오기
+	 * @param type
+	 * @return
+	 */
+	public DataEntity[] getCommText(String menu, String cate, String title){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * FROM mp_article ");
+		sql.append("where ar_state = 'ACTIVE' ");
+		sql.append("and ar_menu_id = ? \n");
+		sql.append("and ar_cate_1 = ? \n");
+		sql.append("and ar_cate_2 = ? \n");
+		sql.append("and ar_title = ? \n");
+		String[] params = {menu, cate, title};
+		data = dao.getResult(property, sql.toString(), params);
+		return data;
+	}
+	
+	/**
+	 * 제목 목록 불러오기
+	 * @param menu
+	 * @param cate1
+	 * @param cate2
+	 * @return
+	 */
+	public DataEntity[] getCommTitles(String menu, String cate){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT ar_title FROM mp_article ");
+		sql.append("where ar_state = 'ACTIVE' ");
+		sql.append("and ar_menu_id = ? \n");
+		sql.append("and ar_cate_1 = ? \n");
+		sql.append("and ar_cate_2 = ? \n");
+		sql.append("order by ar_date \n");
+		String[] params = {menu, cate};
+		data = dao.getResult(property, sql.toString(), params);
+		return data;
+	}
+	
+	/**
+	 * 커뮤니티 메뉴 저장
+	 * @param arOrd
+	 * @param arMenuId
+	 * @param arMenuName
+	 * @return
+	 */
+	public int insertCommMenus(int bbsOrd, String bbsMenuId, String bbsMenuName){
+		int result = 0;
+		DataEntity data = new DataEntity();
+		Dao dao = Dao.getInstance();
+		data.put("bbs_ord", bbsOrd);
+		data.put("bbs_menu_id", bbsMenuId);
+		data.put("bbs_menu_name", bbsMenuName);
+		data.put("viewable", "ALL");
+		result = dao.inertData(property, "mp_bbs_menu", data);
+		return result;
+	}
+	
+	/**
+	 * 커뮤니티 카테고리 저장.
+	 * @param arOrd
+	 * @param arMenuId
+	 * @param arCateName
+	 * @return
+	 */
+	public int insertCommCates(int bbsOrd, String bbsMenuId, String bbsCateName){
+		int result = 0;
+		DataEntity data = new DataEntity();
+		Dao dao = Dao.getInstance();
+		data.put("bbs_ord", bbsOrd);
+		data.put("bbs_menu_id", bbsMenuId);
+		data.put("bbs_cate_name", bbsCateName);
+		result = dao.inertData(property, "mp_bbs_cate", data);
+		return result;
+	}
+	
+	/**
+	 * 카테고리 전체 삭제
+	 */
+	public void deleteAllCommCates(){
+		Dao dao = Dao.getInstance();
+		dao.deleteAll(property, "mp_bbs_menu");
+		dao.deleteAll(property, "mp_bbs_cate");
+	}
+	
+	/**
+	 * 커뮤니티 메뉴 불러오기.
+	 * @return
+	 */
+	public DataEntity[] getCommMenu(){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * FROM mp_bbs_menu order by bbs_ord ");
+		data = dao.getResult(property, sql.toString(), null);
+		return data;
+	}
+	
+	/**
+	 * 커뮤니티 카테고리 불러오기.
+	 * @param menu
+	 * @return
+	 */
+	public DataEntity[] getCommCate(String menu){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		
+		if(menu == null || "".equals(menu)){
+			sql.append("SELECT * FROM mp_bbs_cate order by bbs_ord ");
+			data = dao.getResult(property, sql.toString(), null);
+		} else {
+			sql.append("SELECT * FROM mp_bbs_cate WHERE bbs_menu_id = ? order by bbs_ord ");
+			String[] param = { menu };
+			data = dao.getResult(property, sql.toString(), param);
+		}
+		return data;
+	}
+	
 }

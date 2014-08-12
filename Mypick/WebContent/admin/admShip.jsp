@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@page import="mpick.com.MpickParam"%>
-<link rel="stylesheet" href="../css/jquery.fileupload.css">
-<link rel="stylesheet" href="../css/jquery.fileupload-ui.css">
+<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload.css">
+<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload-ui.css">
 <!-- CSS adjustments for browsers with JavaScript disabled -->
 <noscript>
-	<link rel="stylesheet" href="../css/jquery.fileupload-noscript.css">
+	<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload-noscript.css">
 </noscript>
 <noscript>
-	<link rel="stylesheet" href="../css/jquery.fileupload-ui-noscript.css">
+	<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload-ui-noscript.css">
 </noscript>
 
 <ul class="list-unstyled">

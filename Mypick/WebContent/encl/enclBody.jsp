@@ -6,7 +6,6 @@ MpickDao dao = MpickDao.getInstance();
 DataEntity[] cate1s = dao.getCate1(selMenu);
 %>
 <script>
-
 function getArcTxt(cnt,cate2,title){
 	var params = "";
 	params += "cmd=arcText";

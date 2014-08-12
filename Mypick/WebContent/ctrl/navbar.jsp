@@ -31,9 +31,7 @@
 		<ul class="nav navbar-nav">
 			<li id="navLiCal" <%if("Calc".equals(pageName)){ out.print("class=\"active\"");} %>><a href="javascript:goCalc(this.form);"><i class="glyphicon glyphicon-usd"></i> Calculator</a></li>
 			<li id="navLiEncycle" <%if("Encl".equals(pageName)){ out.print("class=\"active\"");} %>><a href="javascript:goEncl(this.form);"><i class="glyphicon glyphicon-book"></i> Encyclopedia</a></li>
-<%--
 			<li id="navLiComm" <%if("Comm".equals(pageName)){ out.print("class=\"active\"");} %>><a href="javascript:goComm(this.form);"><i class="glyphicon glyphicon-user"></i> Community</a></li>
---%>
 <% if(userObjNav!=null && "ADMIN".equals(userObjNav.getState())){ %>
 			<li id="navLiAdmin" <%if("Admin".equals(pageName)){ out.print("class=\"active\"");} %>><a href="javascript:goAdmin(this.form);"><i class="glyphicon glyphicon-hdd"></i> Admin</a></li>
 <% } %>
@@ -56,7 +54,7 @@ if(userObjNav == null){
 		<form id="navFrm" name="navFrm" class="navbar-form navbar-right btn-group" action="javascript:login(this);">
 			<div class="form-group">
 				<input id="loginEmail" size="10" name="loginEmail" type="email" class="form-control" required="required" placeholder="이메일">
-				<input id="loginPw" size="8" name="loginPw" type="password" class="form-control" required="required" placeholder="비밀번호">
+				<input id="loginPw" size="10" name="loginPw" type="password" class="form-control" required="required" placeholder="비밀번호">
 				<button type="submit" class="btn btn-primary">로그인</button>
 				<button type="button" class="btn btn-success" onclick="signin(this.form);">회원가입</button>
 			</div>

@@ -3,16 +3,15 @@
 String m = request.getParameter("m"); 
 if(m == null || m.equals("")){ m="fee"; }
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calculator/MyPick</title>
-
 <!-- 공통 라이브러리 시작 -->
 <%@include file="../ctrl/header.jsp"%>
-<!-- 공통 라이브러리 시작 -->
+<!-- 공통 라이브러리 끝 -->
 <script src="<%=MpickParam.hostUrl%>/js/calc.js"></script>
 </head>
 <body>

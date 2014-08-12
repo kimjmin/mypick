@@ -6,7 +6,7 @@ String uriM = request.getParameter("uri");
 MpickDao daoM = MpickDao.getInstance();
 DataEntity[] menuDatas = daoM.getMenu();
 %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -14,7 +14,7 @@ DataEntity[] menuDatas = daoM.getMenu();
 <title>Encyclopedia/MyPick</title>
 <!-- 공통 라이브러리 시작 -->
 <%@include file="../ctrl/header.jsp"%>
-<!-- 공통 라이브러리 시작 -->
+<!-- 공통 라이브러리 끝 -->
 </head>
 <body>
 	<div class="container">
@@ -38,7 +38,7 @@ for(DataEntity menuData : menuDatas){
 	String menuId = (String)menuData.get("ar_menu_id");
 	String menuName = (String)menuData.get("ar_menu_name");
 %>
-	<a href="../Encl/<%=menuId%>" class="list-group-item <%if(uriM.equals(menuId)){out.print("active");}%>"><%=menuName%></a>
+	<a href="<%=MpickParam.hostUrl%>/Encl/<%=menuId%>" class="list-group-item <%if(uriM.equals(menuId)){out.print("active");}%>"><%=menuName%></a>
 <%	
 }
 %>
