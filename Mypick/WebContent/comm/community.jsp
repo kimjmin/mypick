@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="jm.net.DataEntity,mpick.com.MpickDao,mpick.ctrl.Comm"%>
 <%
-String bbs = request.getParameter("bbs");
+String bbsM = request.getParameter("bbs");
 String m = request.getParameter("m");
-if(bbs == null || bbs.equals("")){ bbs="news"; }
+if(bbsM == null || bbsM.equals("")){ bbsM="news"; }
 if(m == null || m.equals("")){ m="list"; }
 
 MpickDao daoM = MpickDao.getInstance();
@@ -42,7 +42,7 @@ for(DataEntity menuData : menuDatas){
 	String menuId = (String)menuData.get("bbs_menu_id");
 	String menuName = (String)menuData.get("bbs_menu_name");
 %>
-	<a href="<%=MpickParam.hostUrl%>/Comm/<%=menuId%>" class="list-group-item <%if(bbs.equals(menuId)){out.print("active");}%>"><%=menuName%></a>
+	<a href="<%=MpickParam.hostUrl%>/Comm/<%=menuId%>" class="list-group-item <%if(bbsM.equals(menuId)){out.print("active");}%>"><%=menuName%></a>
 <%	
 }
 %>

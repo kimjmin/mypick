@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%int i=0; %>
+<%@ page import="mpick.com.MpickParam"%>
+<%
+int i=0; 
+String bbs = request.getParameter("bbs");
+%>
 <table class="table table-condensed table-hover" id="bbs">
 <thead>
 	<tr class="info">
@@ -108,7 +112,7 @@
 
 <ul class="pager">
 	<li class="previous"><a href="#"><span class="glyphicon glyphicon-align-justify"></span> 목록</a></li>
-  	<li class="next"><a href="#"><span class="glyphicon glyphicon-pencil"></span> 글쓰기</a></li>
+  	<li class="next"><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/Write"><span class="glyphicon glyphicon-pencil"></span> 글쓰기</a></li>
   
   <li><a href="#">&lt</a></li>
   <li class="active"><a href="#">11</a></li>
@@ -118,3 +122,6 @@
   <li><a href="#">15</a></li>
   <li><a href="#">&gt</a></li>
 </ul>
+<script>
+
+</script>
