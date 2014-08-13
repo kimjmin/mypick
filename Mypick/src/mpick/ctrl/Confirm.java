@@ -15,7 +15,6 @@ import mpick.com.MpickUserObj;
 public class Confirm extends HttpServlet {
 	
 	private static final long serialVersionUID = 4784289161430396081L;
-
 	public void service(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		res.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = res.getWriter();
@@ -156,13 +155,11 @@ public class Confirm extends HttpServlet {
 		} else if(toUrl != null && cmd != null && cmd.equals("saveCate")){
 			//카테고리 저장.
 			Article arc = new Article();
-			int cateRes = arc.delNSaveCate(req, res);
-			/*
+//			int cateRes = arc.delNSaveCate(req, res);
 			int cateRes = arc.saveCate(req, res);
 			if(cateRes > 0){
 				arc.delNSaveCate(req, res);
 			}
-			*/
 			if(cateRes > 0){
 //				res.sendRedirect(toUrl);
 				out.println("<form name='cateFrm' action='"+toUrl+"' method='POST'>\n");
@@ -182,7 +179,10 @@ public class Confirm extends HttpServlet {
 		} else if(toUrl != null && cmd != null && cmd.equals("saveCommCate")){
 			//카테고리 저장.
 			Comm comm = new Comm();
-			int cateRes = comm.delNSaveCate(req, res);
+			int cateRes = comm.saveCate(req, res);
+			if(cateRes > 0){
+				cateRes = comm.delNSaveCate(req, res);
+			}
 			if(cateRes > 0){
 //				res.sendRedirect(toUrl);
 				out.println("<form name='cateFrm' action='"+toUrl+"' method='POST'>\n");

@@ -5,20 +5,19 @@ String selMenu = request.getParameter("menu");
 String cate1 = request.getParameter("cate1");
 String cate2 = request.getParameter("cate2");
 String arcNum = request.getParameter("arcNum");
-
+/*
 System.out.println("selMenu: "+selMenu);
 System.out.println("cate1: "+cate1);
 System.out.println("cate2: "+cate2);
 System.out.println("arcNum: "+arcNum);
-
+*/
 MpickDao dao = MpickDao.getInstance();
 DataEntity[] cate1s = dao.getCate1(selMenu);
 
 %>
 <script>
-function getArcTxt(cnt,cate2,title){
+function getArcTxt(cate2,title){
 	var cates = cate2.split("|");
-	console.log(cates.length);
 	var enclUrl = "";
 	if(cates.length == 3){
 		enclUrl = cates[0]+"/"+cates[1]+"/"+cates[2];
@@ -47,21 +46,25 @@ if(cate1s == null || cate1s.length == 0){
 if("".equals(cate1)){
 	cate1=(String)cate1s[0].get("ar_cate_name");
 }
+int c1Cnt = 0;
 for(int i=0; i<cate1s.length; i++){
 	String cate1Name = (String)cate1s[i].get("ar_cate_name");
+	if(cate1.equals(cate1Name)){
+		c1Cnt = i;
+	}
 %>
-		<li <%if(cate1.equals(cate1Name)){out.print("class='active'");}%>><a href='javascript:getArcTxt("<%=i+""%>","<%=selMenu+"|"+cate1Name%>","");'><%=cate1Name%></a></li>
+		<li <%if(cate1.equals(cate1Name)){out.print("class='active'");}%>><a href='javascript:getArcTxt("<%=selMenu+"|"+cate1Name%>","");'><%=cate1Name%></a></li>
 <%
 }
 %>
 	</ul>
 	<div id="cate1TabContent" class="tab-content">
 <%
-for(int i=0; i<cate1s.length; i++){
-	String cate1Name = (String)cate1s[i].get("ar_cate_name");	
+
+	String cate1Name = (String)cate1s[c1Cnt].get("ar_cate_name");	
 %>
 <!-- <%=cate1Name%> 탭 시작 -->
-		<div class="tab-pane fade <%if(cate1.equals(cate1Name)){out.print("active");}%> in" id="cate1_<%=i+""%>">
+		<div class="tab-pane active in" id="cate1">
 <%
 DataEntity[] cate2s = dao.getCate2(selMenu, cate1Name);
 if(cate2s == null || cate2s.length == 0){
@@ -90,7 +93,7 @@ if(cate2s == null || cate2s.length == 0){
 	DataEntity[] titles = dao.getArcTitles(selMenu, cate1Name, cate2Name);
 	if(titles != null && titles.length == 1 && "".equals((String)titles[0].get("ar_title"))){
 	%>
-	<button type="button" class="btn btn-info" onclick='getArcTxt("<%=i+""%>","<%=selMenu+"|"+cate1Name+"|"+cate2Name%>","");'><%=cate2Name%></button>
+	<button type="button" class="btn btn-info" onclick='getArcTxt("<%=selMenu+"|"+cate1Name+"|"+cate2Name%>","");'><%=cate2Name%></button>
 	<%
 	} else {
 	%>
@@ -111,7 +114,7 @@ if(cate2s == null || cate2s.length == 0){
 				}
 			}
 		%>
-		<li><a href='javascript:getArcTxt("<%=i+""%>","<%=selMenu+"|"+cate1Name+"|"+cate2Name%>","<%=title%>");'><%=title%></a></li>
+		<li><a href='javascript:getArcTxt("<%=selMenu+"|"+cate1Name+"|"+cate2Name%>","<%=title%>");'><%=title%></a></li>
 		<%
 		}
 		%>
@@ -129,9 +132,6 @@ if(cate2s == null || cate2s.length == 0){
 %>
 		</div>
 <!-- <%=cate1Name%> 탭 끝 -->
-<%
-}
-%>
 	</div>
 <%
 }
