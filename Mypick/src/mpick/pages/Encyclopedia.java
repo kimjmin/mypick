@@ -30,9 +30,9 @@ public class Encyclopedia extends HttpServlet {
 			out.print(MpickMsg.loginError());
 		} else {
 			String uri = req.getRequestURI();
-			System.out.println("uri: "+uri);
+//			System.out.println("uri: "+uri);
 			String subUri = uri.substring(uri.lastIndexOf("Encl/")+5);
-			System.out.println(subUri.indexOf("/"));
+//			System.out.println(subUri.indexOf("/"));
 			
 			if(subUri == null || "".equals(subUri.trim())){
 				MpickDao daoM = MpickDao.getInstance();
@@ -44,8 +44,8 @@ public class Encyclopedia extends HttpServlet {
 				}
 			} else {
 				String[] subUris = subUri.split("/");
-				System.out.println("subUri: "+subUri);
-				System.out.println(subUris.length);
+//				System.out.println("subUri: "+subUri);
+//				System.out.println(subUris.length);
 				String menu = "";
 				String cate1 = "";
 				String cate2 = "";
@@ -65,7 +65,7 @@ public class Encyclopedia extends HttpServlet {
 					if(subUris.length > 0){
 						menu = subUris[0];
 					}
-					System.out.println("/encl/encyclopedia.jsp?menu="+menu+"&cate1="+cate1+"&cate2="+cate2+"&arcNum="+arcNum);
+//					System.out.println("/encl/encyclopedia.jsp?menu="+menu+"&cate1="+cate1+"&cate2="+cate2+"&arcNum="+arcNum);
 					req.getRequestDispatcher("/encl/encyclopedia.jsp?menu="+menu+"&cate1="+cate1+"&cate2="+cate2+"&arcNum="+arcNum).include(req, res);
 				}
 			}
