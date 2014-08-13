@@ -484,7 +484,7 @@ function loadEnc(){
 		type : "GET",
 		data : params,
 		url : "<%=MpickParam.hostUrl%>/Control/MpickAjax",
-		dataType:"text",
+		dataType:"html",
 		success : function(dataArcTxt) {
 			tinymce.get('elm').setContent(dataArcTxt);
 			if(arcTitleSelVal == "new"){
