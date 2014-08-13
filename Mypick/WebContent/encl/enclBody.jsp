@@ -44,7 +44,9 @@ if(cate1s == null || cate1s.length == 0){
 	<ul id="cate1Tab" class="nav nav-tabs">
 <%
 if("".equals(cate1)){
-	cate1=(String)cate1s[0].get("ar_cate_name");
+	if(cate1s.length > 0){
+		cate1=(String)cate1s[0].get("ar_cate_name");
+	}
 }
 int c1Cnt = 0;
 for(int i=0; i<cate1s.length; i++){
@@ -77,7 +79,9 @@ if(cate2s == null || cate2s.length == 0){
 <div class="btn-group">
 	<%
 	if("".equals(cate2)){
-		cate2=(String)cate2s[0].get("ar_cate_name");
+		if(cate2s.length > 0){
+			cate2=(String)cate2s[0].get("ar_cate_name");
+		}
 	}
 	for(int j=0; j<cate2s.length; j++){
 		String cate2Name = (String)cate2s[j].get("ar_cate_name");
@@ -103,7 +107,9 @@ if(cate2s == null || cate2s.length == 0){
 	<ul class="dropdown-menu">
 		<%
 		if("".equals(arcNum)){
-			arcNum = (String)titles[0].get("ar_title");
+			if(titles.length > 0){
+				arcNum = (String)titles[0].get("ar_title");
+			}
 		}
 		for(int k=0; k<titles.length; k++){
 			String title = (String)titles[k].get("ar_title");
