@@ -102,7 +102,7 @@ if(cate2s == null || cate2s.length == 0){
 	</button>
 	<ul class="dropdown-menu">
 		<%
-		if("".equals(cate2)){
+		if("".equals(arcNum)){
 			arcNum = (String)titles[0].get("ar_title");
 		}
 		for(int k=0; k<titles.length; k++){
