@@ -8,20 +8,25 @@ DataEntity[] cate1s = dao.getCate1(selMenu);
 <script>
 function getArcTxt(cnt,cate2,title){
 	var params = "";
+	console.log("============= 1");
 	params += "cmd=arcText";
 	params += "&arcCate2="+cate2;
 	params += "&arcTitleSel="+title;
+	console.log("============= 2");
 	$.ajax({
 		type : "GET",
 		data : params,
 		url : "../Control/MpickAjax",
 		dataType:"text",
 		success : function(dataArcTxt) {
+			console.log("============= 3");
 			$("#arcTxt"+cnt).html(dataArcTxt);
-		}, error:function(e){  
+		}, error:function(e){
+			console.log("============= 4");
 			console.log(e.responseText);  
 		}
 	});
+	console.log("============= 5");
 }
 </script>
 
