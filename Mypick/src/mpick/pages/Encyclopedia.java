@@ -30,26 +30,29 @@ public class Encyclopedia extends HttpServlet {
 			out.print(MpickMsg.loginError());
 		} else {
 			String uri = req.getRequestURI();
+			System.out.println("uri: "+uri);
 			String subUri = uri.substring(uri.lastIndexOf("Encl/")+5);
-			if(subUri.indexOf("/") > 3){
-				out.print(MpickMsg.approachError());
-			} else {
-				if(subUri == null || "".equals(subUri.trim())){
-					MpickDao daoM = MpickDao.getInstance();
-					DataEntity[] menuDatas = daoM.getMenu();
-					if(menuDatas.length > 0){
-//						uri = (String)menuDatas[0].get("ar_menu_id");
-						res.sendRedirect(MpickParam.hostUrl+"/Encl/"+(String)menuDatas[0].get("ar_menu_id"));
-					} else {
-						out.print(MpickMsg.approachError());
-					}
+			System.out.println(subUri.indexOf("/"));
+			
+			if(subUri == null || "".equals(subUri.trim())){
+				MpickDao daoM = MpickDao.getInstance();
+				DataEntity[] menuDatas = daoM.getMenu();
+				if(menuDatas.length > 0){
+					res.sendRedirect(MpickParam.hostUrl+"/Encl/"+(String)menuDatas[0].get("ar_menu_id"));
 				} else {
-					String[] subUris = subUri.split("/");
-					System.out.println(subUris.length);
-					String menu = "";
-					String cate1 = "";
-					String cate2 = "";
-					String arcNum = "";
+					out.print(MpickMsg.approachError());
+				}
+			} else {
+				String[] subUris = subUri.split("/");
+				System.out.println("subUri: "+subUri);
+				System.out.println(subUris.length);
+				String menu = "";
+				String cate1 = "";
+				String cate2 = "";
+				String arcNum = "";
+				if(subUris.length > 4 || subUris.length < 1){
+					out.print(MpickMsg.approachError());
+				} else {
 					if(subUris.length > 3){
 						arcNum = subUris[3];
 					}
@@ -62,11 +65,11 @@ public class Encyclopedia extends HttpServlet {
 					if(subUris.length > 0){
 						menu = subUris[0];
 					}
-					
 					System.out.println("/encl/encyclopedia.jsp?menu="+menu+"&cate1="+cate1+"&cate2="+cate2+"&arcNum="+arcNum);
 					req.getRequestDispatcher("/encl/encyclopedia.jsp?menu="+menu+"&cate1="+cate1+"&cate2="+cate2+"&arcNum="+arcNum).include(req, res);
 				}
 			}
+			
 		}
 		
 	}
