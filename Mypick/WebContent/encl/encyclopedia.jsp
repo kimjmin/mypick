@@ -6,7 +6,7 @@ String uriM = request.getParameter("uri");
 MpickDao daoM = MpickDao.getInstance();
 DataEntity[] menuDatas = daoM.getMenu();
 %>
-<!DOCTYPE">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
