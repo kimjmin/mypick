@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="jm.net.DataEntity,mpick.com.MpickDao,mpick.ctrl.Article"%>
 <%
-String uriM = request.getParameter("uri");
+String uriM = request.getParameter("menu");
 
 MpickDao daoM = MpickDao.getInstance();
 DataEntity[] menuDatas = daoM.getMenu();
@@ -17,12 +17,10 @@ DataEntity[] menuDatas = daoM.getMenu();
 <!-- 공통 라이브러리 끝 -->
 </head>
 <body>
-	<div class="container">
-
 <!-- 상단 네비게이션 메뉴 시작 -->
 <%@include file="../ctrl/navbar.jsp"%>
 <!-- 상단 네비게이션 메뉴 끝 -->
-
+	<div class="container">
 		<div class="row">
 			<div class="col-sm-3">
 <!-- 좌측 메뉴 시작 -->

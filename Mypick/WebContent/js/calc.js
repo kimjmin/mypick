@@ -351,7 +351,7 @@ function calcShip(){
 		} else {
 			$("#"+shipObj[sh].ship_id+"BAmt").val($.number(bAmt,2));
 			$("#"+shipObj[sh].ship_id+"FAmt").val($.number(fAmt,2));
-			ftAmt = Number(fAmt) * Number(currData.curr_info[shipObj[sh].aunit].sell_refer);
+			ftAmt = Number(fAmt) * Number(currData.curr_info[shipObj[sh].aunit].usd_rate*1000);
 			$("#"+shipObj[sh].ship_id+"FTAmt").val($.number(ftAmt));
 		}
 		ftAmt = Math.round(ftAmt * 10000) / 10000;

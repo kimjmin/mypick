@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="jm.net.DataEntity,mpick.com.MpickDao,mpick.ctrl.Article"%>
 <%
-String selMenu = request.getParameter("uri");
+String selMenu = request.getParameter("menu");
+String cate1 = request.getParameter("cate1");
+String cate2 = request.getParameter("cate2");
+String arcNum = request.getParameter("arcNum");
 MpickDao dao = MpickDao.getInstance();
 DataEntity[] cate1s = dao.getCate1(selMenu);
 %>
@@ -23,6 +26,7 @@ function getArcTxt(cnt,cate2,title){
 		}
 	});
 }
+
 </script>
 
 <div class="row">

@@ -31,19 +31,41 @@ public class Encyclopedia extends HttpServlet {
 		} else {
 			String uri = req.getRequestURI();
 			String subUri = uri.substring(uri.lastIndexOf("Encl/")+5);
-			if(subUri.indexOf("/") > 0){
+			if(subUri.indexOf("/") > 3){
 				out.print(MpickMsg.approachError());
 			} else {
 				if(subUri == null || "".equals(subUri.trim())){
 					MpickDao daoM = MpickDao.getInstance();
 					DataEntity[] menuDatas = daoM.getMenu();
 					if(menuDatas.length > 0){
-						uri = (String)menuDatas[0].get("ar_menu_id");
+//						uri = (String)menuDatas[0].get("ar_menu_id");
+						res.sendRedirect(MpickParam.hostUrl+"/Encl/"+(String)menuDatas[0].get("ar_menu_id"));
+					} else {
+						out.print(MpickMsg.approachError());
 					}
 				} else {
-					uri = subUri;
+					String[] subUris = subUri.split("/");
+					System.out.println(subUris.length);
+					String menu = "";
+					String cate1 = "";
+					String cate2 = "";
+					String arcNum = "";
+					if(subUris.length > 3){
+						arcNum = subUris[3];
+					}
+					if(subUris.length > 2){
+						cate2 = subUris[2];
+					}
+					if(subUris.length > 1){
+						cate1 = subUris[1];
+					}
+					if(subUris.length > 0){
+						menu = subUris[0];
+					}
+					
+					System.out.println("/encl/encyclopedia.jsp?menu="+menu+"&cate1="+cate1+"&cate2="+cate2+"&arcNum="+arcNum);
+					req.getRequestDispatcher("/encl/encyclopedia.jsp?menu="+menu+"&cate1="+cate1+"&cate2="+cate2+"&arcNum="+arcNum).include(req, res);
 				}
-				req.getRequestDispatcher("/encl/encyclopedia.jsp?uri="+uri).include(req, res);
 			}
 		}
 		

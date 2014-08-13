@@ -11,16 +11,12 @@
 <%@include file="../ctrl/header.jsp"%>
 <!-- 공통 라이브러리 시작 -->
 <script src="../js/signin.js"></script>
-		
 </head>
 <body>
-
-	<div class="container">
-
 <!-- 상단 네비게이션 메뉴 시작 -->	
 <%@include file="../ctrl/navbar.jsp"%>
 <!-- 상단 네비게이션 메뉴 끝 -->
-
+	<div class="container">
 		<div class="container">
 		<h3>회원 가입</h3>
 		<form class="form-inline" role="form" name="signinFrm" action="javascript:signup();">

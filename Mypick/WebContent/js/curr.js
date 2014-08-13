@@ -27,8 +27,8 @@ function setCurrSel(){
 }
 
 function setCurrVal(){
-	$("#sell_refer").html($.number(currData.curr_info[$("#currSel").val()].sell_refer,3));
-	$("#cash_buy").html($.number(currData.curr_info[$("#currSel").val()].cash_buy,3));
-	$("#trans_send").html($.number(currData.curr_info[$("#currSel").val()].trans_send,3));
-	$("#usd_rate").html($.number(currData.curr_info[$("#currSel").val()].usd_rate,3));
+	$("#sell_refer").html($.number(currData.curr_info[$("#currSel").val()].sell_refer,2));
+	$("#cash_buy").html($.number(currData.curr_info[$("#currSel").val()].cash_buy,2));
+	$("#trans_send").html($.number(currData.curr_info[$("#currSel").val()].trans_send,2));
+	$("#usd_rate").html($.number(currData.curr_info[$("#currSel").val()].usd_rate*1000,2));
 }
