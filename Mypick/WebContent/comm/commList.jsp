@@ -1,127 +1,80 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="mpick.com.MpickParam"%>
-<%
-int i=0; 
+<%@ page import="jm.net.DataEntity,mpick.com.MpickDao,mpick.com.MpickParam"%>
+<%@page import="java.text.SimpleDateFormat,java.util.Date,java.util.Locale"%>
+<% 
 String bbs = request.getParameter("bbs");
+MpickDao dao = MpickDao.getInstance();
+String pageNumStr = request.getParameter("pageNum");
+int pageSize = 10;
+int pageNum = 0;
+if(pageNumStr != null && !"".equals(pageNumStr)){
+	pageNum = Integer.parseInt(pageNumStr) - 1;
+}
+DataEntity[] listData =  dao.getCommList(bbs, null, null, null, pageSize, pageNum);
+
+int srtNum = 0;
+if(pageNum > 2){
+	srtNum = pageNum - 2;
+} else {
+	srtNum = 0;
+}
+int totalCnt = dao.getCommListCnt(bbs, null, null, null);
+int endNum = (totalCnt / pageSize) + 1;
+if(endNum > 5){
+	endNum = 5;
+}
+
 %>
 <table class="table table-condensed table-hover" id="bbs">
 <thead>
 	<tr class="info">
 		<th class="text-center" width="10%">No</th>
-		<th class="text-center" width="60%">Subject</th>
+		<th class="text-center">Subject</th>
 		<th class="text-center" width="10%">Name</th>
-		<th class="text-center" width="10%">Date</th>
-		<th class="text-center" width="10%">Hit</th>
+		<th class="text-center" width="12%">Date</th>
+		<th class="text-center" width="8%">Hit</th>
 	</tr>
 </thead>
 <tbody>
+<%
+for(int i=0; i<listData.length; i++){
+	Date t_date = (Date)listData[i].get("t_date");
+	SimpleDateFormat frmt = new SimpleDateFormat("yyyy-MM-dd", Locale.KOREA);
+%>
 	<tr>
-		<td class="text-center"><%=(i++)+""%></td>
-		<td class=""><a href="#">이 글은 어쩌고 저쩌고 고고고 고고고</a></td>
-		<td class="">운영자</td>
-		<td class="text-center">10-11</td>
-		<td class="text-center">31</td>
+		<td class="text-center"><%=listData[i].get("t_num")+""%></td>
+		<td class=""><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/View/<%=listData[i].get("t_num")+""%>"><%=listData[i].get("t_title")+""%></a></td>
+		<td class="text-center"><%=listData[i].get("nicname")+""%></td>
+		<td class="text-center"><%=frmt.format(t_date)%></td>
+		<td class="text-center"><%=listData[i].get("t_viewed")+""%></td>
 	</tr>
-	<tr>
-		<td class="text-center"><%=(i++)+""%></td>
-		<td class=""><a href="#">이 글은 어쩌고 저쩌고 고고고 고고고</a></td>
-		<td class="">운영자</td>
-		<td class="text-center">10-11</td>
-		<td class="text-center">31</td>
-	</tr>
-	<tr>
-		<td class="text-center"><%=(i++)+""%></td>
-		<td class=""><a href="#">이 글은 어쩌고 저쩌고 고고고 고고고</a></td>
-		<td class="">운영자</td>
-		<td class="text-center">10-11</td>
-		<td class="text-center">31</td>
-	</tr>
-	<tr>
-		<td class="text-center"><%=(i++)+""%></td>
-		<td class=""><a href="#">이 글은 어쩌고 저쩌고 고고고 고고고</a></td>
-		<td class="">운영자</td>
-		<td class="text-center">10-11</td>
-		<td class="text-center">31</td>
-	</tr>
-	<tr>
-		<td class="text-center"><%=(i++)+""%></td>
-		<td class=""><a href="#">이 글은 어쩌고 저쩌고 고고고 고고고</a></td>
-		<td class="">운영자</td>
-		<td class="text-center">10-11</td>
-		<td class="text-center">31</td>
-	</tr>
-	<tr>
-		<td class="text-center"><%=(i++)+""%></td>
-		<td class=""><a href="#">이 글은 어쩌고 저쩌고 고고고 고고고</a></td>
-		<td class="">운영자</td>
-		<td class="text-center">10-11</td>
-		<td class="text-center">31</td>
-	</tr>
-	<tr>
-		<td class="text-center"><%=(i++)+""%></td>
-		<td class=""><a href="#">이 글은 어쩌고 저쩌고 고고고 고고고</a></td>
-		<td class="">운영자</td>
-		<td class="text-center">10-11</td>
-		<td class="text-center">31</td>
-	</tr>
-	<tr>
-		<td class="text-center"><%=(i++)+""%></td>
-		<td class=""><a href="#">이 글은 어쩌고 저쩌고 고고고 고고고</a></td>
-		<td class="">운영자</td>
-		<td class="text-center">10-11</td>
-		<td class="text-center">31</td>
-	</tr>
-	<tr>
-		<td class="text-center"><%=(i++)+""%></td>
-		<td class=""><a href="#">이 글은 어쩌고 저쩌고 고고고 고고고</a></td>
-		<td class="">운영자</td>
-		<td class="text-center">10-11</td>
-		<td class="text-center">31</td>
-	</tr>
-	<tr>
-		<td class="text-center"><%=(i++)+""%></td>
-		<td class=""><a href="#">이 글은 어쩌고 저쩌고 고고고 고고고</a></td>
-		<td class="">운영자</td>
-		<td class="text-center">10-11</td>
-		<td class="text-center">31</td>
-	</tr>
-	<tr>
-		<td class="text-center"><%=(i++)+""%></td>
-		<td class=""><a href="#">이 글은 어쩌고 저쩌고 고고고 고고고</a></td>
-		<td class="">운영자</td>
-		<td class="text-center">10-11</td>
-		<td class="text-center">31</td>
-	</tr>
-	<tr>
-		<td class="text-center"><%=(i++)+""%></td>
-		<td class=""><a href="#">이 글은 어쩌고 저쩌고 고고고 고고고</a></td>
-		<td class="">운영자</td>
-		<td class="text-center">10-11</td>
-		<td class="text-center">31</td>
-	</tr>
-	<tr>
-		<td class="text-center"><%=(i++)+""%></td>
-		<td class=""><a href="#">이 글은 어쩌고 저쩌고 고고고 고고고</a></td>
-		<td class="">운영자</td>
-		<td class="text-center">10-11</td>
-		<td class="text-center">31</td>
-	</tr>
-	
+<% } %>
 </tbody>
 </table>
 
+<form name="pageFrm">
 <ul class="pager">
 	<li class="previous"><a href="#"><span class="glyphicon glyphicon-align-justify"></span> 목록</a></li>
   	<li class="next"><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/Write"><span class="glyphicon glyphicon-pencil"></span> 글쓰기</a></li>
-  
-  <li><a href="#">&lt</a></li>
-  <li class="active"><a href="#">11</a></li>
-  <li><a href="#">12</a></li>
-  <li><a href="#">13</a></li>
-  <li><a href="#">14</a></li>
-  <li><a href="#">15</a></li>
-  <li><a href="#">&gt</a></li>
+<%if(pageNum > 0){ %>
+  	<li><a href="javascript:goPage('<%=(pageNum)+""%>');">&lt</a></li>
+<% } %>
+<%
+for(int i=srtNum; i < endNum; i++){ %>
+	<li <%if(i==pageNum){out.print("class='active'");} %>><a href="javascript:goPage('<%=(i+1)+""%>');"><%=(i+1)+""%></a></li>
+<% } %>
+<%if(pageNum < (endNum-1)){ %>
+	<li><a href="javascript:goPage('<%=(pageNum+2)+""%>');">&gt</a></li>
+<% } %>
 </ul>
+<input type="hidden" name="pageNum" id="pageNum"/>
+</form>
 <script>
-
+function goPage(pageN){
+	var frm = document.pageFrm;
+	$("#pageNum").val(pageN);
+	frm.method = "POST";
+	frm.action = "<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
+	frm.submit();
+}
 </script>

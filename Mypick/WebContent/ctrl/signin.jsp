@@ -2,10 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="description" content="">
-<meta name="author" content="">
-
 <title>MyPick 회원 가입</title>
 <!-- 공통 라이브러리 시작 -->
 <%@include file="../ctrl/header.jsp"%>

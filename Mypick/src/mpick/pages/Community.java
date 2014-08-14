@@ -30,29 +30,30 @@ public class Community extends HttpServlet {
 			out.print(MpickMsg.loginError());
 		} else {
 			String uri = req.getRequestURI();
-			String subUri = uri.substring(uri.lastIndexOf("Comm/")+4);
-			if(subUri.indexOf("/") > 2){
-				out.print(MpickMsg.approachError());
-			} else {
-				String bbs = "";
-				if(subUri == null || "".equals(subUri.trim()) || "/".equals(subUri.trim()) ){
-					MpickDao daoM = MpickDao.getInstance();
-					DataEntity[] menuDatas = daoM.getCommMenu();
-					if(menuDatas.length > 0){
-						bbs = (String)menuDatas[0].get("bbs_menu_id");
-					}
+			String subUri = uri.substring(uri.lastIndexOf("Comm/")+5);
+			
+			if(subUri == null || "".equals(subUri.trim())){
+				MpickDao daoM = MpickDao.getInstance();
+				DataEntity[] menuDatas = daoM.getCommMenu();
+				if(menuDatas.length > 0){
+					res.sendRedirect(MpickParam.hostUrl+"/Comm/"+(String)menuDatas[0].get("bbs_menu_id"));
 				} else {
-					bbs = uri.substring(uri.lastIndexOf("Comm/")+5);
+					out.print(MpickMsg.approachError());
 				}
-				String m = "list";
-				if(subUri.indexOf("Write") > 0){
-					m = "write";
-				} else if (subUri.indexOf("Modify") > 0){
-					m = "modify";
+			} else {
+				String[] subUris = subUri.split("/");
+				String bbs = "";
+				String ctrl = "";
+				String t_num = "";
+				if(subUris.length > 3 || subUris.length < 1){
+					out.print(MpickMsg.approachError());
+				} else {
+					if(subUris.length > 2){ t_num = subUris[2]; }
+					if(subUris.length > 1){ ctrl = subUris[1]; }
+					if(subUris.length > 0){ bbs = subUris[0]; }
+					req.getRequestDispatcher("/comm/community.jsp?bbs="+bbs+"&ctrl="+ctrl+"&t_num="+t_num).include(req, res);
 				}
-				String t_num = req.getParameter("t_num");
-				if(t_num == null) t_num = "";
-				req.getRequestDispatcher("/comm/community.jsp?bbs="+bbs+"&m="+m+"&t_num="+t_num).include(req, res);
+				
 			}
 		}
 		

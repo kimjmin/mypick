@@ -15,18 +15,17 @@ public class Comm {
 		HttpSession session = req.getSession();
 		MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
 		String userMail = userObj.getEmail();
-		String arcMenu = req.getParameter("arcMenu");
-		String arcCate = req.getParameter("arcCate");
-		String encText = req.getParameter("encText");
-		MpickDao dao = MpickDao.getInstance();
+		String menu = req.getParameter("menu");
+		String cate = req.getParameter("cate");
+		String tTitle = req.getParameter("tTitle");
+		String tLink = req.getParameter("tLink");
+		String tState = req.getParameter("tState");
+		String tText = req.getParameter("tText");
 		
-		if((arcCate != null && !"".equals(arcCate)) && (arcMenu != null && !"".equals(arcMenu))){
-			String[] arcCates = arcCate.split("[|]");
-			if(arcCates.length == 2){
-				dao.archiveCommText(arcCates[0], arcCates[1],  "");
-				result = dao.insertCommText(userMail, arcCates[0], arcCates[1], "", encText);
-			}
-		}
+		MpickDao dao = MpickDao.getInstance();
+		int tNum = dao.getMaxCommTxtNum() + 1;
+		
+		result = dao.insertCommText(tNum, userMail, menu, cate, tTitle, tLink, tState, tText);
 		return result;
 	}
 	
@@ -49,7 +48,7 @@ public class Comm {
 		if(arcCate != null && !"".equals(arcCate) && !"null".equals(arcCate)){
 			String[] arcCates = arcCate.split("[|]");
 			if(arcCates.length == 3){
-				data =  dao.getCommText(arcCates[0], arcCates[1], arcTitleSel);
+				data =  dao.getCommText(arcTitleSel);
 				if(data != null && data.length > 0){
 					result = (String)data[0].get("ar_text");
 				}

@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="mpick.com.MpickParam"%>
 <% 
+
 String enclTab = request.getParameter("enclTab");
 if(enclTab == null || "".equals(enclTab)){
 	enclTab = "cate";
 }
+
 %>
 <link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload.css">
 <link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload-ui.css">

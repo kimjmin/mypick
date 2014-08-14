@@ -2,9 +2,7 @@
 <%@ page import="jm.net.DataEntity,mpick.com.MpickDao,mpick.ctrl.Comm"%>
 <%
 String bbsM = request.getParameter("bbs");
-String m = request.getParameter("m");
-if(bbsM == null || bbsM.equals("")){ bbsM="news"; }
-if(m == null || m.equals("")){ m="list"; }
+String ctrlM = request.getParameter("ctrl");
 
 MpickDao daoM = MpickDao.getInstance();
 DataEntity[] menuDatas = daoM.getCommMenu();
@@ -13,8 +11,6 @@ DataEntity[] menuDatas = daoM.getCommMenu();
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Community/MyPick</title>
 <!-- 공통 라이브러리 시작 -->
 <%@include file="../ctrl/header.jsp"%>
@@ -55,10 +51,10 @@ for(DataEntity menuData : menuDatas){
 
 			<div class="col-sm-9">
 <!-- 우측 내용 시작 -->
-<%if("write".equals(m)){ %>
+<%if("Write".equals(ctrlM)){ %>
 <%@include file="../comm/commWrite.jsp"%>
-<%} else if("modyfy".equals(m)){ %>
-<%@include file="../comm/commList.jsp"%>
+<%} else if("View".equals(ctrlM)){ %>
+<%@include file="../comm/commView.jsp"%>
 <%} else { %>
 <%@include file="../comm/commList.jsp"%>
 <%} %>

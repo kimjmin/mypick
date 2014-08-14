@@ -199,6 +199,18 @@ public class Confirm extends HttpServlet {
 				out.println("	history.go(-1);");
 				out.println("</script>");
 			}
+		} else if(toUrl != null && cmd != null && cmd.equals("saveCommTxt")){
+			//백과사전 AtoZ 저장.
+			Comm comm = new Comm();
+			int commRes = comm.saveText(req, res);
+			if(commRes > 0){
+				res.sendRedirect(toUrl);				
+			} else {
+				out.println("<script>");
+				out.println("	alert(\"정보를 저장하는 중 오류가 발생되었습니다.\");");
+				out.println("	history.go(-1);");
+				out.println("</script>");
+			}
 		} else {
 //			System.out.println("cmd : "+cmd);
 //			System.out.println("toUrl : "+toUrl);

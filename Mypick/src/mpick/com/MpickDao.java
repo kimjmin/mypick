@@ -3,7 +3,7 @@ package mpick.com;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
+import java.util.Vector;
 import javax.servlet.http.HttpServletRequest;
 
 import jm.com.JmProperties;
@@ -682,28 +682,107 @@ public class MpickDao {
 		return data;
 	}
 	
-	
-	
-
 	/**
 	 * 커뮤니티 저장.
+	 * @param tNum
 	 * @param userMail
-	 * @param encType
+	 * @param menu
+	 * @param cate
+	 * @param tTitle
+	 * @param tLink
+	 * @param tState
 	 * @param encText
 	 * @return
 	 */
-	public int insertCommText(String userMail, String menu, String cate, String title, String encText ){
+	public int insertCommText(int tNum, String userMail, String menu, String cate, String tTitle, String tLink, String tState, String tText ){
 		int result = 0;
 		DataEntity data = new DataEntity();
 		Dao dao = Dao.getInstance();
-		data.put("ar_menu_id", menu);
-		data.put("ar_cate_1", cate);
-		data.put("ar_title", title);
-		data.put("ar_text", encText);
-		data.put("ar_mail", userMail);
-		data.put("ar_state", "ACTIVE");
-		result = dao.inertData(property, "mp_article", data);
+		data.put("t_num", tNum);
+		data.put("bbs_menu_id", menu);
+		data.put("bbs_cate_name", cate);
+		data.put("t_title", tTitle);
+		data.put("t_link", tLink);
+		data.put("t_state", tState);
+		data.put("user_email", userMail);
+		data.put("t_text", tText);
+		result = dao.inertData(property, "mp_bbs_text", data);
 		return result;
+	}
+	
+	/**
+	 * 게시판 최대값 가져오기.
+	 * @return
+	 */
+	public int getMaxCommTxtNum(){
+		int result = 0;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT MAX(t_num) AS maxnum FROM mp_bbs_text ");
+		DataEntity[] data = dao.getResult(property, sql.toString(), null);
+		if(data != null && data.length == 1){
+			if(data[0].get("maxnum") != null){
+				result = Integer.parseInt(data[0].get("maxnum")+"");
+			}
+		}
+		return result;
+	}
+	
+	public int getCommListCnt(String menu, String cate, String schOpt, String schTxt){
+		int result = 0;
+		StringBuffer sql = new StringBuffer();
+		Vector<String> paramV = new Vector<String>();
+		sql.append("SELECT ");
+		sql.append("COUNT(t_num) ");
+		sql.append("FROM mp_bbs_text ");
+		sql.append("WHERE t_state <> 'ARCHIVE' ");
+		sql.append("AND bbs_menu_id = ? ");
+		paramV.add(menu);
+		if(cate != null && !"".equals(cate)){
+			sql.append("and bbs_cate_name = ? ");
+			paramV.add(cate);
+		}
+		if((schOpt != null && !"".equals(schOpt)) && (schTxt != null && !"".equals(schTxt))){
+			sql.append("and "+schOpt+" like ? ");
+			paramV.add("%"+schTxt+"%");
+		}
+		sql.append("order by t_num desc ");
+		String[] params = paramV.toArray(new String[paramV.size()]);
+		Dao dao = Dao.getInstance();
+		result = dao.getCount(property, sql.toString(), params);
+		return result;
+	}
+	
+	public DataEntity[] getCommList(String menu, String cate, String schOpt, String schTxt, int pageSize, int pageNum){
+		DataEntity[] data = null;
+		StringBuffer sql = new StringBuffer();
+		Vector<String> paramV = new Vector<String>();
+		sql.append("SELECT ");
+		sql.append("A.t_num AS t_num ");
+		sql.append(", A.t_date AS t_date ");
+		sql.append(", A.bbs_cate_name AS cate ");
+		sql.append(", A.t_title as t_title ");
+		sql.append(", A.t_viewed as t_viewed ");
+		sql.append(", B.nicname as nicname ");
+		sql.append("FROM mp_bbs_text A, mp_user B ");
+		sql.append("WHERE A.user_email = B.email ");
+		sql.append("AND A.t_state <> 'ARCHIVE' ");
+		sql.append("AND A.bbs_menu_id = ? ");
+		paramV.add(menu);
+		if(cate != null && !"".equals(cate)){
+			sql.append("AND A.bbs_cate_name = ? ");
+			paramV.add(cate);
+		}
+		if((schOpt != null && !"".equals(schOpt)) && (schTxt != null && !"".equals(schTxt))){
+			sql.append("AND A."+schOpt+" like ? ");
+			paramV.add("%"+schTxt+"%");
+		}
+		sql.append("ORDER BY A.t_num DESC ");
+		sql.append("LIMIT "+(pageNum*pageSize)+", "+pageSize+" ");
+		String[] params = paramV.toArray(new String[paramV.size()]);
+		Dao dao = Dao.getInstance();
+		data = dao.getResult(property, sql.toString(), params);
+		return data;
 	}
 	
 	/**
@@ -749,17 +828,15 @@ public class MpickDao {
 	 * @param type
 	 * @return
 	 */
-	public DataEntity[] getCommText(String menu, String cate, String title){
+	public DataEntity[] getCommText(String tNum){
 		DataEntity[] data = null;
 		Dao dao = Dao.getInstance();
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT * FROM mp_article ");
-		sql.append("where ar_state = 'ACTIVE' ");
-		sql.append("and ar_menu_id = ? \n");
-		sql.append("and ar_cate_1 = ? \n");
-		sql.append("and ar_cate_2 = ? \n");
-		sql.append("and ar_title = ? \n");
-		String[] params = {menu, cate, title};
+		sql.append("SELECT * FROM mp_bbs_text ");
+		sql.append("where t_state <> 'ARCHIVE' ");
+		sql.append("and t_num = ? ");
+		sql.append("order by t_date desc ");
+		String[] params = {tNum};
 		data = dao.getResult(property, sql.toString(), params);
 		return data;
 	}

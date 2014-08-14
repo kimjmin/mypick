@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import mpick.com.MpickDao;
 
 public class ShipComps {
-
+	
 	public int saveShipCompList(HttpServletRequest req, HttpServletResponse res){
 		String[] shipItemIds = req.getParameterValues("shipItemId");
 		String[] shipItemNames = req.getParameterValues("shipItemName");
