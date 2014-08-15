@@ -21,20 +21,24 @@ public class Community extends HttpServlet {
 
 	public void service(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		res.setContentType("text/html; charset=UTF-8");
-		
 		HttpSession session = req.getSession();
 		MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
 		PrintWriter out = res.getWriter();
+		
+		boolean loggedIn = false;
+		if(userObj != null && !"".equals(userObj.getEmail())){
+			loggedIn = true;
+		}
 		//로그인 체크. MpickParam.login == true 일 때만 체크.
-		if( "true".equals(MpickParam.login) && (userObj == null || "".equals(userObj.getEmail())) ){
+		if( "true".equals(MpickParam.login) && !loggedIn ){
 			out.print(MpickMsg.loginError());
 		} else {
 			String uri = req.getRequestURI();
 			String subUri = uri.substring(uri.lastIndexOf("Comm/")+5);
-			
+			MpickDao dao = MpickDao.getInstance();
 			if(subUri == null || "".equals(subUri.trim())){
-				MpickDao daoM = MpickDao.getInstance();
-				DataEntity[] menuDatas = daoM.getCommMenu();
+				
+				DataEntity[] menuDatas = dao.getCommMenu();
 				if(menuDatas.length > 0){
 					res.sendRedirect(MpickParam.hostUrl+"/Comm/"+(String)menuDatas[0].get("bbs_menu_id"));
 				} else {
@@ -51,7 +55,26 @@ public class Community extends HttpServlet {
 					if(subUris.length > 2){ t_num = subUris[2]; }
 					if(subUris.length > 1){ ctrl = subUris[1]; }
 					if(subUris.length > 0){ bbs = subUris[0]; }
-					req.getRequestDispatcher("/comm/community.jsp?bbs="+bbs+"&ctrl="+ctrl+"&t_num="+t_num).include(req, res);
+					if("Write".equals(ctrl)){
+						if( !loggedIn ){
+							out.print(MpickMsg.error("로그인 후 작성이 가능합니다."));
+						} else {
+							req.getRequestDispatcher("/comm/community.jsp?bbs="+bbs+"&ctrl="+ctrl+"&t_num="+t_num).include(req, res);
+						}
+					} else if("View".equals(ctrl)){
+						DataEntity[] data = dao.getCommText(t_num);
+						if(data == null || data.length == 0){
+							out.print(MpickMsg.error("존재하지 않는 글입니다."));
+						} else {
+							if("LOGIN".equals(data[0].get("t_state")+"") && !loggedIn ){
+								out.print(MpickMsg.error("이 글을 조회하려면 로그인이 필요합니다."));
+							} else {
+								req.getRequestDispatcher("/comm/community.jsp?bbs="+bbs+"&ctrl="+ctrl+"&t_num="+t_num).include(req, res);
+							}
+						}
+					} else {
+						req.getRequestDispatcher("/comm/community.jsp?bbs="+bbs+"&ctrl="+ctrl+"&t_num="+t_num).include(req, res);
+					}
 				}
 				
 			}

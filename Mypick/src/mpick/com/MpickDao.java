@@ -761,20 +761,21 @@ public class MpickDao {
 		StringBuffer sql = new StringBuffer();
 		Vector<String> paramV = new Vector<String>();
 		sql.append("SELECT ");
-		sql.append("COUNT(t_num) ");
-		sql.append("FROM mp_bbs_text ");
-		sql.append("WHERE t_state <> 'ARCHIVE' ");
-		sql.append("AND bbs_menu_id = ? ");
+		sql.append("COUNT(A.t_num) ");
+		sql.append("FROM mp_bbs_text A, mp_user B \n");
+		sql.append("WHERE A.user_email = B.email \n");
+		sql.append("AND A.t_state <> 'ARCHIVE' \n");
+		sql.append("AND A.bbs_menu_id = ? ");
 		paramV.add(menu);
 		if(cate != null && !"".equals(cate)){
-			sql.append("and bbs_cate_name = ? ");
+			sql.append("and A.bbs_cate_name = ? ");
 			paramV.add(cate);
 		}
 		if((schOpt != null && !"".equals(schOpt)) && (schTxt != null && !"".equals(schTxt))){
-			sql.append("and "+schOpt+" like ? ");
+			sql.append("and A."+schOpt+" like ? ");
 			paramV.add("%"+schTxt+"%");
 		}
-		sql.append("order by t_num desc ");
+		sql.append("order by A.t_num desc ");
 		String[] params = paramV.toArray(new String[paramV.size()]);
 		Dao dao = Dao.getInstance();
 		result = dao.getCount(property, sql.toString(), params);
@@ -785,28 +786,29 @@ public class MpickDao {
 		DataEntity[] data = null;
 		StringBuffer sql = new StringBuffer();
 		Vector<String> paramV = new Vector<String>();
-		sql.append("SELECT ");
-		sql.append("A.t_num AS t_num ");
-		sql.append(", A.t_date AS t_date ");
-		sql.append(", A.bbs_cate_name AS cate ");
-		sql.append(", A.t_title as t_title ");
-		sql.append(", A.t_viewed as t_viewed ");
-		sql.append(", B.nicname as nicname ");
-		sql.append("FROM mp_bbs_text A, mp_user B ");
-		sql.append("WHERE A.user_email = B.email ");
-		sql.append("AND A.t_state <> 'ARCHIVE' ");
-		sql.append("AND A.bbs_menu_id = ? ");
+		sql.append("SELECT \n");
+		sql.append("A.t_num AS t_num \n");
+		sql.append(", A.t_date AS t_date \n");
+		sql.append(", A.bbs_cate_name AS cate \n");
+		sql.append(", A.t_title as t_title \n");
+		sql.append(", A.t_viewed as t_viewed \n");
+		sql.append(", B.nicname as nicname \n");
+		sql.append("FROM mp_bbs_text A, mp_user B \n");
+		sql.append("WHERE A.user_email = B.email \n");
+		sql.append("AND A.t_state <> 'ARCHIVE' \n");
+		sql.append("AND A.bbs_menu_id = ? \n");
 		paramV.add(menu);
 		if(cate != null && !"".equals(cate)){
-			sql.append("AND A.bbs_cate_name = ? ");
+			sql.append("AND A.bbs_cate_name = ? \n");
 			paramV.add(cate);
 		}
 		if((schOpt != null && !"".equals(schOpt)) && (schTxt != null && !"".equals(schTxt))){
-			sql.append("AND A."+schOpt+" like ? ");
+			sql.append("AND A."+schOpt+" like ? \n");
 			paramV.add("%"+schTxt+"%");
 		}
-		sql.append("ORDER BY A.t_num DESC ");
+		sql.append("ORDER BY A.t_num DESC \n");
 		sql.append("LIMIT "+(pageNum*pageSize)+", "+pageSize+" ");
+		
 		String[] params = paramV.toArray(new String[paramV.size()]);
 		Dao dao = Dao.getInstance();
 		data = dao.getResult(property, sql.toString(), params);

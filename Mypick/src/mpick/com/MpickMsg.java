@@ -28,4 +28,13 @@ public class MpickMsg {
 		return msg.toString();
 	}
 	
+	public static String error(String errMsg){
+		StringBuffer msg = new StringBuffer();
+		msg.append("<script> \n");
+		msg.append("	alert(\""+errMsg+"\"); \n");
+		msg.append("	history.go(-1); \n");
+		msg.append("</script> \n");
+		
+		return msg.toString();
+	}
 }
