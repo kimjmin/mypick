@@ -1,11 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="jm.net.DataEntity,mpick.com.MpickDao,mpick.com.MpickParam"%>
+<%@page import="mpick.com.MpickUserObj"%>
 <%
-
+MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
 String bbs = request.getParameter("bbs");
+String tNum = request.getParameter("t_num");
 MpickDao dao = MpickDao.getInstance();
 DataEntity[] cates = dao.getCommCate(bbs);
 
+String tTitle = "";
+String bbsCateName = "";
+String tLink = "http://";
+String tState = "ALL";
+String tText = "";
+if(tNum != null && !"".equals(tNum)){
+	DataEntity[] tDatas = dao.getCommText(bbs,tNum);
+	if(tDatas != null && tDatas.length > 0){
+		DataEntity tData = tDatas[0];
+		MpickUserObj writerObj = dao.getUserObj(tData.get("user_email")+"");
+		if(userObj != null && userObj.getEmail().equals(writerObj.getEmail())){
+			tTitle = tData.get("t_title")+"";
+			bbsCateName = tData.get("bbs_cate_name")+"";
+			tLink = tData.get("t_link")+"";
+			tState = tData.get("t_state")+"";
+			tText = tData.get("t_text")+"";
+		}
+	}
+}
 %>
 <script src="<%=MpickParam.hostUrl%>/js/tinymce/tinymce.min.js"></script>
 <script>
@@ -40,7 +61,7 @@ tinymce.init({
 <%
 for(int i=0; i < cates.length; i++){
 %>
-				<option value="<%=cates[i].get("bbs_cate_name")+""%>"><%=cates[i].get("bbs_cate_name")+""%></option>
+				<option value='<%=cates[i].get("bbs_cate_name")+""%>' <%if(bbsCateName.equals(cates[i].get("bbs_cate_name")+"")){ out.print("selected='selected'");} %>><%=cates[i].get("bbs_cate_name")+""%></option>
 <%
 }
 %>
@@ -49,8 +70,8 @@ for(int i=0; i < cates.length; i++){
 		<label for="tState" class="col-lg-1 control-label">조회</label>
 		<div class="col-lg-3">
 			<select class="form-control" id="tState" name="tState">
-				<option value="ALL" selected="selected">전체</option>
-				<option value="LOGIN">로그인 사용자</option>
+				<option value="ALL" <%if(tState.equals("ALL")){ out.print("selected='selected'");} %>>전체</option>
+				<option value="LOGIN" <%if(tState.equals("LOGIN")){ out.print("selected='selected'");} %>>로그인 사용자</option>
 			</select>
 		</div>
 		<div class="col-lg-3"></div>
@@ -58,36 +79,38 @@ for(int i=0; i < cates.length; i++){
 	<div class="form-group">
 		<label for="tTitle" class="col-lg-1 control-label">제목</label>
 		<div class="col-lg-10">
-			<input type="text" class="form-control" id="tTitle" name="tTitle" required="required">
+			<input type="text" class="form-control" id="tTitle" name="tTitle" required="required" value="<%=tTitle%>">
 		</div>
 		<div class="col-lg-1"></div>
 	</div>
 	<div class="form-group">
 		<label for="tLink" class="col-lg-1 control-label">링크</label>
 		<div class="col-lg-10">
-			<input type="text" class="form-control" id="tLink" name="tLink" value="http://">
+			<input type="text" class="form-control" id="tLink" name="tLink" value="<%=tLink%>">
 		</div>
 		<div class="col-lg-1"></div>
 	</div>
 	<div class="form-group">
 		<label for="elm" class="col-lg-1 control-label">내용</label>
 		<div class="col-lg-10">
-			<textarea id="elm" name="tText"></textarea>
+			<textarea id="elm" name="tText"><%=tText%></textarea>
 		</div>
 	</div>
 
 	<ul class="pager">
 		<li><button type="button" class="btn btn-warning btn-sm" onclick="if(confirm('작성을 취소하시겠습니까?')){window.history.back();}"><span class="glyphicon glyphicon-remove"></span> 취소 </button></li>
-		<li><button type="submit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-save"></span> 저장 </button></li>
+		<li><button id="saveBtn" type="submit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-save"></span> 저장 </button></li>
 	</ul>
 	
 	<input type="hidden" name="menu" value="<%=bbs%>" />
+<%if(tNum != null && !"".equals(tNum)){ %>	<input type="hidden" name="tNum" value="<%=tNum%>" /><% } %>
 	<input type="hidden" name="cmd" value="saveCommTxt" />
 	<input type="hidden" name="toUrl" value="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>" />
 </form>
 
 <script>
 function save(){
+	$("#saveBtn").attr("disabled",true);
 	var frm = document.commFrm;
 	frm.method="POST";
 	frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";

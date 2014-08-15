@@ -200,7 +200,6 @@ public class Confirm extends HttpServlet {
 				out.println("</script>");
 			}
 		} else if(toUrl != null && cmd != null && cmd.equals("saveCommTxt")){
-			//백과사전 AtoZ 저장.
 			Comm comm = new Comm();
 			int commRes = comm.saveText(req, res);
 			if(commRes > 0){

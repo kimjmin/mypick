@@ -59,10 +59,25 @@ public class Community extends HttpServlet {
 						if( !loggedIn ){
 							out.print(MpickMsg.error("로그인 후 작성이 가능합니다."));
 						} else {
-							req.getRequestDispatcher("/comm/community.jsp?bbs="+bbs+"&ctrl="+ctrl+"&t_num="+t_num).include(req, res);
+							if(t_num !=null && !"".equals(t_num)){
+								DataEntity[] tDatas = dao.getCommText(bbs,t_num);
+								if(tDatas != null && tDatas.length > 0){
+									DataEntity tData = tDatas[0];
+									MpickUserObj writerObj = dao.getUserObj(tData.get("user_email")+"");
+									if(userObj != null && userObj.getEmail().equals(writerObj.getEmail())){
+										req.getRequestDispatcher("/comm/community.jsp?bbs="+bbs+"&ctrl="+ctrl+"&t_num="+t_num).include(req, res);
+									} else {
+										out.print(MpickMsg.approachError());
+									}
+								} else {
+									out.print(MpickMsg.approachError());
+								}
+							} else {
+								req.getRequestDispatcher("/comm/community.jsp?bbs="+bbs+"&ctrl="+ctrl+"&t_num="+t_num).include(req, res);
+							}
 						}
 					} else if("View".equals(ctrl)){
-						DataEntity[] data = dao.getCommText(t_num);
+						DataEntity[] data = dao.getCommText(bbs,t_num);
 						if(data == null || data.length == 0){
 							out.print(MpickMsg.error("존재하지 않는 글입니다."));
 						} else {

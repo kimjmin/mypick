@@ -28,8 +28,8 @@ if(endNum > 5){
 <table class="table table-condensed table-hover" id="bbs">
 <thead>
 	<tr class="info">
-		<th class="text-center" width="7%">No</th>
-		<th class="text-center" width="13%">Category</th>
+		<th class="text-center" width="10%">No</th>
+		<th class="text-center" width="15%">Category</th>
 		<th class="text-center">Subject</th>
 		<th class="text-center" width="10%">Name</th>
 		<th class="text-center" width="7%">Date</th>
@@ -44,7 +44,7 @@ for(int i=0; i<listData.length; i++){
 %>
 	<tr>
 		<td class="text-center"><%=listData[i].get("t_num")+""%></td>
-		<td class="text-center">[<%=listData[i].get("bbs_cate_name")+""%>]</td>
+		<td class="text-center">[ <%=listData[i].get("bbs_cate_name")+""%> ]</td>
 		<td class=""><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/View/<%=listData[i].get("t_num")+""%>"><%=listData[i].get("t_title")+""%></a></td>
 		<td class="text-center"><%=listData[i].get("nicname")+""%></td>
 		<td class="text-center"><%=frmt.format(t_date)%></td>

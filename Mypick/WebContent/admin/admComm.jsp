@@ -10,7 +10,7 @@ function addMenu(){
 	$("#menuId").val(""); $("#menuName").val("");
 }
 function delMenu(){
-	if(confirm("선택하신 메뉴를 정말로 삭제하시겠습니까?\n\n해당 메뉴의 카테고리들도 모두 삭제됩니다.")){
+	if(confirm("선택하신 메뉴를 정말로 삭제하시겠습니까?\n\n해당 메뉴의 카테고리와 글들도 모두 삭제됩니다.")){
 		var ind = $("#menus option").index($("#menus option:selected"));
 		var preVal = $("#menus option:eq("+ind+")").val()+"";
 		var cateSize = $("#cates option").size();
@@ -92,7 +92,7 @@ function downMenu(){
 	}
 }
 /**
- * 카테고리 1 추가 삭제 변경 시작.
+ * 카테고리 추가 삭제 변경 시작.
  */
 function addCate(){
 	if($("#cateMenu").val() == ""){ alert("상위 메뉴를 선택하세요."); $("#cateMenu").focus(); return; }
@@ -116,7 +116,7 @@ function modifyCate(){
 	var cateIdText = $("#cateMenuMod option:selected").text();
 	var cateNameVal = $("#cateNameMod").val();
 	var ind = $("#cates option").index($("#cates option:selected"));
-	var preVal = $("#cate1s option:eq("+ind+")").val()+"";
+	var preVal = $("#cates option:eq("+ind+")").val()+"";
 	
 	$("#cates option:eq("+ind+")").text(cateIdText+' | '+cateNameVal);
 	$("#cates option:eq("+ind+")").val(cateIdVal+'|'+cateNameVal);

@@ -818,15 +818,13 @@ public class MpickDao {
 	/**
 	 * 커뮤니티 상태 변경.
 	 */
-	public int archiveCommText(String menu, String cate, String title){
+	public int archiveCommText(String menu, String tNum){
 		Dao dao = Dao.getInstance();
 		StringBuffer sql = new StringBuffer();
-		sql.append("UPDATE mp_article SET ar_state = 'ARCHIVE' \n");
-		sql.append("where ar_menu_id = ? \n");
-		sql.append("and ar_cate_1 = ? \n");
-		sql.append("and ar_cate_2 = ? \n");
-		sql.append("and ar_title = ? \n");
-		String[] params = {menu, cate, title};
+		sql.append("UPDATE mp_bbs_text SET t_state = 'ARCHIVE' \n");
+		sql.append("where bbs_menu_id = ? \n");
+		sql.append("and t_num = ? \n");
+		String[] params = {menu, tNum};
 		return dao.updateSql(property, sql.toString(), params);
 	}
 	
@@ -834,9 +832,9 @@ public class MpickDao {
 	public int updateCommMenu(String menu, String new_menu){
 		Dao dao = Dao.getInstance();
 		StringBuffer sql = new StringBuffer();
-		sql.append("UPDATE mp_article  \n");
-		sql.append("SET ar_menu_id = ? \n");
-		sql.append("where ar_menu_id = ? \n");
+		sql.append("UPDATE mp_bbs_text  \n");
+		sql.append("SET bbs_menu_id = ? \n");
+		sql.append("where bbs_menu_id = ? \n");
 		String[] params = {new_menu, menu };
 		return dao.updateSql(property, sql.toString(), params);
 	}
@@ -844,11 +842,11 @@ public class MpickDao {
 	public int updateCommCate(String menu, String cate, String new_menu, String new_cate){
 		Dao dao = Dao.getInstance();
 		StringBuffer sql = new StringBuffer();
-		sql.append("UPDATE mp_article  \n");
-		sql.append("SET ar_menu_id = ? \n");
-		sql.append(", ar_cate_1 = ? \n");
-		sql.append("where ar_menu_id = ? \n");
-		sql.append("and ar_cate_1 = ? \n");
+		sql.append("UPDATE mp_bbs_text  \n");
+		sql.append("SET bbs_menu_id = ? \n");
+		sql.append(", bbs_cate_name = ? \n");
+		sql.append("where bbs_menu_id = ? \n");
+		sql.append("and bbs_cate_name = ? \n");
 		String[] params = {new_menu, new_cate, menu, cate };
 		return dao.updateSql(property, sql.toString(), params);
 	}
@@ -859,14 +857,23 @@ public class MpickDao {
 	 * @return
 	 */
 	public DataEntity[] getCommText(String tNum){
+		return this.getCommText(null, tNum);
+	}
+	public DataEntity[] getCommText(String menu, String tNum){
 		DataEntity[] data = null;
+		Vector<String> paramV = new Vector<String>();
 		Dao dao = Dao.getInstance();
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT * FROM mp_bbs_text ");
 		sql.append("where t_state <> 'ARCHIVE' ");
 		sql.append("and t_num = ? ");
+		paramV.add(tNum);
+		if(menu != null && "".equals(menu)){
+			sql.append("and bbs_menu_id = ? ");
+			paramV.add(menu);
+		}
 		sql.append("order by t_date desc ");
-		String[] params = {tNum};
+		String[] params = paramV.toArray(new String[paramV.size()]);
 		data = dao.getResult(property, sql.toString(), params);
 		return data;
 	}

@@ -12,6 +12,7 @@ public class Comm {
 	
 	public int saveText(HttpServletRequest req, HttpServletResponse res){
 		int result = 0;
+		int tNum = 0;
 		HttpSession session = req.getSession();
 		MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
 		String userMail = userObj.getEmail();
@@ -23,8 +24,13 @@ public class Comm {
 		String tText = req.getParameter("tText");
 		
 		MpickDao dao = MpickDao.getInstance();
-		int tNum = dao.getMaxCommTxtNum() + 1;
-		
+		String tNumStr = req.getParameter("tNum");
+		if(tNumStr == null || "".equals(tNumStr)){
+			tNum = dao.getMaxCommTxtNum() + 1;
+		} else {
+			tNum = Integer.parseInt(tNumStr);
+			dao.archiveCommText(menu, tNumStr);
+		}
 		result = dao.insertCommText(tNum, userMail, menu, cate, tTitle, tLink, tState, tText);
 		return result;
 	}
@@ -38,13 +44,7 @@ public class Comm {
 		if("new".equals(arcTitleSel)){
 			arcTitleSel = "";
 		}
-//		System.out.println("arcTitleSel: "+arcTitleSel);
-//		System.out.println("arcMenu: "+arcMenu);
-//		System.out.println("arcCate1: "+arcCate1);
-//		System.out.println("arcCate2: "+arcCate2);
-		
 		MpickDao dao = MpickDao.getInstance();
-		
 		if(arcCate != null && !"".equals(arcCate) && !"null".equals(arcCate)){
 			String[] arcCates = arcCate.split("[|]");
 			if(arcCates.length == 3){
@@ -66,20 +66,23 @@ public class Comm {
 		String[] arcCates = arcCate.split("[|]");
 		MpickDao dao = MpickDao.getInstance();
 		if(!"new".equals(arcTitleSel) && arcCates.length == 3){
-			result = dao.archiveCommText(arcCates[0], arcCates[1], arcTitleSel);
+			result = dao.archiveCommText(arcCates[0], arcTitleSel);
 		}
 		return result;
 	}
 	
+	/**
+	 * 카테고리 저장.
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	public int saveCate(HttpServletRequest req, HttpServletResponse res){
 		int result = 1;
 		MpickDao dao = MpickDao.getInstance();
 		
 		String menu = req.getParameter("menus");
 		String cate = req.getParameter("cates");
-		
-//		System.out.println("menu: "+menu);
-//		System.out.println("cate1: "+cate1);
 		
 		if(menu != null && !"".equals(menu)){
 			String[] menus = menu.split(",");
@@ -110,11 +113,16 @@ public class Comm {
 	public int delNSaveCate(HttpServletRequest req, HttpServletResponse res){
 		MpickDao dao = MpickDao.getInstance();
 		dao.deleteAllCommCates();
-//		this.modifArcCate(req, res);
+		this.modifTextCate(req, res);
 		return saveCate(req, res);
 	}
 	
-	private void modifArcCate(HttpServletRequest req, HttpServletResponse res){
+	/**
+	 * 변경된 메뉴명, 카테고리명 각 글에 적용.
+	 * @param req
+	 * @param res
+	 */
+	private void modifTextCate(HttpServletRequest req, HttpServletResponse res){
 		String[] menuChg = req.getParameterValues("menuChg");
 		String[] cage1Chg = req.getParameterValues("cage1Chg");
 		MpickDao dao = MpickDao.getInstance();
@@ -123,11 +131,10 @@ public class Comm {
 			for(int i=0; i<menuChg.length; i++){
 				String[] menus = menuChg[i].split(",");
 				if(menus.length == 2){
-					dao.updateArcMenu(menus[0], menus[1]);
+					dao.updateCommMenu(menus[0], menus[1]);
 				}
 			}
 		}
-		
 		if(cage1Chg != null && cage1Chg.length > 0){
 			for(int i=0; i<cage1Chg.length; i++){
 				String[] cate1s = cage1Chg[i].split(",");
@@ -135,7 +142,7 @@ public class Comm {
 					String[] cate1s0 = cate1s[0].split("[|]");
 					String[] cate1s1 = cate1s[1].split("[|]");
 					if(cate1s0.length == 2 && cate1s1.length == 2){
-						dao.updateArcCate1(cate1s0[0], cate1s0[1], cate1s1[0], cate1s1[1]);
+						dao.updateCommCate(cate1s0[0], cate1s0[1], cate1s1[0], cate1s1[1]);
 					}
 				}
 			}
