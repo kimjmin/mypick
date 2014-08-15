@@ -43,7 +43,7 @@ if(tDatas != null && tDatas.length > 0){
 </table>
 
 <ul class="pager">
-	<li class="previous"><a href="javascript:history.go(-1);"><span class="glyphicon glyphicon-align-justify"></span> 목록</a></li>
+	<li class="previous"><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>"><span class="glyphicon glyphicon-align-justify"></span> 목록</a></li>
 <%
 if(userObj != null && userObj.getEmail().equals(writerObj.getEmail())){
 %>

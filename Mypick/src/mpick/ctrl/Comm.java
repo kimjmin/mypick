@@ -32,7 +32,11 @@ public class Comm {
 			dao.archiveCommText(menu, tNumStr);
 		}
 		result = dao.insertCommText(tNum, userMail, menu, cate, tTitle, tLink, tState, tText);
-		return result;
+		if(result > 0){
+			return tNum;
+		} else {
+			return result;
+		}
 	}
 	
 	public String getText(HttpServletRequest req, HttpServletResponse res){

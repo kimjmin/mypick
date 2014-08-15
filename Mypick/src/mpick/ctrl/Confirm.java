@@ -203,7 +203,7 @@ public class Confirm extends HttpServlet {
 			Comm comm = new Comm();
 			int commRes = comm.saveText(req, res);
 			if(commRes > 0){
-				res.sendRedirect(toUrl);				
+				res.sendRedirect(toUrl+"/View/"+commRes);
 			} else {
 				out.println("<script>");
 				out.println("	alert(\"정보를 저장하는 중 오류가 발생되었습니다.\");");
