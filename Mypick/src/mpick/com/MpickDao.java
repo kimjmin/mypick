@@ -791,7 +791,7 @@ public class MpickDao {
 		sql.append(", A.t_date AS t_date \n");
 		sql.append(", A.bbs_cate_name AS cate \n");
 		sql.append(", A.t_title as t_title \n");
-		sql.append(", A.t_viewed as t_viewed \n");
+		sql.append(", A.t_hit as t_hit \n");
 		sql.append(", B.nicname as nicname \n");
 		sql.append("FROM mp_bbs_text A, mp_user B \n");
 		sql.append("WHERE A.user_email = B.email \n");

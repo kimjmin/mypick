@@ -48,7 +48,7 @@ for(int i=0; i<listData.length; i++){
 		<td class=""><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/View/<%=listData[i].get("t_num")+""%>"><%=listData[i].get("t_title")+""%></a></td>
 		<td class="text-center"><%=listData[i].get("nicname")+""%></td>
 		<td class="text-center"><%=frmt.format(t_date)%></td>
-		<td class="text-center"><%=listData[i].get("t_viewed")+""%></td>
+		<td class="text-center"><%=listData[i].get("t_hit")+""%></td>
 	</tr>
 <% } %>
 </tbody>
