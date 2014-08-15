@@ -1,9 +1,12 @@
 package mpick.com;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Vector;
+
 import javax.servlet.http.HttpServletRequest;
 
 import jm.com.JmProperties;
@@ -66,25 +69,48 @@ public class MpickDao {
 	}
 	
 	/**
+	 * 패스워드 암호화.
+	 * @param rawPasswd
+	 * @return
+	 */
+	private String encPasswd(String rawPasswd){
+		String passwd = "";
+		try{
+			MessageDigest sh = MessageDigest.getInstance("SHA-256"); 
+			sh.update(rawPasswd.getBytes()); 
+			byte byteData[] = sh.digest();
+			StringBuffer sb = new StringBuffer(); 
+			for(int i = 0 ; i < byteData.length ; i++){
+				sb.append(Integer.toString((byteData[i]&0xff) + 0x100, 16).substring(1));
+			}
+			passwd = sb.toString();
+		}catch(NoSuchAlgorithmException e){
+			e.printStackTrace(); 
+		}
+		return passwd;
+	}
+	
+	/**
 	 * CandiUserObj 객체를 DB에 저장.
 	 * @param userObj
 	 * @return
 	 */
 	public int insertUserObj(MpickUserObj userObj){
 		int result = 0;
-		
 		DataEntity data = new DataEntity();
 		Dao dao = Dao.getInstance();
 		
-		data.put("email", userObj.getEmail());
-		data.put("passwd", userObj.getPasswd());
-		data.put("name", userObj.getName());
-		data.put("nicname", userObj.getNicname());
-		data.put("birthday", userObj.getBirthday());
-		data.put("gender", userObj.getGender());
-		data.put("phone", userObj.getPhone());
-		
-		result = dao.inertData(property, "mp_user", data);
+		String passwd = this.encPasswd(userObj.getPasswd());
+		if(passwd != null && !"".equals(passwd)){
+			data.put("email", userObj.getEmail());
+			data.put("passwd", passwd);
+			data.put("name", userObj.getName());
+			data.put("nicname", userObj.getNicname());
+			data.put("birthday", userObj.getBirthday());
+			data.put("gender", userObj.getGender());
+			data.put("phone", userObj.getPhone());
+			result = dao.inertData(property, "mp_user", data);
+		}
 		return result;
 	}
 	
@@ -96,10 +122,11 @@ public class MpickDao {
 	public int updateUserObj(MpickUserObj userObj){
 		int result = 0;
 		
+		String passwd = this.encPasswd(userObj.getPasswd());
 		Dao dao = Dao.getInstance();
 		DataEntity setData = new DataEntity();
 		setData.put("email", userObj.getEmail());
-		setData.put("passwd", userObj.getPasswd());
+		setData.put("passwd", passwd);
 		setData.put("name", userObj.getName());
 		setData.put("nicname", userObj.getNicname());
 		setData.put("birthday", userObj.getBirthday());
@@ -121,8 +148,9 @@ public class MpickDao {
 	 * @param passwd
 	 * @return
 	 */
-	public int login(String email, String passwd) {
+	public int login(String email, String rawPasswd) {
 		Dao dao = Dao.getInstance();
+		String passwd = this.encPasswd(rawPasswd);
 		
 		StringBuffer sql = new StringBuffer();
 		String tempPw = "";
@@ -167,7 +195,7 @@ public class MpickDao {
 		
 		if(entity != null && entity.length == 1){
 			result.setEmail((String)entity[0].get("email"));
-			result.setPasswd((String)entity[0].get("passwd"));
+//			result.setPasswd((String)entity[0].get("passwd"));
 			result.setName((String)entity[0].get("name"));
 			result.setNicname((String)entity[0].get("nicname"));
 			result.setBirthday((Date)entity[0].get("birthday"));
