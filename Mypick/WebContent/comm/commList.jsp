@@ -6,6 +6,7 @@ String bbs = request.getParameter("bbs");
 MpickDao dao = MpickDao.getInstance();
 String pageNumStr = request.getParameter("pageNum");
 int pageSize = 10;
+int pageCntSize = 5;
 int pageNum = 0;
 if(pageNumStr != null && !"".equals(pageNumStr)){
 	pageNum = Integer.parseInt(pageNumStr) - 1;
@@ -13,17 +14,33 @@ if(pageNumStr != null && !"".equals(pageNumStr)){
 int totalCnt = dao.getCommListCnt(bbs, null, null, null);
 DataEntity[] listData =  dao.getCommList(bbs, null, null, null, pageSize, pageNum);
 
+int pageCnt = (totalCnt / pageSize)+1;
 int srtNum = 0;
-if(pageNum > 2){
-	srtNum = pageNum - 2;
-} else {
-	srtNum = 0;
-}
-int endNum = (totalCnt / pageSize) + 1;
-if(endNum > 5){
-	endNum = 5;
-}
+int endNum = 0;
 
+if(pageCnt < (pageCntSize+1)){
+	if(pageNum > (pageCntSize/2)){
+		srtNum = pageNum - (pageCntSize/2);
+	}
+	endNum = pageCnt;
+} else {
+	if(pageNum > (pageCntSize/2)){
+		srtNum = pageNum - (pageCntSize/2);
+	}
+	endNum = srtNum + pageCntSize;
+	if(endNum > pageCnt){
+		endNum = pageCnt;
+		srtNum = endNum - pageCntSize;
+	}
+}
+/*
+System.out.println("totalCnt: "+totalCnt);
+System.out.println("pageCnt: "+pageCnt);
+System.out.println("pageSize: "+pageSize);
+System.out.println("pageNum: "+pageNum);
+System.out.println("srtNum: "+srtNum);
+System.out.println("endNum: "+endNum);
+*/
 %>
 <table class="table table-condensed table-hover" id="bbs">
 <thead>
