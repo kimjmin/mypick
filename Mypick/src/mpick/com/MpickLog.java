@@ -63,6 +63,8 @@ public class MpickLog {
 			} else {
 				if(os.indexOf("Android") != -1){
 					os = "Android";
+				} else if(os.indexOf("Mac OS") != -1){
+					os = "Mac OS";
 				} else if(os.indexOf(";") != -1){
 					os = os.substring(0,os.indexOf(";"));
 				}
