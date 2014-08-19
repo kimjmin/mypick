@@ -2,17 +2,27 @@
 <%@ page import="jm.net.DataEntity,mpick.com.MpickDao,mpick.com.MpickParam"%>
 <%@page import="java.text.SimpleDateFormat,java.util.Date,java.util.Locale"%>
 <% 
+
 String bbs = request.getParameter("bbs");
-MpickDao dao = MpickDao.getInstance();
+String cate = request.getParameter("cate");
 String pageNumStr = request.getParameter("pageNum");
+
+String schOpt = request.getParameter("schOpt");
+String schTxt = request.getParameter("schTxt");
+
+if(cate == null) cate = "";
+if(schOpt == null) schOpt = "t_title";
+if(schTxt == null) schTxt = "";
+MpickDao dao = MpickDao.getInstance();
 int pageSize = 10;
 int pageCntSize = 5;
 int pageNum = 0;
 if(pageNumStr != null && !"".equals(pageNumStr)){
 	pageNum = Integer.parseInt(pageNumStr) - 1;
+	if(pageNum < 0) pageNum = 0;
 }
-int totalCnt = dao.getCommListCnt(bbs, null, null, null);
-DataEntity[] listData =  dao.getCommList(bbs, null, null, null, pageSize, pageNum);
+int totalCnt = dao.getCommListCnt(bbs, cate, schOpt, schTxt);
+DataEntity[] listData =  dao.getCommList(bbs, cate, schOpt, schTxt, pageSize, pageNum);
 
 int pageCnt = (totalCnt / pageSize)+1;
 int srtNum = 0;
@@ -42,11 +52,62 @@ System.out.println("srtNum: "+srtNum);
 System.out.println("endNum: "+endNum);
 */
 %>
+<script>
+function goPage(pageN){
+	var frm = document.pageFrm;
+	$("#pageNum").val(pageN);
+	frm.method = "POST";
+	frm.action = "<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
+	frm.submit();
+}
+function goCate(cate){
+	var frm = document.pageFrm;
+	$("#cate").val(cate);
+	frm.method = "POST";
+	frm.action = "<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
+	frm.submit();
+}
+function search(){
+	var frm = document.pageFrm;
+	frm.method = "POST";
+	frm.action = "<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
+	frm.submit();
+}
+</script>
+<div class="row">
+<%
+String btnClass = "";
+if(cate == null || "".equals(cate)){
+	btnClass = "btn-primary";
+} else {
+	btnClass = "btn-default";
+}
+%>
+<button class="btn btn-xs <%=btnClass%>" onclick="goCate('');">전체</button>
+<%
+DataEntity[] cateData = dao.getCommCate(bbs);
+if(cateData != null){
+	for(int i=0; i<cateData.length; i++){
+		String cateName = cateData[i].get("bbs_cate_name")+"";
+		if(cateName.equals(cate)){
+			btnClass = "btn-primary";
+		} else {
+			btnClass = "btn-default";
+		}
+%>
+<button class="btn btn-xs <%=btnClass%>" onclick="goCate('<%=cateName%>');"><%=cateName%></button>
+<%		
+	}
+}
+%>
+</div>
+<p></p>
+<div class="row">
 <table class="table table-condensed table-hover" id="bbs">
 <thead>
 	<tr class="info">
 		<th class="text-center" width="10%">No</th>
-		<th class="text-center" width="15%">Category</th>
+		<th class="text-center" width="18%">Category</th>
 		<th class="text-center">Subject</th>
 		<th class="text-center" width="10%">Name</th>
 		<th class="text-center" width="7%">Date</th>
@@ -75,8 +136,32 @@ for(int i=0; i<listData.length; i++){
 <% } %>
 </tbody>
 </table>
+</div>
 
 <form name="pageFrm">
+
+<div class="row">
+<div class="col-md-3"></div>
+<div class="col-md-6">
+	<div class="col-md-1"></div>
+	<div class="col-md-3 my-column-unit">
+		<select class="form-control" name="schOpt">
+			<option value="t_title" <%if("t_title".equals(schOpt)){ out.print("selected='selected'");} %>>제목</option>
+			<option value="t_text" <%if("t_text".equals(schOpt)){ out.print("selected='selected'");} %>>내용</option>
+		</select>
+	</div>
+	<div class="col-md-5 my-column-unit">
+		<input id="schTxt" name="schTxt" type="text" class="form-control" value="<%=schTxt%>">
+	</div>
+	<div class="col-md-2 my-column-unit">
+		<button type="button" class="btn btn-default btn-block" onclick="search();">검색</button>
+	</div>
+	<div class="col-md-1"></div>
+</div>
+<div class="col-md-3"></div>
+</div>
+
+<div class="row">
 <ul class="pager">
 	<li class="previous"><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>"><span class="glyphicon glyphicon-align-justify"></span> 목록</a></li>
   	<li class="next"><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/Write"><span class="glyphicon glyphicon-pencil"></span> 글쓰기</a></li>
@@ -91,14 +176,7 @@ for(int i=srtNum; i < endNum; i++){ %>
 	<li><a href="javascript:goPage('<%=(pageNum+2)+""%>');">&gt</a></li>
 <% } %>
 </ul>
-<input type="hidden" name="pageNum" id="pageNum"/>
+<input type="hidden" name="pageNum" id="pageNum" value="<%=pageNum+""%>"/>
+<input type="hidden" name="cate" id="cate" value="<%=cate%>"/>
+</div>
 </form>
-<script>
-function goPage(pageN){
-	var frm = document.pageFrm;
-	$("#pageNum").val(pageN);
-	frm.method = "POST";
-	frm.action = "<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
-	frm.submit();
-}
-</script>

@@ -872,7 +872,6 @@ public class MpickDao {
 		}
 		sql.append("ORDER BY A.t_num DESC \n");
 		sql.append("LIMIT "+(pageNum*pageSize)+", "+pageSize+" ");
-		
 		String[] params = paramV.toArray(new String[paramV.size()]);
 		Dao dao = Dao.getInstance();
 		data = dao.getResult(property, sql.toString(), params);
