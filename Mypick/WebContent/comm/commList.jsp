@@ -58,11 +58,16 @@ System.out.println("endNum: "+endNum);
 for(int i=0; i<listData.length; i++){
 	Date t_date = (Date)listData[i].get("t_date");
 	SimpleDateFormat frmt = new SimpleDateFormat("MM-dd", Locale.KOREA);
+	String replys = listData[i].get("replys")+"";
+	String tTitle = listData[i].get("t_title")+"";
+	if(tTitle.length() > 30){
+		tTitle = tTitle.substring(0,30)+" ...";
+	}
 %>
 	<tr>
 		<td class="text-center"><%=listData[i].get("t_num")+""%></td>
-		<td class="text-center">[ <%=listData[i].get("bbs_cate_name")+""%> ]</td>
-		<td class=""><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/View/<%=listData[i].get("t_num")+""%>"><%=listData[i].get("t_title")+""%></a></td>
+		<td class="">[ <%=listData[i].get("bbs_cate_name")+""%> ]</td>
+		<td class=""><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/View/<%=listData[i].get("t_num")+""%>"><%=tTitle%></a><% if(replys != null && !"".equals(replys) && !"0".equals(replys)){ %> [<%=replys %>]<% } %></td>
 		<td class="text-center"><%=listData[i].get("nicname")+""%></td>
 		<td class="text-center"><%=frmt.format(t_date)%></td>
 		<td class="text-center"><%=listData[i].get("t_hit")+""%></td>

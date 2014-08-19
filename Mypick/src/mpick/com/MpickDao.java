@@ -856,6 +856,7 @@ public class MpickDao {
 		sql.append(", A.t_title as t_title \n");
 		sql.append(", A.t_hit as t_hit \n");
 		sql.append(", B.nicname as nicname \n");
+		sql.append(", (SELECT count(*) FROM mp_bbs_text_reply C WHERE A.t_num = C.t_num AND C.t_state <> 'ARCHIVE' ) as replys \n");
 		sql.append("FROM mp_bbs_text A, mp_user B \n");
 		sql.append("WHERE A.user_email = B.email \n");
 		sql.append("AND A.t_state <> 'ARCHIVE' \n");

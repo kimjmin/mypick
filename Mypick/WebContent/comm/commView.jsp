@@ -17,7 +17,8 @@ if(tDatas != null && tDatas.length > 0){
 	SimpleDateFormat frmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.KOREA);
 	String tText = tData.get("t_text")+"";
 	tText = tText.replaceAll("<img ", "<img class=\"img-responsive\" ");
-
+	String tLink = tData.get("t_link")+"";
+	tLink = tLink.replaceAll("http://", "");
 %>
 <script>
 function reply(rnum1, rnum2, tText){
@@ -96,6 +97,11 @@ function rmCancel(rDiv){
 		<th class="text-right" width="35%"><%=frmt.format(t_date)%></th>
 		<th class="text-center" width="10%">hit : <%=tData.get("t_hit")+""%></th>
 	</tr>
+<% if(!"".equals(tLink)){ %>
+	<tr>
+		<td colspan="3"><a href="http://<%=tLink%>" target="_new">http://<%=tLink%></a></td>
+	</tr>
+<% } %>	
 	<tr>
 		<td colspan="3">
 			<h4><span class="text-muted">[ <%=tData.get("bbs_cate_name")+""%> ]</span> <%=tData.get("t_title")+""%></h4>
