@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="mpick.com.MpickDao,jm.net.DataEntity"%>
 <div class="col-md-12">
-
 <div class="row">
 	<blockquote>
 		<p>배송대행 요금비교 및 과세여부 판별기</p>
@@ -117,5 +116,5 @@ for(int i=0; i < shMains.length; i++){
 <br/>
 <div id="shipList"></div>
 </form>
-
+</div>
 </div>

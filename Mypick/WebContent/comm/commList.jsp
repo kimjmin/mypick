@@ -142,21 +142,21 @@ for(int i=0; i<listData.length; i++){
 
 <div class="row">
 <div class="col-md-3"></div>
-<div class="col-md-6">
-	<div class="col-md-1"></div>
-	<div class="col-md-3 my-column-unit">
+<div class="col-md-6 my-column-unit">
+	<div class="col-xs-1"></div>
+	<div class="col-xs-3 my-column-unit">
 		<select class="form-control" name="schOpt">
 			<option value="t_title" <%if("t_title".equals(schOpt)){ out.print("selected='selected'");} %>>제목</option>
 			<option value="t_text" <%if("t_text".equals(schOpt)){ out.print("selected='selected'");} %>>내용</option>
 		</select>
 	</div>
-	<div class="col-md-5 my-column-unit">
+	<div class="col-xs-5 my-column-unit">
 		<input id="schTxt" name="schTxt" type="text" class="form-control" value="<%=schTxt%>">
 	</div>
-	<div class="col-md-2 my-column-unit">
+	<div class="col-xs-2 my-column-unit">
 		<button type="button" class="btn btn-default btn-block" onclick="search();">검색</button>
 	</div>
-	<div class="col-md-1"></div>
+	<div class="col-xs-1"></div>
 </div>
 <div class="col-md-3"></div>
 </div>

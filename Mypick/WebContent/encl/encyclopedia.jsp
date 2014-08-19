@@ -57,6 +57,8 @@ for(DataEntity menuData : menuDatas){
 
 		</div>
 	</div>
-
+<!-- 하단 푸터 시작 -->
+<%@include file="../ctrl/footer.jsp"%>
+<!-- 하단 푸터 끝 -->
 </body>
 </html>

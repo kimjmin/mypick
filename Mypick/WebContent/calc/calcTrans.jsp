@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<div class="container">
-
 <div class="row">
 	<blockquote>
 		<p>단위 변환기</p>
@@ -138,4 +136,3 @@
 </div>
 
 </form>
-</div>

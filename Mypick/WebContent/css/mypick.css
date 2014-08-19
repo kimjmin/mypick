@@ -77,7 +77,28 @@
 	margin-bottom: 5px;
 }
 
-body {
-	padding-bottom: 60px;
+html {
+  position: relative;
+  min-height: 100%;
 }
-
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 80px;
+}
+.footer {
+  position: absolute;
+  padding: 6px;
+  font-size: 11px;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 65px;
+  background-color: #222;
+  color: #eee;
+}
+.footer a{
+	color: #529BDA;
+}
+.footer a:ACTIVE, .footer a:HOVER {
+	color: #F00;
+}

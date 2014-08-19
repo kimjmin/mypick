@@ -49,13 +49,14 @@ if("ship".equals(m)){
 %><%@include file="../admin/admComm.jsp"%><%	
 }
 %>
-
-
 <!-- 우측 내용 끝 -->
 			</div>
 
 		</div>
 	</div>
 
+<!-- 하단 푸터 시작 -->
+<%@include file="../ctrl/footer.jsp"%>
+<!-- 하단 푸터 끝 -->
 </body>
 </html>

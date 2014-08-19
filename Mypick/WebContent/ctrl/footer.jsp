@@ -1,0 +1,47 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<div class="footer visible-md visible-lg">
+	<div class="container">
+	<div class="col-sm-1 text-right" style="font-size:16pt; padding:10px 0px;">
+		<span class="text-white">my</span><span class="text-red">Pick</span>
+	</div>
+	<div class="col-sm-11">
+		<p class="copyright">
+			Copyright 2014 &copy; myPick ALL RIGHTS RESERVED. <a href="#">공지사항</a> <a href="#">개인정보보호정책</a> <a href="#">이용약관</a> <a href="#">연락처</a>
+			<br/>이 사이트의 정보는 참고용으로만 사용하여야 하며, 이로 인해 발생하는 손해에 대해 책임지지 않습니다.
+			<br/>myPick 의 모든 콘텐츠는 저작자의 허락 없이 무단 전재를 금합니다. 
+		</p>
+	</div>
+	</div>
+</div>
+<div class="footer visible-sm">
+	<div class="container">
+	<div class="col-sm-2 text-right" style="font-size:14pt; padding:10px 0px;">
+		<span class="text-white">my</span><span class="text-red">Pick</span>
+	</div>
+	<div class="col-sm-10">
+		<p class="copyright">
+			Copyright 2014 &copy; myPick ALL RIGHTS RESERVED. <a href="#">공지사항</a> <a href="#">개인정보보호정책</a> <a href="#">이용약관</a> <a href="#">연락처</a> 
+			<br/>이 사이트의 정보는 참고용으로만 사용하여야 하며, 이로 인해 발생하는 손해에 대해 책임지지 않습니다.
+			<br/>myPick 의 모든 콘텐츠는 저작자의 허락 없이 무단 전재를 금합니다. 
+		</p>
+	</div>
+	</div>
+</div>
+<div class="footer visible-xs">
+<div class="container">
+	<div class="row">
+		<div class="col-xs-4 text-center" style="font-size:16pt; padding:3px 0px;">
+			<span class="text-white">my</span><span class="text-red">Pick</span>
+		</div>
+		<div class="col-xs-8" style="padding:2px 0px;">
+			<p class="copyright" style="padding:0px; margin:0px;">
+				Copyright 2014 &copy; myPick
+				<br/>ALL RIGHTS RESERVED.
+			</p>
+		</div>
+	</div>
+	<div class="container">
+		<a href="#">공지사항</a> <a href="#">개인정보보호정책</a> <a href="#">이용약관</a> <a href="#">연락처</a>
+	</div>
+</div>
+</div>
