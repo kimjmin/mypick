@@ -71,9 +71,11 @@ if(userObjNav == null){
 			</button>
 			<ul class="dropdown-menu" role="menu">
 				<li><a href="<%=MpickParam.hostUrl%>/User/Modify">사용자정보 변경</a></li>
+<%--
 				<li><a href="#">환경설정</a></li>
 				<li class="divider"></li>
 				<li><a href="#">고객지원</a></li>
+--%>
 				<li class="divider"></li>
 				<li><a href="javascript:logout();">로그아웃</a></li>
 			</ul>

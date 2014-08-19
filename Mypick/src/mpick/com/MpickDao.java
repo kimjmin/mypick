@@ -1,7 +1,5 @@
 package mpick.com;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,6 +7,7 @@ import java.util.Vector;
 
 import javax.servlet.http.HttpServletRequest;
 
+import jm.com.Encrypt;
 import jm.com.JmProperties;
 import jm.net.Dao;
 import jm.net.DataEntity;
@@ -69,28 +68,6 @@ public class MpickDao {
 	}
 	
 	/**
-	 * 패스워드 암호화.
-	 * @param rawPasswd
-	 * @return
-	 */
-	private String encPasswd(String rawPasswd){
-		String passwd = "";
-		try{
-			MessageDigest sh = MessageDigest.getInstance("SHA-256"); 
-			sh.update(rawPasswd.getBytes()); 
-			byte byteData[] = sh.digest();
-			StringBuffer sb = new StringBuffer(); 
-			for(int i = 0 ; i < byteData.length ; i++){
-				sb.append(Integer.toString((byteData[i]&0xff) + 0x100, 16).substring(1));
-			}
-			passwd = sb.toString();
-		}catch(NoSuchAlgorithmException e){
-			e.printStackTrace(); 
-		}
-		return passwd;
-	}
-	
-	/**
 	 * CandiUserObj 객체를 DB에 저장.
 	 * @param userObj
 	 * @return
@@ -100,7 +77,7 @@ public class MpickDao {
 		DataEntity data = new DataEntity();
 		Dao dao = Dao.getInstance();
 		
-		String passwd = this.encPasswd(userObj.getPasswd());
+		String passwd = Encrypt.getSha256(userObj.getPasswd());
 		if(passwd != null && !"".equals(passwd)){
 			data.put("email", userObj.getEmail());
 			data.put("passwd", passwd);
@@ -122,7 +99,7 @@ public class MpickDao {
 	public int updateUserObj(MpickUserObj userObj){
 		int result = 0;
 		
-		String passwd = this.encPasswd(userObj.getPasswd());
+		String passwd = Encrypt.getSha256(userObj.getPasswd());
 		Dao dao = Dao.getInstance();
 		DataEntity setData = new DataEntity();
 		setData.put("email", userObj.getEmail());
@@ -150,7 +127,7 @@ public class MpickDao {
 	 */
 	public int login(String email, String rawPasswd) {
 		Dao dao = Dao.getInstance();
-		String passwd = this.encPasswd(rawPasswd);
+		String passwd = Encrypt.getSha256(rawPasswd);
 		
 		StringBuffer sql = new StringBuffer();
 		String tempPw = "";
@@ -711,7 +688,7 @@ public class MpickDao {
 	}
 	
 	/**
-	 * 커뮤니티 저장.
+	 * 커뮤니티 글 저장.
 	 * @param tNum
 	 * @param userMail
 	 * @param menu
@@ -739,6 +716,30 @@ public class MpickDao {
 	}
 	
 	/**
+	 * 커뮤니티 댓글 저장.
+	 * @param tNum
+	 * @param rNum
+	 * @param rNum2
+	 * @param userMail
+	 * @param tText
+	 * @param tState
+	 * @return
+	 */
+	public int insertCommReply(String tNum, int rNum, int rNum2, String userMail, String tText, String tState){
+		int result = 0;
+		DataEntity data = new DataEntity();
+		Dao dao = Dao.getInstance();
+		data.put("t_num", tNum);
+		data.put("t_rep_num", rNum);
+		data.put("t_rep2_num", rNum2);
+		data.put("t_state", tState);
+		data.put("user_email", userMail);
+		data.put("t_text", tText);
+		result = dao.inertData(property, "mp_bbs_text_reply", data);
+		return result;
+	}
+	
+	/**
 	 * 게시판 최대값 가져오기.
 	 * @return
 	 */
@@ -756,6 +757,58 @@ public class MpickDao {
 		return result;
 	}
 	
+	/**
+	 * 게시판 댓글 최대값 가져오기
+	 * @param tNum
+	 * @return
+	 */
+	public int getMaxCommRepNum(String tNum){
+		int result = 0;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT MAX(t_rep_num) AS maxnum FROM mp_bbs_text_reply ");
+		sql.append("WHERE t_num = ? ");
+		String[] param = {tNum};
+		DataEntity[] data = dao.getResult(property, sql.toString(), param);
+		if(data != null && data.length == 1){
+			if(data[0].get("maxnum") != null){
+				result = Integer.parseInt(data[0].get("maxnum")+"");
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * 게시판 댓글의 댓글 최대값 가져오기
+	 * @param tNum
+	 * @param rNum
+	 * @return
+	 */
+	public int getMaxCommRepNum2(String tNum, String rNum){
+		int result = 0;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT MAX(t_rep2_num) AS maxnum FROM mp_bbs_text_reply ");
+		sql.append("WHERE t_num = ? ");
+		sql.append("AND t_rep_num = ? ");
+		String[] param = {tNum};
+		DataEntity[] data = dao.getResult(property, sql.toString(), param);
+		if(data != null && data.length == 1){
+			if(data[0].get("maxnum") != null){
+				result = Integer.parseInt(data[0].get("maxnum")+"");
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * 게시판 목록 카운트.
+	 * @param menu
+	 * @param cate
+	 * @param schOpt
+	 * @param schTxt
+	 * @return
+	 */
 	public int getCommListCnt(String menu, String cate, String schOpt, String schTxt){
 		int result = 0;
 		StringBuffer sql = new StringBuffer();
@@ -782,6 +835,16 @@ public class MpickDao {
 		return result;
 	}
 	
+	/**
+	 * 게시판 목록 가져오기.
+	 * @param menu
+	 * @param cate
+	 * @param schOpt
+	 * @param schTxt
+	 * @param pageSize
+	 * @param pageNum
+	 * @return
+	 */
 	public DataEntity[] getCommList(String menu, String cate, String schOpt, String schTxt, int pageSize, int pageNum){
 		DataEntity[] data = null;
 		StringBuffer sql = new StringBuffer();
@@ -816,7 +879,10 @@ public class MpickDao {
 	}
 	
 	/**
-	 * 커뮤니티 상태 변경.
+	 * 커뮤니티 글 상태 변경.
+	 * @param menu
+	 * @param tNum
+	 * @return
 	 */
 	public int archiveCommText(String menu, String tNum){
 		Dao dao = Dao.getInstance();
@@ -828,7 +894,30 @@ public class MpickDao {
 		return dao.updateSql(property, sql.toString(), params);
 	}
 	
+	/**
+	 * 커뮤니티 댓글 상태 변경.
+	 * @param tNum
+	 * @param rNum
+	 * @param rNum2
+	 * @return
+	 */
+	public int archiveCommReply(String tNum, String rNum, String rNum2){
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE mp_bbs_text_reply SET t_state = 'ARCHIVE' \n");
+		sql.append("where t_num = ? \n");
+		sql.append("and t_rep_num = ? \n");
+		sql.append("and t_rep2_num = ? \n");
+		String[] params = {tNum, rNum, rNum2};
+		return dao.updateSql(property, sql.toString(), params);
+	}
 	
+	/**
+	 * 커뮤니티 메뉴 변경.
+	 * @param menu
+	 * @param new_menu
+	 * @return
+	 */
 	public int updateCommMenu(String menu, String new_menu){
 		Dao dao = Dao.getInstance();
 		StringBuffer sql = new StringBuffer();
@@ -839,6 +928,14 @@ public class MpickDao {
 		return dao.updateSql(property, sql.toString(), params);
 	}
 	
+	/**
+	 * 커뮤니티 카테고리 변경
+	 * @param menu
+	 * @param cate
+	 * @param new_menu
+	 * @param new_cate
+	 * @return
+	 */
 	public int updateCommCate(String menu, String cate, String new_menu, String new_cate){
 		Dao dao = Dao.getInstance();
 		StringBuffer sql = new StringBuffer();
@@ -852,13 +949,20 @@ public class MpickDao {
 	}
 	
 	/**
-	 * 내용 불러오기
+	 * 커뮤니티 글 불러오기
 	 * @param type
 	 * @return
 	 */
 	public DataEntity[] getCommText(String tNum){
 		return this.getCommText(null, tNum);
 	}
+	
+	/**
+	 * 커뮤니티 글 불러오기
+	 * @param menu
+	 * @param tNum
+	 * @return
+	 */
 	public DataEntity[] getCommText(String menu, String tNum){
 		DataEntity[] data = null;
 		Vector<String> paramV = new Vector<String>();
@@ -874,28 +978,6 @@ public class MpickDao {
 		}
 		sql.append("order by t_date desc ");
 		String[] params = paramV.toArray(new String[paramV.size()]);
-		data = dao.getResult(property, sql.toString(), params);
-		return data;
-	}
-	
-	/**
-	 * 제목 목록 불러오기
-	 * @param menu
-	 * @param cate1
-	 * @param cate2
-	 * @return
-	 */
-	public DataEntity[] getCommTitles(String menu, String cate){
-		DataEntity[] data = null;
-		Dao dao = Dao.getInstance();
-		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT ar_title FROM mp_article ");
-		sql.append("where ar_state = 'ACTIVE' ");
-		sql.append("and ar_menu_id = ? \n");
-		sql.append("and ar_cate_1 = ? \n");
-		sql.append("and ar_cate_2 = ? \n");
-		sql.append("order by ar_date \n");
-		String[] params = {menu, cate};
 		data = dao.getResult(property, sql.toString(), params);
 		return data;
 	}
@@ -980,4 +1062,78 @@ public class MpickDao {
 		return data;
 	}
 	
+	/**
+	 * hit 수 증가.
+	 * @param tNum
+	 */
+	public void plusCommHit(String tNum){
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE mp_bbs_text ");
+		sql.append("SET t_hit = t_hit + 1 ");
+		sql.append("WHERE t_state <> 'ARCHIVE' ");
+		sql.append("AND t_num = ? ");
+		String[] param = { tNum };
+		
+		dao.updateSql(property, sql.toString(), param);
+	}
+	
+	/**
+	 * 댓글 가져오기
+	 * @param tNum
+	 * @return
+	 */
+	public DataEntity[] getCommReplys(String tNum){
+		return getCommReplys(tNum, null, null);
+	}
+	
+	/**
+	 * 댓글 가져오기
+	 * @param tNum
+	 * @param rNum
+	 * @return
+	 */
+	public DataEntity[] getCommReplys(String tNum, String rNum){
+		return getCommReplys(tNum, rNum, null);
+	}
+	
+	/**
+	 * 댓글 가져오기
+	 * @param tNum
+	 * @param rNum
+	 * @param rNum2
+	 * @return
+	 */
+	public DataEntity[] getCommReplys(String tNum, String rNum, String rNum2){
+		DataEntity[] data = null;
+		StringBuffer sql = new StringBuffer();
+		Vector<String> paramV = new Vector<String>();
+		sql.append("SELECT \n");
+		sql.append("A.t_num AS t_num \n");
+		sql.append(", A.t_rep_num AS t_rep_num \n");
+		sql.append(", A.t_rep2_num as t_rep2_num \n");
+		sql.append(", A.t_date AS t_date \n");
+		sql.append(", A.t_text as t_text \n");
+		sql.append(", B.nicname as nicname \n");
+		sql.append(", B.email as email \n");
+		sql.append("FROM mp_bbs_text_reply A, mp_user B \n");
+		sql.append("WHERE A.user_email = B.email \n");
+		sql.append("AND A.t_state <> 'ARCHIVE' \n");
+		sql.append("AND A.t_num = ? \n");
+		paramV.add(tNum);
+		if(rNum != null && !"".equals(rNum)){
+			sql.append("AND A.t_rep_num = ? \n");
+			paramV.add(rNum);
+		}
+		if(rNum2 != null && !"".equals(rNum2)){
+			sql.append("AND A.t_rep2_num = ? \n");
+			paramV.add(rNum2);
+		}
+		sql.append("ORDER BY A.t_rep_num, A.t_rep2_num \n");
+		
+		String[] params = paramV.toArray(new String[paramV.size()]);
+		Dao dao = Dao.getInstance();
+		data = dao.getResult(property, sql.toString(), params);
+		return data;
+	}
 }

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
+	<session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
+    
 	<display-name>Mpick</display-name>
 	
 	<!-- JSP 직접 접근 차단 시작 -->

@@ -10,6 +10,12 @@ import mpick.com.MpickUserObj;
 
 public class Comm {
 	
+	/**
+	 * 커뮤니티 글 저장.
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	public int saveText(HttpServletRequest req, HttpServletResponse res){
 		int result = 0;
 		int tNum = 0;
@@ -39,6 +45,54 @@ public class Comm {
 		}
 	}
 	
+	/**
+	 * 커뮤니티 댓글 저장.
+	 * @param req
+	 * @param res
+	 * @return
+	 */
+	public int saveReply(HttpServletRequest req, HttpServletResponse res){
+		int result = 0;
+		HttpSession session = req.getSession();
+		MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
+		
+		if(userObj == null || "".equals(userObj.getEmail())){
+			return 0;
+		} else {
+			String userMail = userObj.getEmail();
+			String tNum = req.getParameter("tNum");
+			String tState = req.getParameter("tState");
+			String tText = req.getParameter("tText");
+			
+			String rNumStr = req.getParameter("rNum");
+			String rNum2Str = req.getParameter("rNum2");
+			
+			MpickDao dao = MpickDao.getInstance();
+			int rNum = 0;
+			int rNum2 = 0;
+			if(rNumStr == null || "".equals(rNumStr)){
+				rNum = dao.getMaxCommRepNum(tNum) + 1;
+			} else {
+				rNum = Integer.parseInt(rNumStr);
+				if(rNum2Str == null || "".equals(rNum2Str)){
+					rNum2 = dao.getMaxCommRepNum2(tNum, rNumStr)+1;
+				} else {
+					rNum2 = Integer.parseInt(rNum2Str);
+					dao.archiveCommReply(tNum, rNumStr, rNum2Str);
+				}
+			}
+			if(tState == null || "".equals(tState)){
+				tState = "ALL";
+			}
+			result = dao.insertCommReply(tNum, rNum, rNum2, userMail, tText, tState);
+			if(result > 0){
+				return result;
+			} else {
+				return result;
+			}
+		}
+	}
+	
 	public String getText(HttpServletRequest req, HttpServletResponse res){
 		String result = "";
 		DataEntity[] data = null;
@@ -63,15 +117,13 @@ public class Comm {
 		return result;
 	}
 	
-	public int delText(HttpServletRequest req, HttpServletResponse res){
+	public int delReply(HttpServletRequest req, HttpServletResponse res){
 		int result = 0;
-		String arcCate = req.getParameter("arcCate2");
-		String arcTitleSel = req.getParameter("arcTitleSel");
-		String[] arcCates = arcCate.split("[|]");
+		String tNum = req.getParameter("tNum");
+		String rNumStr = req.getParameter("rNum");
+		String rNum2Str = req.getParameter("rNum2");
 		MpickDao dao = MpickDao.getInstance();
-		if(!"new".equals(arcTitleSel) && arcCates.length == 3){
-			result = dao.archiveCommText(arcCates[0], arcTitleSel);
-		}
+		result = dao.archiveCommReply(tNum,rNumStr,rNum2Str);
 		return result;
 	}
 	

@@ -27,7 +27,9 @@ if(m == null || m.equals("")){ m="fee"; }
 <!-- 메뉴 링크 목록 시작 -->	
 <div class="list-group">
 	<a href="../Calc/Fee" class="list-group-item <%if("fee".equals(m)){out.print("active");}%>">배송 대행 요금비교</a>
+<%--
 	<a href="../Calc/Tax" class="list-group-item <%if("tax".equals(m)){out.print("active");}%>">면세 범위 계산표</a>
+--%>
 	<a href="../Calc/Trans" class="list-group-item <%if("trans".equals(m)){out.print("active");}%>">단위 변환기</a>
 	<a href="../Calc/Volume" class="list-group-item <%if("volume".equals(m)){out.print("active");}%>">부피 / 무게 계산기</a>
 </div>
