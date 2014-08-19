@@ -88,6 +88,34 @@ function rModify(rnum1,rnum2,rDiv){
 function rmCancel(rDiv){
 	$("#"+rDiv).html(tempTxt);
 }
+
+<% if(userObj != null && userObj.getEmail().equals(writerObj.getEmail())){ %>
+function delTxt(){
+	if(confirm("이 글을 삭제하시겠습니까?")){
+		$(".btn-reply").attr("disabled",true);
+		var frm = document.commFrm;
+		frm.cmd.value = "deleteCommTxt";
+		frm.toUrl.value="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
+		frm.method="POST";
+		frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+		frm.submit();
+	}
+}
+
+function goModify(){
+	var frm = document.commFrm;
+	frm.method="POST";
+	frm.action="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/Write/<%=tNum%>";
+	frm.submit();
+}
+<% } %>
+function goList(){
+	var frm = document.commFrm;
+	frm.method="POST";
+	frm.action="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
+	frm.submit();
+}
+
 </script>
 <form role="form" name="commFrm">
 <table class="table table-noline" id="bbs">
@@ -220,14 +248,16 @@ if(rrDatas != null && rrDatas.length > 1){
 	</tbody>
 </table>
 
-<ul class="pager">
-	<li class="previous"><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>"><span class="glyphicon glyphicon-align-justify"></span> 목록</a></li>
-<%
-if(userObj != null && userObj.getEmail().equals(writerObj.getEmail())){
-%>
-  	<li class="next"><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/Write/<%=tNum%>"><span class="glyphicon glyphicon-pencil"></span> 수정</a></li>
-<% } %>  	
-</ul>
+<div class="col-md-8">
+	<button class="btn btn-sm btn-default" onclick="goList();"><span class="glyphicon glyphicon-align-justify"></span> 목록</button>
+</div>
+<div class="col-md-4 text-right">
+<% if(userObj != null && userObj.getEmail().equals(writerObj.getEmail())){ %>
+	<button class="btn btn-sm btn-success" onclick="goModify();"><span class="glyphicon glyphicon-pencil"></span> 수정</button>
+	<button class="btn btn-sm btn-danger" onclick="delTxt();"><span class="glyphicon glyphicon-remove"></span> 삭제</button>
+<% } %>
+</div>
+
 
 	<input type="hidden" name="menu" value="<%=bbs%>" />
 <%if(tNum != null && !"".equals(tNum)){ %>	<input type="hidden" name="tNum" value="<%=tNum%>" /><% } %>

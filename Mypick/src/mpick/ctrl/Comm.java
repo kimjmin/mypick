@@ -117,6 +117,33 @@ public class Comm {
 		return result;
 	}
 	
+	public int delTxt(HttpServletRequest req, HttpServletResponse res){
+		int result = 0;
+		String menu = req.getParameter("menu");
+		String tNum = req.getParameter("tNum");
+		MpickDao dao = MpickDao.getInstance();
+		
+		DataEntity[] data = dao.getCommText(menu,tNum);
+		if(data.length > 0){
+			String email = data[0].get("user_email")+"";
+			HttpSession session = req.getSession();
+			MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
+			if(userObj != null){
+				String userMail = userObj.getEmail();
+				if(userMail != null && userMail.equals(email)){
+					result = dao.archiveCommText(menu, tNum);
+				}
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * 댓글 삭제
+	 * @param req
+	 * @param res
+	 * @return
+	 */
 	public int delReply(HttpServletRequest req, HttpServletResponse res){
 		int result = 0;
 		String tNum = req.getParameter("tNum");
