@@ -278,7 +278,7 @@ public class Confirm extends HttpServlet {
 				dao.delMenuMsg();
 				for(int i=0; i < hid.length; i++){
 					String mHide = req.getParameter("mHide"+i);
-					if(!"".equals(hid[i]) && !"".equals(mid[i]) && !"".equals(mTitle[i])){
+					if(!"".equals(hid[i]) && !"".equals(mid[i])){
 						if(dao.insertMenuMsg(i, hid[i], mid[i], mTitle[i], mText[i], mHide) == 0){
 							resCnt = 0;
 						}
@@ -286,7 +286,45 @@ public class Confirm extends HttpServlet {
 				}
 			}
 			if(resCnt > 0){
-				res.sendRedirect(toUrl);
+				out.println("<form name='cateFrm' action='"+toUrl+"' method='POST'>\n");
+				out.println("<input type='hidden' name='msgTab' value='msg'/>\n");
+				out.println("</form>\n");
+				
+				out.println("<script>\n");
+				out.println("var frm = document.cateFrm;\n");
+				out.println("frm.submit();\n");
+				out.println("</script>\n");
+			} else {
+				out.println("<script>");
+				out.println("	alert(\"저장하는 중 오류가 발생되었습니다.\");");
+				out.println("	history.go(-1);");
+				out.println("</script>");
+			}
+		} else if(toUrl != null && cmd != null && cmd.equals("saveMenuLink")){
+			int resCnt = 1;
+			String[] mType = req.getParameterValues("mType");
+			String[] mTitle = req.getParameterValues("mTitle");
+			String[] mLink = req.getParameterValues("mLink");
+			
+			if(mTitle != null && mTitle.length > 0){
+				dao.delLinks();
+				for(int i=0; i < mTitle.length; i++){
+					if(!"".equals(mType[i]) && !"".equals(mTitle[i]) && !"".equals(mLink[i])){
+						if(dao.insertLinks(i, mType[i], mTitle[i], mLink[i]) == 0){
+							resCnt = 0;
+						}
+					}
+				}
+			}
+			if(resCnt > 0){
+				out.println("<form name='cateFrm' action='"+toUrl+"' method='POST'>\n");
+				out.println("<input type='hidden' name='msgTab' value='link'/>\n");
+				out.println("</form>\n");
+				
+				out.println("<script>\n");
+				out.println("var frm = document.cateFrm;\n");
+				out.println("frm.submit();\n");
+				out.println("</script>\n");
 			} else {
 				out.println("<script>");
 				out.println("	alert(\"저장하는 중 오류가 발생되었습니다.\");");

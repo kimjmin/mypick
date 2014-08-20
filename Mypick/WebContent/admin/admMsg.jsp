@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="mpick.com.MpickParam,mpick.com.MpickDao,jm.net.DataEntity"%>
 <%
+String msgTab = request.getParameter("msgTab");
+if(msgTab == null || "".equals(msgTab)){
+	msgTab = "msg";
+}
 MpickDao dao = MpickDao.getInstance();
 DataEntity[] msgData = dao.getMenuMsg(null,null,null);
 int dLen = msgData.length;
@@ -60,9 +64,25 @@ function delDiv(divId){
 	$("#"+divId).remove();
 	rCnt--;
 }
+function saveLink(){
+	var frm = document.linkFrm;
+	frm.method="POST";
+	frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+	frm.submit();
+}
 </script>
+
+<ul id="fldFmtTab" class="nav nav-tabs">
+	<li <%if("msg".equals(msgTab)){out.print("class='active'");} %> ><a href="#msg" data-toggle="tab">메시지 입력</a></li>
+	<li <%if("link".equals(msgTab)){out.print("class='active'");} %> ><a href="#link" data-toggle="tab">링크 입력</a></li>
+</ul>
+<div id="fldFmtTabContent" class="tab-content">
+
+<!-- 메시지 입력 탭 시작 -->
+<div class="tab-pane fade <%if("msg".equals(msgTab)){out.print("active");} %> in" id="msg">
 <form id='msgFrm' name='msgFrm'>
 <div id="mainDiv">
+<br>
 <div class='row'>
 	<div class='col-md-8'></div>
 	<div class='col-md-2'>
@@ -121,3 +141,149 @@ function delDiv(divId){
 <input type="hidden" name="cmd" value="saveMenuMsg" />
 <input type="hidden" name="toUrl" value="<%=MpickParam.hostUrl%>/Admin/Msg" />
 </form>
+</div>
+<!-- 메시지 입력 탭 끝 -->
+<!-- 링크 입력 탭 시작 -->
+<div class="tab-pane fade <%if("link".equals(msgTab)){out.print("active");} %> in" id="link">
+<%
+DataEntity[] linkData = dao.getLinks(null,null);
+
+%>
+
+<form id='linkFrm' name='linkFrm'>
+<br>
+<div class='row'>
+	<div class='col-md-8'></div>
+	<div class='col-md-2'>
+	</div>
+	<div class='col-md-2'>
+		<button type="button" class="btn btn-primary btn-block" onclick="saveLink()">저장</button>
+	</div>
+</div>
+<br>
+<div class='row'>
+	<div class='col-md-2 text-center'>
+		<label>구분</label>
+	</div>
+	<div class='col-md-3 text-center'>
+		<label>메시지명</label>
+	</div>
+	<div class='col-md-7 text-center'>
+		<label>링크</label>
+	</div>
+</div>
+<br>
+<div class='row'>
+	<div class='col-md-2'>
+		<input type='hidden' name='mType' value='WELCOME'/>
+		<input type='hidden' name='mTitle' value='<%if(linkData.length>0){ out.print(linkData[0].get("m_title")+"");}%>'/>
+		첫 화면
+	</div>
+	<div class='col-md-3'>
+		<img class="img-responsive panel-primary" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_pen.png"/>
+	</div>
+	<div class='col-md-7'>
+		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>0){ out.print(linkData[0].get("m_link")+"");}%>'/>
+	</div>
+</div>
+<br>
+<div class='row'>
+	<div class='col-md-2'>
+		<input type='hidden' name='mType' value='WELCOME'/>
+		<input type='hidden' name='mTitle' value='<%if(linkData.length>1){ out.print(linkData[1].get("m_title")+"");}%>'/>
+		첫 화면
+	</div>
+	<div class='col-md-3'>
+		<img class="img-responsive panel-success" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_listdown.png">
+	</div>
+	<div class='col-md-7'>
+		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>1){ out.print(linkData[1].get("m_link")+"");}%>'/>
+	</div>
+</div>
+<br>
+<div class='row'>
+	<div class='col-md-2'>
+		<input type='hidden' name='mType' value='WELCOME'/>
+		<input type='hidden' name='mTitle' value='<%if(linkData.length>2){ out.print(linkData[2].get("m_title")+"");}%>'/>
+		첫 화면
+	</div>
+	<div class='col-md-3'>
+		<img class="img-responsive panel-danger" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_limitup.png">
+	</div>
+	<div class='col-md-7'>
+		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>2){ out.print(linkData[2].get("m_link")+"");}%>'/>
+	</div>
+</div>
+<br>
+<div class='row'>
+	<div class='col-md-2'>
+		<input type='hidden' name='mType' value='WELCOME'/>
+		<input type='hidden' name='mTitle' value='<%if(linkData.length>3){ out.print(linkData[3].get("m_title")+"");}%>'/>
+		첫 화면
+	</div>
+	<div class='col-md-3'>
+		<img class="img-responsive panel-warning" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_cal.png">
+	</div>
+	<div class='col-md-7'>
+		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>3){ out.print(linkData[3].get("m_link")+"");}%>'/>
+	</div>
+</div>
+<br>
+<div class='row'>
+	<div class='col-md-2'>
+		<input type='hidden' name='mType' value='FOOTER'/>
+		하단 푸터
+	</div>
+	<div class='col-md-3'>
+		<input type='text' class='form-control' name='mTitle' required="required" value='<%if(linkData.length>4){ out.print(linkData[4].get("m_title")+"");}%>'/>
+	</div>
+	<div class='col-md-7'>
+		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>4){ out.print(linkData[4].get("m_link")+"");}%>'/>
+	</div>
+</div>
+<br>
+<div class='row'>
+	<div class='col-md-2'>
+		<input type='hidden' name='mType' value='FOOTER'/>
+		하단 푸터
+	</div>
+	<div class='col-md-3'>
+		<input type='text' class='form-control' name='mTitle' required="required" value='<%if(linkData.length>5){ out.print(linkData[5].get("m_title")+"");}%>'/>
+	</div>
+	<div class='col-md-7'>
+		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>5){ out.print(linkData[5].get("m_link")+"");}%>'/>
+	</div>
+</div>
+<br>
+<div class='row'>
+	<div class='col-md-2'>
+		<input type='hidden' name='mType' value='FOOTER'/>
+		하단 푸터
+	</div>
+	<div class='col-md-3'>
+		<input type='text' class='form-control' name='mTitle' required="required" value='<%if(linkData.length>6){ out.print(linkData[6].get("m_title")+"");}%>'/>
+	</div>
+	<div class='col-md-7'>
+		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>6){ out.print(linkData[6].get("m_link")+"");}%>'/>
+	</div>
+</div>
+<br>
+<div class='row'>
+	<div class='col-md-2'>
+		<input type='hidden' name='mType' value='FOOTER'/>
+		하단 푸터
+	</div>
+	<div class='col-md-3'>
+		<input type='text' class='form-control' name='mTitle' required="required" value='<%if(linkData.length>7){ out.print(linkData[7].get("m_title")+"");}%>'/>
+	</div>
+	<div class='col-md-7'>
+		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>7){ out.print(linkData[7].get("m_link")+"");}%>'/>
+	</div>
+</div>
+<input type="hidden" name="cmd" value="saveMenuLink" />
+<input type="hidden" name="toUrl" value="<%=MpickParam.hostUrl%>/Admin/Msg" />
+</form>
+</div>
+<!-- 링크 입력 탭 끝 -->
+
+</div>

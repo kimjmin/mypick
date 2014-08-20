@@ -1216,6 +1216,10 @@ public class MpickDao {
 		result = dao.inertData(property, "mp_message", data);
 		return result;
 	}
+	/**
+	 * 메뉴 메시지 삭제
+	 * @return
+	 */
 	public int delMenuMsg(){
 		int result = 0;
 		Dao dao = Dao.getInstance();
@@ -1246,6 +1250,62 @@ public class MpickDao {
 		if(m_visible != null && !"".equals(m_visible)){
 			sql.append("AND m_visible = ? \n");
 			paramV.add(m_visible);
+		}
+		sql.append("order by m_ord \n");
+		String[] params = paramV.toArray(new String[paramV.size()]);
+		Dao dao = Dao.getInstance();
+		data = dao.getResult(property, sql.toString(), params);
+		return data;
+	}
+	
+	/**
+	 * 링크 저장
+	 * @param m_org
+	 * @param m_type
+	 * @param m_title
+	 * @param m_link
+	 * @return
+	 */
+	public int insertLinks(int m_org, String m_type, String m_title, String m_link){
+		int result = 0;
+		DataEntity data = new DataEntity();
+		Dao dao = Dao.getInstance();
+		data.put("m_ord", m_org);
+		data.put("m_type", m_type);
+		data.put("m_title", m_title);
+		data.put("m_link", m_link);
+		result = dao.inertData(property, "mp_link", data);
+		return result;
+	}
+	/**
+	 * 링크 삭제
+	 * @return
+	 */
+	public int delLinks(){
+		int result = 0;
+		Dao dao = Dao.getInstance();
+		result = dao.deleteAll(property, "mp_link");
+		return result;
+	}
+	/**
+	 * 링크 가져오기
+	 * @param m_type
+	 * @param m_title
+	 * @return
+	 */
+	public DataEntity[] getLinks(String m_type, String m_title){
+		DataEntity[] data = null;
+		Vector<String> paramV = new Vector<String>();
+		StringBuffer sql = new StringBuffer();		
+		sql.append("SELECT * FROM mp_link \n");
+		sql.append("WHERE 1=1 \n");
+		if(m_type != null && !"".equals(m_type)){
+			sql.append("AND m_type = ? \n");
+			paramV.add(m_type);
+		}
+		if(m_title != null && !"".equals(m_title)){
+			sql.append("AND m_mid = ? \n");
+			paramV.add(m_title);
 		}
 		sql.append("order by m_ord \n");
 		String[] params = paramV.toArray(new String[paramV.size()]);

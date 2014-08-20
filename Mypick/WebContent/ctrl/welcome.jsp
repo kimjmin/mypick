@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="mpick.com.MpickParam"%>
+<%@ page import="mpick.com.MpickParam,mpick.com.MpickDao,jm.net.DataEntity"%>
+<%
+MpickDao dao = MpickDao.getInstance();
+DataEntity[] linkData = dao.getLinks("WELCOME",null);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +40,9 @@
 			<div class="panel-body">
 				<h3>해외직구가<br>처음이신가요?</h3>
 				<p>초보를 위한 A to Z를 통해<br>즐거운 해외직구를<br>경험해보세요.</p>
-				<img class="img-responsive pull-right" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_pen.png">
+				<a href="<%if(linkData.length>0){ out.print(linkData[0].get("m_link")+"");}%>">
+					<img class="img-responsive pull-right" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_pen.png">
+				</a>
 			</div>
 		</div>
 	</div>		
@@ -45,7 +51,9 @@
 			<div class="panel-body">
 				<h3>가장 저렴한<br>배송대행지는 어디?</h3>
 				<p>배송대행지 가격비교를 이용해<br>가장 저렴한 배송대행지를<br>찾아보세요.</p>
-				<img class="img-responsive pull-right" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_listdown.png">
+				<a href="<%if(linkData.length>1){ out.print(linkData[1].get("m_link")+"");}%>">
+					<img class="img-responsive pull-right" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_listdown.png">
+				</a>
 			</div>
 		</div>
 	</div>
@@ -56,7 +64,9 @@
 			<div class="panel-body">
 				<h3>이번주의<br>면세상한선은?</h3>
 				<p>이번주 관세청 고시환율로<br>얼마까지 면세받을 수 있는지<br>쉽게 알아보세요.</p>
-				<img class="img-responsive pull-right" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_limitup.png">
+				<a href="<%if(linkData.length>2){ out.print(linkData[2].get("m_link")+"");}%>">
+					<img class="img-responsive pull-right" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_limitup.png">
+				</a>
 			</div>
 		</div>
 	</div>
@@ -65,7 +75,9 @@
 			<div class="panel-body">
 				<h3>kg? lb? oz?<br>너무 어려워!</h3>
 				<p>어려운 단위계산,<br>myPICK 단위 변환기로<br>간편하게!</p>
-				<img class="img-responsive pull-right" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_cal.png">
+				<a href="<%if(linkData.length>3){ out.print(linkData[3].get("m_link")+"");}%>">
+					<img class="img-responsive pull-right" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_cal.png">
+				</a>
 			</div>
 		</div>
 	</div>
