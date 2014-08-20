@@ -94,6 +94,12 @@ public class Community extends HttpServlet {
 							} else {
 								if("LOGIN".equals(data[0].get("t_state")+"") && !loggedIn ){
 									out.print(MpickMsg.error("이 글을 조회하려면 로그인이 필요합니다."));
+								} else if("BLOCK_ALL".equals(data[0].get("t_state")+"") || "BLOCK_LOGIN".equals(data[0].get("t_state")+"")){
+									if(userObj != null && "ADMIN".equals(userObj.getState())){
+										req.getRequestDispatcher("/comm/community.jsp?bbs="+bbs+"&ctrl="+ctrl+"&t_num="+t_num).include(req, res);
+									} else {
+										out.print(MpickMsg.error("관리자에 의해 차단된 게시물입니다."));
+									}
 								} else {
 									req.getRequestDispatcher("/comm/community.jsp?bbs="+bbs+"&ctrl="+ctrl+"&t_num="+t_num).include(req, res);
 								}

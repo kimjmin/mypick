@@ -104,12 +104,35 @@ function delTxt(){
 		frm.submit();
 	}
 }
-
 function goModify(){
 	var frm = document.commFrm;
 	frm.method="POST";
 	frm.action="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/Write/<%=tNum%>";
 	frm.submit();
+}
+<% } %>
+<% if(userObj != null && "ADMIN".equals(userObj.getState())) { %>
+function blockTxt(){
+	if(confirm("이 글을 차단하시겠습니까?")){
+		$(".btn-reply").attr("disabled",true);
+		var frm = document.commFrm;
+		frm.cmd.value = "blockCommTxt";
+		frm.toUrl.value="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
+		frm.method="POST";
+		frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+		frm.submit();
+	}
+}
+function unblockTxt(){
+	if(confirm("이 글의 차단을 해제하시겠습니까?")){
+		$(".btn-reply").attr("disabled",true);
+		var frm = document.commFrm;
+		frm.cmd.value = "unblockCommTxt";
+		frm.toUrl.value="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
+		frm.method="POST";
+		frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+		frm.submit();
+	}
 }
 <% } %>
 function goList(){
@@ -270,6 +293,13 @@ if(rrDatas != null && rrDatas.length > 1){
 <% if(userObj != null && userObj.getEmail().equals(writerObj.getEmail())){ %>
 	<button class="btn btn-sm btn-success" onclick="goModify();"><span class="glyphicon glyphicon-pencil"></span> 수정</button>
 	<button class="btn btn-sm btn-danger" onclick="delTxt();"><span class="glyphicon glyphicon-remove"></span> 삭제</button>
+<% } %>
+<% if(userObj != null && "ADMIN".equals(userObj.getState())) { %>
+	<%if("BLOCK_ALL".equals(tData.get("t_state")+"") || "BLOCK_LOGIN".equals(tData.get("t_state")+"")){ %>
+	<button class="btn btn-sm btn-warning" onclick="unblockTxt();"><span class="glyphicon glyphicon-remove"></span> 차단 해제</button>
+	<% } else { %>
+	<button class="btn btn-sm btn-warning" onclick="blockTxt();"><span class="glyphicon glyphicon-remove"></span> 차단</button>
+	<% } %>
 <% } %>
 </div>
 

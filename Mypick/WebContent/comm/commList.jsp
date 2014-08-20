@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="jm.net.DataEntity,mpick.com.MpickDao,mpick.com.MpickParam"%>
 <%@page import="java.text.SimpleDateFormat,java.util.Date,java.util.Locale"%>
+<%@page import="mpick.com.MpickUserObj"%>
 <% 
+MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
 String bbs = request.getParameter("bbs");
 String cate = request.getParameter("cate");
 String pageNumStr = request.getParameter("pageNum");
@@ -121,7 +123,7 @@ if(cateData != null){
 <thead>
 	<tr class="info">
 		<th class="text-center" width="10%">No</th>
-		<th class="text-center" width="18%">Category</th>
+		<th class="text-center" width="15%">Category</th>
 		<th class="text-center">Subject</th>
 		<th class="text-center" width="10%">Name</th>
 		<th class="text-center" width="7%">Date</th>
@@ -149,7 +151,22 @@ for(int i=0; i<listData.length; i++){
 	<tr <%=tNoticeClass%>>
 		<td class="text-center"><%=listData[i].get("t_num")+""%></td>
 		<td class="">[ <%=tCate%> ]</td>
-		<td class=""><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/View/<%=listData[i].get("t_num")+""%>"><%=tTitle%></a><% if(replys != null && !"".equals(replys) && !"0".equals(replys)){ %> [<%=replys %>]<% } %></td>
+		
+<%if("BLOCK_ALL".equals(listData[i].get("t_state")+"") || "BLOCK_LOGIN".equals(listData[i].get("t_state")+"")){ %>
+<% if(userObj != null && "ADMIN".equals(userObj.getState())) { %>
+		<td class="text-muted">
+			<a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/View/<%=listData[i].get("t_num")+""%>">관리자에 의해 차단된 게시물입니다.</a><% if(replys != null && !"".equals(replys) && !"0".equals(replys)){ %> [<%=replys %>]<% } %>
+		</td>
+<% } else { %>
+		<td class="text-muted">
+			관리자에 의해 차단된 게시물입니다.
+		</td>
+<% } %>
+<% } else { %>
+		<td class="">
+			<a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/View/<%=listData[i].get("t_num")+""%>"><%=tTitle%></a><% if(replys != null && !"".equals(replys) && !"0".equals(replys)){ %> [<%=replys %>]<% } %>
+		</td>
+<% } %>
 		<td class="text-center"><%=listData[i].get("nicname")+""%></td>
 		<td class="text-center"><%=frmt.format(t_date)%></td>
 		<td class="text-center"><%=listData[i].get("t_hit")+""%></td>

@@ -859,6 +859,7 @@ public class MpickDao {
 		sql.append(", A.t_notice AS t_notice \n");
 		sql.append(", A.t_title as t_title \n");
 		sql.append(", A.t_hit as t_hit \n");
+		sql.append(", A.t_state as t_state \n");
 		sql.append(", B.nicname as nicname \n");
 		sql.append(", (SELECT count(*) FROM mp_bbs_text_reply C WHERE A.t_num = C.t_num AND C.t_state <> 'ARCHIVE' ) as replys \n");
 		sql.append("FROM mp_bbs_text A, mp_user B \n");
@@ -892,6 +893,32 @@ public class MpickDao {
 		Dao dao = Dao.getInstance();
 		StringBuffer sql = new StringBuffer();
 		sql.append("UPDATE mp_bbs_text SET t_state = 'ARCHIVE' \n");
+		sql.append("where bbs_menu_id = ? \n");
+		sql.append("and t_num = ? \n");
+		String[] params = {menu, tNum};
+		return dao.updateSql(property, sql.toString(), params);
+	}
+	
+	/**
+	 * 커뮤니트 글 차단 
+	 * @param menu
+	 * @param tNum
+	 * @return
+	 */
+	public int blockCommText(String menu, String tNum){
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE mp_bbs_text SET t_state = CONCAT('BLOCK_',t_state) \n");
+		sql.append("where bbs_menu_id = ? \n");
+		sql.append("and t_num = ? \n");
+		String[] params = {menu, tNum};
+		return dao.updateSql(property, sql.toString(), params);
+	}
+	
+	public int unBlockCommText(String menu, String tNum){
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("UPDATE mp_bbs_text SET t_state = SUBSTRING(t_state,7) \n");
 		sql.append("where bbs_menu_id = ? \n");
 		sql.append("and t_num = ? \n");
 		String[] params = {menu, tNum};

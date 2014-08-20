@@ -239,11 +239,32 @@ public class Confirm extends HttpServlet {
 			Comm comm = new Comm();
 			int commRes = comm.delTxt(req, res);
 			if(commRes > 0){
-				String tNum = req.getParameter("tNum");
 				res.sendRedirect(toUrl);
 			} else {
 				out.println("<script>");
 				out.println("	alert(\"삭제하는 중 오류가 발생되었습니다.\");");
+				out.println("	history.go(-1);");
+				out.println("</script>");
+			}
+		} else if(toUrl != null && cmd != null && cmd.equals("blockCommTxt")){
+			Comm comm = new Comm();
+			int commRes = comm.blockTxt(req, res);
+			if(commRes > 0){
+				res.sendRedirect(toUrl);
+			} else {
+				out.println("<script>");
+				out.println("	alert(\"상태를 변경하는 중 오류가 발생되었습니다.\");");
+				out.println("	history.go(-1);");
+				out.println("</script>");
+			}
+		} else if(toUrl != null && cmd != null && cmd.equals("unblockCommTxt")){
+			Comm comm = new Comm();
+			int commRes = comm.unblockTxt(req, res);
+			if(commRes > 0){
+				res.sendRedirect(toUrl);
+			} else {
+				out.println("<script>");
+				out.println("	alert(\"상태를 변경하는 중 오류가 발생되었습니다.\");");
 				out.println("	history.go(-1);");
 				out.println("</script>");
 			}
