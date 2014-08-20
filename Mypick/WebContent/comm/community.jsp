@@ -11,7 +11,6 @@ if(bbsM != null){
 	admMenuCntM = daoM.getCommMenuAdminBbs(bbsM);
 }
 %>
-
 <!DOCTYPE html>
 <html>
 <head>

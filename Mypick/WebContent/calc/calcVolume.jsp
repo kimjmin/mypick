@@ -1,12 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<blockquote>
-	<p>부피무게 계산기</p>
-	<small>부피무게를 계산 해 주는 계산기입니다.</small>
-</blockquote>
-
 <h4>길이 값 입력 </h4>
-
 <br/>
 <form class="form-horizontal" role="form" action="javascript:calVolume();">
 

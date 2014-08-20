@@ -1,14 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<div class="container">
-
-<div class="row">
-	<blockquote>
-		<p>배송대행 요금비교 및 과세여부 판별기</p>
-		<small>배송대행지의 요금비교과 물품가격 및 관부가세 과세여부를 판별해주는 계산기입니다.</small>
-	</blockquote>
-</div>
-
 <div class="row">
 	<h4>구매정보 입력 
 		<button class="btn btn-info btn-xs" data-toggle="modal" data-target="#helpModal">도움말</button>
@@ -38,8 +29,5 @@
     </div>
   </div>
 </div>
-
-</div>
-
 
 </div>

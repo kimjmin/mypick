@@ -1,7 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="mpick.com.MpickParam,mpick.com.MpickDao,jm.net.DataEntity"%>
 <%
 String m = request.getParameter("m"); 
 if(m == null || m.equals("")){ m="fee"; }
+
+String uri = request.getRequestURI();
+String subUri = uri.substring(uri.lastIndexOf("Calc/")+5);
+String hid = "Calc";
+String mid = "";
+if("".equals(subUri)){
+	subUri = "mid";
+} else {
+	mid = subUri; 
+}
+MpickDao daoM = MpickDao.getInstance();
+DataEntity[] msgData = daoM.getMenuMsg(hid,mid,"TRUE");
 %>
 <!DOCTYPE html>
 <html>
@@ -43,6 +56,17 @@ if(m == null || m.equals("")){ m="fee"; }
 			</div>
 			
 			<div class="col-sm-9">
+<%if(msgData !=null && msgData.length == 1){ 
+String mText = msgData[0].get("m_text")+"";
+mText = mText.replaceAll("\r\n", "<br>");
+%>
+<div class="row">
+	<blockquote>
+		<p><%=msgData[0].get("m_title")+""%></p>
+		<small><%=mText%></small>
+	</blockquote>
+</div>
+<% } %>
 <!-- 우측 내용 시작 -->
 <%
 if("fee".equals(m)){

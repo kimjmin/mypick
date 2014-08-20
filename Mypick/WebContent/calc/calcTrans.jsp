@@ -1,16 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-<div class="row">
-	<blockquote>
-		<p>단위 변환기</p>
-		<small>해외구매시 자주 사용하는 단위로 변환해주는 변환기입니다.</small>
-	</blockquote>
-</div>
-
 <div class="row">
 	<h4>원단위 값 입력 <small>소수점 3자리까지 입력 가능합니다.</small></h4>
 </div>
-
 <br/>
 <form class="form-horizontal" role="form" action="javascript:transUnit();">
 <div class="row">

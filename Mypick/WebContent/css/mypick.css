@@ -108,3 +108,7 @@ body {
 .navbar-toggle{
 	color : #EEE;
 }
+
+blockquote small:before, blockquote .small:before {
+    content: "";
+}

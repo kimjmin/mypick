@@ -36,6 +36,8 @@ public class Admin extends HttpServlet {
 					m = "encl";
 				} else if(uri.indexOf("Comm") > 0){
 					m = "comm";
+				} else if(uri.indexOf("Msg") > 0){
+					m = "msg";
 				}
 				req.getRequestDispatcher("/admin/admin.jsp?m="+m).include(req, res);
 			}

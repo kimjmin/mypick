@@ -28,6 +28,7 @@ if(m == null || m.equals("")){ m="fee"; }
 	<a href="<%=MpickParam.hostUrl%>/Admin/Ship" class="list-group-item <%if("ship".equals(m)){out.print("active");}%>">배송대행지 관리</a>
 	<a href="<%=MpickParam.hostUrl%>/Admin/Encl" class="list-group-item <%if("encl".equals(m)){out.print("active");}%>">백과사전 관리</a>
 	<a href="<%=MpickParam.hostUrl%>/Admin/Comm" class="list-group-item <%if("comm".equals(m)){out.print("active");}%>">커뮤니티 관리</a>
+	<a href="<%=MpickParam.hostUrl%>/Admin/Msg" class="list-group-item <%if("msg".equals(m)){out.print("active");}%>">메시지 관리</a>
 </div>
 <!-- 메뉴 링크 목록 끝 -->
 
@@ -47,6 +48,8 @@ if("ship".equals(m)){
 %><%@include file="../admin/admEncycle.jsp"%><%	
 } else if("comm".equals(m)){
 %><%@include file="../admin/admComm.jsp"%><%	
+} else if("msg".equals(m)){
+%><%@include file="../admin/admMsg.jsp"%><%	
 }
 %>
 <!-- 우측 내용 끝 -->

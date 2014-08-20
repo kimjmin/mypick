@@ -2,7 +2,6 @@
 <%@ page import="jm.net.DataEntity,mpick.com.MpickDao,mpick.com.MpickParam"%>
 <%@page import="java.text.SimpleDateFormat,java.util.Date,java.util.Locale"%>
 <% 
-
 String bbs = request.getParameter("bbs");
 String cate = request.getParameter("cate");
 String pageNumStr = request.getParameter("pageNum");
@@ -51,6 +50,8 @@ System.out.println("pageNum: "+pageNum);
 System.out.println("srtNum: "+srtNum);
 System.out.println("endNum: "+endNum);
 */
+
+DataEntity[] msgData = dao.getMenuMsg("Comm",bbs,"TRUE");
 %>
 <script>
 function goPage(pageN){
@@ -74,6 +75,19 @@ function search(){
 	frm.submit();
 }
 </script>
+
+<%if(msgData !=null && msgData.length == 1){ 
+String mText = msgData[0].get("m_text")+"";
+mText = mText.replaceAll("\r\n", "<br>");
+%>
+<div class="row">
+	<blockquote>
+		<p><%=msgData[0].get("m_title")+""%></p>
+		<small><%=mText%></small>
+	</blockquote>
+</div>
+<% } %>
+
 <div class="row">
 <%
 String btnClass = "";

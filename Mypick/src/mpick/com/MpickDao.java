@@ -1165,4 +1165,65 @@ public class MpickDao {
 		data = dao.getResult(property, sql.toString(), params);
 		return data;
 	}
+	
+	/**
+	 * 메뉴 메시지 저장
+	 * @param m_org
+	 * @param m_hid
+	 * @param m_mid
+	 * @param m_title
+	 * @param m_text
+	 * @param m_visible
+	 * @return
+	 */
+	public int insertMenuMsg(int m_org, String m_hid, String m_mid, String m_title, String m_text, String m_visible){
+		int result = 0;
+		DataEntity data = new DataEntity();
+		Dao dao = Dao.getInstance();
+		data.put("m_ord", m_org);
+		data.put("m_hid", m_hid);
+		data.put("m_mid", m_mid);
+		data.put("m_title", m_title);
+		data.put("m_text", m_text);
+		data.put("m_visible", m_visible);
+		result = dao.inertData(property, "mp_message", data);
+		return result;
+	}
+	public int delMenuMsg(){
+		int result = 0;
+		Dao dao = Dao.getInstance();
+		result = dao.deleteAll(property, "mp_message");
+		return result;
+	}
+	/**
+	 * 메뉴 메시지 가져오기
+	 * @param m_hid
+	 * @param m_mid
+	 * @param m_visible
+	 * @return
+	 */
+	public DataEntity[] getMenuMsg(String m_hid, String m_mid, String m_visible){
+		DataEntity[] data = null;
+		Vector<String> paramV = new Vector<String>();
+		StringBuffer sql = new StringBuffer();		
+		sql.append("SELECT * FROM mp_message \n");
+		sql.append("WHERE 1=1 \n");
+		if(m_hid != null && !"".equals(m_hid)){
+			sql.append("AND m_hid = ? \n");
+			paramV.add(m_hid);
+		}
+		if(m_mid != null && !"".equals(m_mid)){
+			sql.append("AND m_mid = ? \n");
+			paramV.add(m_mid);
+		}
+		if(m_visible != null && !"".equals(m_visible)){
+			sql.append("AND m_visible = ? \n");
+			paramV.add(m_visible);
+		}
+		sql.append("order by m_ord \n");
+		String[] params = paramV.toArray(new String[paramV.size()]);
+		Dao dao = Dao.getInstance();
+		data = dao.getResult(property, sql.toString(), params);
+		return data;
+	}
 }

@@ -247,6 +247,31 @@ public class Confirm extends HttpServlet {
 				out.println("	history.go(-1);");
 				out.println("</script>");
 			}
+		} else if(toUrl != null && cmd != null && cmd.equals("saveMenuMsg")){
+			int resCnt = 1;
+			String[] hid = req.getParameterValues("hid");
+			String[] mid = req.getParameterValues("mid");
+			String[] mTitle = req.getParameterValues("mTitle");
+			String[] mText = req.getParameterValues("mText");
+			if(hid != null && hid.length > 0){
+				dao.delMenuMsg();
+				for(int i=0; i < hid.length; i++){
+					String mHide = req.getParameter("mHide"+i);
+					if(!"".equals(hid[i]) && !"".equals(mid[i]) && !"".equals(mTitle[i])){
+						if(dao.insertMenuMsg(i, hid[i], mid[i], mTitle[i], mText[i], mHide) == 0){
+							resCnt = 0;
+						}
+					}
+				}
+			}
+			if(resCnt > 0){
+				res.sendRedirect(toUrl);
+			} else {
+				out.println("<script>");
+				out.println("	alert(\"저장하는 중 오류가 발생되었습니다.\");");
+				out.println("	history.go(-1);");
+				out.println("</script>");
+			}
 		} else {
 //			System.out.println("cmd : "+cmd);
 //			System.out.println("toUrl : "+toUrl);
