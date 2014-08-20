@@ -6,7 +6,10 @@ String ctrlM = request.getParameter("ctrl");
 
 MpickDao daoM = MpickDao.getInstance();
 DataEntity[] menuDatas = daoM.getCommViewMenu();
-int admMenuCntM = daoM.getCommMenuAdminBbs(bbsM);
+int admMenuCntM = 0;
+if(bbsM != null){
+	admMenuCntM = daoM.getCommMenuAdminBbs(bbsM);
+}
 %>
 
 <!DOCTYPE html>

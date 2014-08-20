@@ -250,9 +250,7 @@ if(rrDatas != null && rrDatas.length > 1){
 </table>
 
 <div class="col-md-8">
-<%if(admMenuCnt == 0){ %>
 	<button class="btn btn-sm btn-default" onclick="goList();"><span class="glyphicon glyphicon-align-justify"></span> 목록</button>
-<% } %>
 </div>
 <div class="col-md-4 text-right">
 <% if(userObj != null && userObj.getEmail().equals(writerObj.getEmail())){ %>
