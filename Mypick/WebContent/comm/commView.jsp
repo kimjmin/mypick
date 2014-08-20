@@ -20,6 +20,8 @@ if(tDatas != null && tDatas.length > 0){
 	tText = tText.replaceAll("<img ", "<img class=\"img-responsive\" ");
 	String tLink = tData.get("t_link")+"";
 	tLink = tLink.replaceAll("http://", "");
+	
+	DataEntity[] msgData = dao.getMenuMsg("Comm",bbs,"TRUE");
 %>
 <script>
 function reply(rnum1, rnum2, tText){
@@ -116,8 +118,20 @@ function goList(){
 	frm.action="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
 	frm.submit();
 }
-
 </script>
+
+<%if(msgData !=null && msgData.length == 1){ 
+String mText = msgData[0].get("m_text")+"";
+mText = mText.replaceAll("\r\n", "<br>");
+%>
+<div class="row">
+	<blockquote>
+		<p><%=msgData[0].get("m_title")+""%></p>
+		<small><%=mText%></small>
+	</blockquote>
+</div>
+<% } %>
+
 <form role="form" name="commFrm">
 <table class="table table-noline" id="bbs">
 <thead>
