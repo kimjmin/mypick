@@ -824,7 +824,7 @@ public class MpickDao {
 		sql.append("AND A.bbs_menu_id = ? ");
 		paramV.add(menu);
 		if(cate != null && !"".equals(cate)){
-			sql.append("and A.bbs_cate_name = ? ");
+			sql.append("and ( A.bbs_cate_name = ? OR A.t_notice = 'TRUE' ) ");
 			paramV.add(cate);
 		}
 		if((schOpt != null && !"".equals(schOpt)) && (schTxt != null && !"".equals(schTxt))){
@@ -867,7 +867,7 @@ public class MpickDao {
 		sql.append("AND A.bbs_menu_id = ? \n");
 		paramV.add(menu);
 		if(cate != null && !"".equals(cate)){
-			sql.append("AND A.bbs_cate_name = ? \n");
+			sql.append("AND ( A.bbs_cate_name = ? OR A.t_notice = 'TRUE' ) \n");
 			paramV.add(cate);
 		}
 		if((schOpt != null && !"".equals(schOpt)) && (schTxt != null && !"".equals(schTxt))){
