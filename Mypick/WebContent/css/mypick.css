@@ -102,6 +102,9 @@ body {
 .footer a:ACTIVE, .footer a:HOVER {
 	color: #F00;
 }
+.navbar {
+    border-radius: 0px;
+}
 .navbar-toggle{
 	color : #EEE;
 }

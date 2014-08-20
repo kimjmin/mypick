@@ -10,6 +10,7 @@ String tNum = request.getParameter("t_num");
 MpickDao dao = MpickDao.getInstance();
 dao.plusCommHit(tNum);
 DataEntity[] tDatas = dao.getCommText(bbs,tNum);
+int admMenuCnt = dao.getCommMenuAdminBbs(bbs);
 if(tDatas != null && tDatas.length > 0){
 	DataEntity tData = tDatas[0];
 	MpickUserObj writerObj = dao.getUserObj(tData.get("user_email")+"");
@@ -145,7 +146,7 @@ function goList(){
 	<tr>
 		<td colspan="3">
 		
-<%if(userObj != null && !"".equals(userObj.getEmail())){ %>
+<%if(userObj != null && !"".equals(userObj.getEmail()) && admMenuCnt == 0){ %>
 <label for="t_reply" class="col-lg-2 control-label"><%=userObj.getNicname()%> 님</label>
 <div class="col-md-8">
 	<textarea id="tReply" class="form-control form-reply" rows="2"></textarea>
@@ -249,7 +250,9 @@ if(rrDatas != null && rrDatas.length > 1){
 </table>
 
 <div class="col-md-8">
+<%if(admMenuCnt == 0){ %>
 	<button class="btn btn-sm btn-default" onclick="goList();"><span class="glyphicon glyphicon-align-justify"></span> 목록</button>
+<% } %>
 </div>
 <div class="col-md-4 text-right">
 <% if(userObj != null && userObj.getEmail().equals(writerObj.getEmail())){ %>

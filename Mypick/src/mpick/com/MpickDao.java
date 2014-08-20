@@ -794,7 +794,7 @@ public class MpickDao {
 		sql.append("SELECT MAX(t_rep2_num) AS maxnum FROM mp_bbs_text_reply ");
 		sql.append("WHERE t_num = ? ");
 		sql.append("AND t_rep_num = ? ");
-		String[] param = {tNum};
+		String[] param = {tNum, rNum};
 		DataEntity[] data = dao.getResult(property, sql.toString(), param);
 		if(data != null && data.length == 1){
 			if(data[0].get("maxnum") != null){
@@ -1044,7 +1044,32 @@ public class MpickDao {
 		data = dao.getResult(property, sql.toString(), null);
 		return data;
 	}
-	
+	public DataEntity[] getCommViewMenu(){
+		DataEntity[] data = null;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT * FROM mp_bbs_menu WHERE viewable = 'ALL' order by bbs_ord ");
+		data = dao.getResult(property, sql.toString(), null);
+		return data;
+	}
+	public int getCommMenuBbs(String bbs){
+		int result = 0;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT count(*) FROM mp_bbs_menu WHERE bbs_menu_id = ? ");
+		String[] param = { bbs };
+		result = dao.getCount(property, sql.toString(), param);
+		return result;
+	}
+	public int getCommMenuAdminBbs(String bbs){
+		int result = 0;
+		Dao dao = Dao.getInstance();
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT count(*) FROM mp_bbs_menu WHERE viewable = 'ADMIN' and bbs_menu_id = ? ");
+		String[] param = {bbs};
+		result = dao.getCount(property, sql.toString(), param);
+		return result;
+	}
 	/**
 	 * 커뮤니티 카테고리 불러오기.
 	 * @param menu

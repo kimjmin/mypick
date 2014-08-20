@@ -5,7 +5,8 @@ String bbsM = request.getParameter("bbs");
 String ctrlM = request.getParameter("ctrl");
 
 MpickDao daoM = MpickDao.getInstance();
-DataEntity[] menuDatas = daoM.getCommMenu();
+DataEntity[] menuDatas = daoM.getCommViewMenu();
+int admMenuCntM = daoM.getCommMenuAdminBbs(bbsM);
 %>
 
 <!DOCTYPE html>
@@ -24,6 +25,7 @@ DataEntity[] menuDatas = daoM.getCommMenu();
 
 	<div class="container">
 
+<%if(admMenuCntM == 0){ %>
 		<div class="row">
 			<div class="col-sm-3">
 <!-- 좌측 메뉴 시작 -->
@@ -39,9 +41,7 @@ for(DataEntity menuData : menuDatas){
 	String menuName = (String)menuData.get("bbs_menu_name");
 %>
 	<a href="<%=MpickParam.hostUrl%>/Comm/<%=menuId%>" class="list-group-item <%if(bbsM.equals(menuId)){out.print("active");}%>"><%=menuName%></a>
-<%	
-}
-%>
+<% } %>
 </div>
 <!-- 메뉴 링크 목록 끝 -->
 
@@ -61,8 +61,18 @@ for(DataEntity menuData : menuDatas){
 <!-- 우측 내용 끝 -->		
 			</div>
 		</div>
+<% } else { %>
+<!-- 우측 내용 시작 -->
+<%if("Write".equals(ctrlM)){ %>
+<%@include file="../comm/commWrite.jsp"%>
+<%} else if("View".equals(ctrlM)){ %>
+<%@include file="../comm/commView.jsp"%>
+<%} else { %>
+<%@include file="../comm/commList.jsp"%>
+<%} %>
+<!-- 우측 내용 끝 -->
+<% } %>
 	</div>
-
 <!-- 하단 푸터 시작 -->
 <%@include file="../ctrl/footer.jsp"%>
 <!-- 하단 푸터 끝 -->
