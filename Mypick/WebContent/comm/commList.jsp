@@ -124,10 +124,17 @@ for(int i=0; i<listData.length; i++){
 	if(tTitle.length() > 30){
 		tTitle = tTitle.substring(0,30)+" ...";
 	}
+	String tNotice = listData[i].get("t_notice")+"";
+	String tCate = listData[i].get("bbs_cate_name")+"";
+	String tNoticeClass = "";
+	if("TRUE".equals(tNotice)){
+		tCate = "공지사항";
+		tNoticeClass = "class='warning'";
+	}
 %>
-	<tr>
+	<tr <%=tNoticeClass%>>
 		<td class="text-center"><%=listData[i].get("t_num")+""%></td>
-		<td class="">[ <%=listData[i].get("bbs_cate_name")+""%> ]</td>
+		<td class="">[ <%=tCate%> ]</td>
 		<td class=""><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/View/<%=listData[i].get("t_num")+""%>"><%=tTitle%></a><% if(replys != null && !"".equals(replys) && !"0".equals(replys)){ %> [<%=replys %>]<% } %></td>
 		<td class="text-center"><%=listData[i].get("nicname")+""%></td>
 		<td class="text-center"><%=frmt.format(t_date)%></td>

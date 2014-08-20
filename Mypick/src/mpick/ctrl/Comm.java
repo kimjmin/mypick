@@ -27,7 +27,9 @@ public class Comm {
 		String tTitle = req.getParameter("tTitle");
 		String tLink = req.getParameter("tLink");
 		String tState = req.getParameter("tState");
+		String tNotice = req.getParameter("tNotice");
 		String tText = req.getParameter("tText");
+		
 		
 		MpickDao dao = MpickDao.getInstance();
 		String tNumStr = req.getParameter("tNum");
@@ -37,7 +39,7 @@ public class Comm {
 			tNum = Integer.parseInt(tNumStr);
 			dao.archiveCommText(menu, tNumStr);
 		}
-		result = dao.insertCommText(tNum, userMail, menu, cate, tTitle, tLink, tState, tText);
+		result = dao.insertCommText(tNum, userMail, menu, cate, tTitle, tLink, tState, tNotice, tText);
 		if(result > 0){
 			return tNum;
 		} else {

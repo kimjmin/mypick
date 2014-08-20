@@ -59,13 +59,13 @@ public class MpickLog {
 		String os = "os_error";
 		try{
 			if(header.indexOf("Windows") > -1){
-				os = os.substring(os.indexOf("Windows")-7,os.indexOf("Windows")+7);
+				os = header.substring(header.indexOf("Windows")-7,header.indexOf("Windows")+7);
 			} else {
-				if(os.indexOf("Android") != -1){
+				if(header.indexOf("Android") != -1){
 					os = "Android";
-				} else if(os.indexOf("Mac OS") != -1){
+				} else if(header.indexOf("Mac OS") != -1){
 					os = "Mac OS";
-				} else if(os.indexOf(";") != -1){
+				} else if(header.indexOf(";") != -1){
 					os = os.substring(0,os.indexOf(";"));
 				}
 			}

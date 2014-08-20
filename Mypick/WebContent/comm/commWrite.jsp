@@ -13,6 +13,7 @@ String bbsCateName = "";
 String tLink = "http://";
 String tState = "ALL";
 String tText = "";
+String tNotice = "";
 if(tNum != null && !"".equals(tNum)){
 	DataEntity[] tDatas = dao.getCommText(bbs,tNum);
 	if(tDatas != null && tDatas.length > 0){
@@ -24,6 +25,7 @@ if(tNum != null && !"".equals(tNum)){
 			tLink = tData.get("t_link")+"";
 			tState = tData.get("t_state")+"";
 			tText = tData.get("t_text")+"";
+			tNotice = tData.get("t_notice")+"";
 		}
 	}
 }
@@ -58,23 +60,29 @@ tinymce.init({
 		<label for="category" class="col-lg-1 control-label">분류</label>
 		<div class="col-lg-3">
 			<select class="form-control" id="category" name="cate">
-<%
-for(int i=0; i < cates.length; i++){
-%>
+<% for(int i=0; i < cates.length; i++){ %>
 				<option value='<%=cates[i].get("bbs_cate_name")+""%>' <%if(bbsCateName.equals(cates[i].get("bbs_cate_name")+"")){ out.print("selected='selected'");} %>><%=cates[i].get("bbs_cate_name")+""%></option>
-<%
-}
-%>
+<% } %>
 			</select>
 		</div>
-		<label for="tState" class="col-lg-1 control-label">조회</label>
-		<div class="col-lg-3">
-			<select class="form-control" id="tState" name="tState">
-				<option value="ALL" <%if(tState.equals("ALL")){ out.print("selected='selected'");} %>>전체</option>
-				<option value="LOGIN" <%if(tState.equals("LOGIN")){ out.print("selected='selected'");} %>>로그인 사용자</option>
-			</select>
+		<div class="col-lg-1"></div>
+		<div class="col-lg-2 radio">
+			<label>
+				<input type="radio" value="ALL" name="tState" <%if(tState.equals("ALL")){ out.print("checked='checked'");} %>> 전체 조회
+			</label>
 		</div>
-		<div class="col-lg-3"></div>
+		<div class="col-lg-2 radio">
+			<label>
+				<input type="radio" value="LOGIN" name="tState" <%if(tState.equals("LOGIN")){ out.print("checked='checked'");} %>> 로그인 조회
+			</label>
+		</div>
+		<div class="col-lg-2 checkbox">
+<% if("ADMIN".equals(userObj.getState())) { %>
+			<label>
+				<input type="checkbox" value="TRUE" name="tNotice" <%if(tNotice.equals("TRUE")){ out.print("checked='checked'");} %>> 공지사항
+			</label>	
+<% } %>
+		</div>
 	</div>
 	<div class="form-group">
 		<label for="tTitle" class="col-lg-1 control-label">제목</label>

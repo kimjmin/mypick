@@ -699,7 +699,7 @@ public class MpickDao {
 	 * @param encText
 	 * @return
 	 */
-	public int insertCommText(int tNum, String userMail, String menu, String cate, String tTitle, String tLink, String tState, String tText ){
+	public int insertCommText(int tNum, String userMail, String menu, String cate, String tTitle, String tLink, String tState, String tNotice, String tText ){
 		int result = 0;
 		DataEntity data = new DataEntity();
 		Dao dao = Dao.getInstance();
@@ -709,6 +709,9 @@ public class MpickDao {
 		data.put("t_title", tTitle);
 		data.put("t_link", tLink);
 		data.put("t_state", tState);
+		if("TRUE".equals(tNotice)) {
+			data.put("t_Notice", tNotice);
+		}
 		data.put("user_email", userMail);
 		data.put("t_text", tText);
 		result = dao.inertData(property, "mp_bbs_text", data);
@@ -853,6 +856,7 @@ public class MpickDao {
 		sql.append("A.t_num AS t_num \n");
 		sql.append(", A.t_date AS t_date \n");
 		sql.append(", A.bbs_cate_name AS cate \n");
+		sql.append(", A.t_notice AS t_notice \n");
 		sql.append(", A.t_title as t_title \n");
 		sql.append(", A.t_hit as t_hit \n");
 		sql.append(", B.nicname as nicname \n");
@@ -870,7 +874,7 @@ public class MpickDao {
 			sql.append("AND A."+schOpt+" like ? \n");
 			paramV.add("%"+schTxt+"%");
 		}
-		sql.append("ORDER BY A.t_num DESC \n");
+		sql.append("ORDER BY A.t_notice DESC, A.t_num DESC \n");
 		sql.append("LIMIT "+(pageNum*pageSize)+", "+pageSize+" ");
 		String[] params = paramV.toArray(new String[paramV.size()]);
 		Dao dao = Dao.getInstance();
