@@ -198,7 +198,7 @@ function setBDate(){
 				</div>
 				<div class="container">
 					<div class="form-group">
-						<input type="number" id="phone" name="phone" required="required">
+						<input type="number" id="phone" name="phone">
 					</div>
 
 				</div>

@@ -213,7 +213,7 @@ function setBDate(){
 				</div>
 				<div class="container">
 					<div class="form-group">
-						<input type="number" id="phone" name="phone" required="required" value="<%=userObj.getPhone()%>"/>
+						<input type="number" id="phone" name="phone" value="<%=userObj.getPhone()%>"/>
 					</div>
 
 				</div>
