@@ -22,8 +22,8 @@
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 			<span class="glyphicon glyphicon-list"></span>
 		</button>
-		<a class="navbar-brand" href="#">
-			<span class="text-white">my</span><span class="text-red">Pick</span>
+		<a class="navbar-brand" href="<%=MpickParam.hostUrl%>">
+			<img class="logo" src="<%=MpickParam.hostUrl%>/resource/img/mypick.png">
 		</a>
 	</div>
 	

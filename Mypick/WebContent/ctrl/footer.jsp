@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="mpick.com.MpickParam"%>
 <!-- 데스크탑 화면에서 푸터 시작 -->
 <div class="footer visible-md visible-lg">
 	<div class="container">
 		<div class="col-sm-1 text-right">
-			<h4><span class="text-white">my</span><span class="text-red">Pick</span></h4>
+			<h4><img class="logo" src="<%=MpickParam.hostUrl%>/resource/img/mypick.png"></h4>
 		</div>
 		<div class="col-sm-11">
 			<p class="copyright">
@@ -20,7 +21,7 @@
 <div class="footer visible-sm">
 	<div class="container">
 		<div class="col-sm-2 text-right">
-			<h4><span class="text-white">my</span><span class="text-red">Pick</span></h4>
+			<h4><img class="logo" src="<%=MpickParam.hostUrl%>/resource/img/mypick.png"></h4>
 		</div>
 		<div class="col-sm-10">
 			<p class="copyright">
@@ -38,7 +39,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-4 text-center">
-				<h4><span class="text-white">my</span><span class="text-red">Pick</span></h4>
+				<h4><img class="logo" src="<%=MpickParam.hostUrl%>/resource/img/mypick.png"></h4>
 			</div>
 			<div class="col-xs-8" style="padding:2px 0px;">
 				<p class="copyright" style="padding:0px; margin:0px;">

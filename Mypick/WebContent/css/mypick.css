@@ -118,3 +118,31 @@ body {
 blockquote small:before, blockquote .small:before {
     content: "";
 }
+.logo{
+	width: 75px;
+	height: 22px;
+}
+#welcome-text {
+	margin-top: 25%;
+}
+
+.panel-primary {
+	color: #ffffff;
+	background-color: #3276b1;
+	border-color: #285e8e;
+}
+.panel-success {
+	color: #ffffff;
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+}
+.panel-danger {
+	color: #ffffff;
+	background-color: #d9534f;
+	border-color: #d43f3a;
+}
+.panel-warning {
+	color: #ffffff;
+	background-color: #f0ad4e;
+	border-color: #eea236;
+}
