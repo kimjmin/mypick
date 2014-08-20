@@ -20,7 +20,7 @@
 <nav class="navbar navbar-inverse" role="navigation">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-			<span class="sr-only">상단 네비게이션</span>
+			<span class="glyphicon glyphicon-list"></span>
 		</button>
 		<a class="navbar-brand" href="#">
 			<span class="text-white">my</span><span class="text-red">Pick</span>
