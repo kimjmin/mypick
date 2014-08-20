@@ -143,6 +143,6 @@ if(cate2s == null || cate2s.length == 0){
 }
 %>
 <div class="col-md-12">
-	<div><%=arcTxt%></div>
+	<div id="enclTxt"><%=arcTxt%></div>
 </div>
 </div>

@@ -123,7 +123,7 @@ if(cateData != null){
 <thead>
 	<tr class="info">
 		<th class="text-center" width="10%">No</th>
-		<th class="text-center" width="15%">Category</th>
+		<th class="text-center" width="13%">Category</th>
 		<th class="text-center">Subject</th>
 		<th class="text-center" width="10%">Name</th>
 		<th class="text-center" width="7%">Date</th>
@@ -150,7 +150,7 @@ for(int i=0; i<listData.length; i++){
 %>
 	<tr <%=tNoticeClass%>>
 		<td class="text-center"><%=listData[i].get("t_num")+""%></td>
-		<td class="">[ <%=tCate%> ]</td>
+		<td class="text-center">[ <%=tCate%> ]</td>
 		
 <%if("BLOCK_ALL".equals(listData[i].get("t_state")+"") || "BLOCK_LOGIN".equals(listData[i].get("t_state")+"")){ %>
 <% if(userObj != null && "ADMIN".equals(userObj.getState())) { %>

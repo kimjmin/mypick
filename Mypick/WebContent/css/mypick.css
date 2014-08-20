@@ -85,6 +85,12 @@ body {
   /* Margin bottom by footer height */
   margin-bottom: 80px;
 }
+
+/* 백과사전 내용에 적용 */
+#enclTxt {
+	letter-spacing: 1.5px;
+	line-height: 1.5em;
+}
 .footer {
   position: absolute;
   padding: 6px;
