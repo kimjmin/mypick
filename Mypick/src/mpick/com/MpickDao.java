@@ -172,7 +172,7 @@ public class MpickDao {
 		
 		if(entity != null && entity.length == 1){
 			result.setEmail((String)entity[0].get("email"));
-//			result.setPasswd((String)entity[0].get("passwd"));
+			result.setPasswd((String)entity[0].get("passwd"));
 			result.setName((String)entity[0].get("name"));
 			result.setNicname((String)entity[0].get("nicname"));
 			result.setBirthday((Date)entity[0].get("birthday"));

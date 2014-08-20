@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import jm.com.Encrypt;
 import mpick.com.MpickDao;
 import mpick.com.MpickParam;
 import mpick.com.MpickUserObj;
@@ -45,7 +46,7 @@ public class Confirm extends HttpServlet {
 		} else if(toUrl != null && cmd != null && cmd.equals("modify")){
 			MpickUserObj preobj = dao.getUserObj(req.getParameter("email"));
 			String prePasswd = req.getParameter("prepasswd");
-			if(!preobj.getPasswd().equals(prePasswd)){
+			if(!preobj.getPasswd().equals(Encrypt.getSha256(prePasswd))){
 				out.println("<script>");
 				out.println("	alert(\"기존 패스워드가 올바르지 않습니다.\");");
 				out.println("	history.go(-1);");
