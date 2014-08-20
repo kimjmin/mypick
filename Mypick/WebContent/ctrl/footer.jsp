@@ -7,9 +7,9 @@
 		</div>
 		<div class="col-sm-11">
 			<p class="copyright">
-				Copyright 2014 &copy; myPick ALL RIGHTS RESERVED. <a href="#">공지사항</a> | <a href="#">개인정보보호정책</a> | <a href="#">이용약관</a> | <a href="#">연락처</a>
+				<a href="#">공지사항</a> | <a href="#">개인정보보호정책</a> | <a href="#">이용약관</a> | <a href="#">연락처</a>
 				<br/>이 사이트의 정보는 참고용으로만 사용하여야 하며, 이로 인해 발생하는 손해에 대해 책임지지 않습니다.
-				<br/>myPick 의 모든 콘텐츠는 저작자의 허락 없이 무단 전재를 금합니다. 
+				<br/>myPick 의 모든 콘텐츠는 저작자의 허락 없이 무단 전재를 금합니다. Copyright 2014 &copy; myPick ALL RIGHTS RESERVED.
 			</p>
 		</div>
 	</div>
@@ -24,9 +24,9 @@
 		</div>
 		<div class="col-sm-10">
 			<p class="copyright">
-				Copyright 2014 &copy; myPick ALL RIGHTS RESERVED. <a href="#">공지사항</a> | <a href="#">개인정보보호정책</a> | <a href="#">이용약관</a> | <a href="#">연락처</a> 
+				<a href="#">공지사항</a> | <a href="#">개인정보보호정책</a> | <a href="#">이용약관</a> | <a href="#">연락처</a> 
 				<br/>이 사이트의 정보는 참고용으로만 사용하여야 하며, 이로 인해 발생하는 손해에 대해 책임지지 않습니다.
-				<br/>myPick 의 모든 콘텐츠는 저작자의 허락 없이 무단 전재를 금합니다. 
+				<br/>myPick 의 모든 콘텐츠는 저작자의 허락 없이 무단 전재를 금합니다. Copyright 2014 &copy; myPick ALL RIGHTS RESERVED.
 			</p>
 		</div>
 	</div>
