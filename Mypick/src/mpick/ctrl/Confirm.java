@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import jm.com.Encrypt;
 import mpick.com.MpickDao;
+import mpick.com.MpickIO;
 import mpick.com.MpickParam;
 import mpick.com.MpickUserObj;
 
@@ -204,6 +205,9 @@ public class Confirm extends HttpServlet {
 			Comm comm = new Comm();
 			int commRes = comm.saveText(req, res);
 			if(commRes > 0){
+				String commWriter = (String)session.getAttribute("commWriter");
+				MpickIO mio = MpickIO.getInstance();
+				mio.moveFile("commPath",commWriter+"/temp",commWriter+"/"+commRes);
 				res.sendRedirect(toUrl+"/View/"+commRes);
 			} else {
 				out.println("<script>");

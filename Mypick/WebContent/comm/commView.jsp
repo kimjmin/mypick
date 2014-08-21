@@ -3,7 +3,6 @@
 <%@page import="mpick.com.MpickUserObj"%>
 <%@page import="java.text.SimpleDateFormat,java.util.Date,java.util.Locale"%>
 <%
-
 MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
 String bbs = request.getParameter("bbs");
 String tNum = request.getParameter("t_num");
@@ -17,9 +16,13 @@ if(tDatas != null && tDatas.length > 0){
 	Date t_date = (Date)tData.get("t_date");
 	SimpleDateFormat frmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.KOREA);
 	String tText = tData.get("t_text")+"";
+	tText = tText.replaceAll("../../File/", MpickParam.hostUrl+"/File/");
 	tText = tText.replaceAll("<img ", "<img class=\"img-responsive\" ");
 	String tLink = tData.get("t_link")+"";
 	tLink = tLink.replaceAll("http://", "");
+	
+	session.setAttribute("commUri",request.getRequestURI());
+	session.setAttribute("commWriter",writerObj.getEmail().replaceAll("@", "_"));
 	
 	DataEntity[] msgData = dao.getMenuMsg("Comm",bbs,"TRUE");
 %>
