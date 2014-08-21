@@ -37,7 +37,7 @@ public class Comm {
 			String tFHead = "";
 			for(String file : files){
 				if(file != null && !"".equals(file)){
-					tFHead += "<p><img src=\"" +file+ "\" /></p>";
+					tFHead += "<p><img src=\"" +file+ "\" /></p>\n";
 				}
 			}
 			tText = tFHead + tText;

@@ -261,16 +261,6 @@ function save(){
 	}
 }
 
-function setMbClear(){
-	var elmMVal = $("#elm_mobile").val();
-	for(var i=0; i<$(".fileUrl").length; i++){
-		elmMVal = replaceAll(elmMVal, "<p><img src=\""+$(".fileUrl:eq("+i+")").text()+ "\" /></p>", "");
-	}
-	$("#elm_mobile").val(elmMVal);
-}
-
-setMbClear();
-
 </script>
 
 <script id="template-upload" type="text/x-tmpl">
