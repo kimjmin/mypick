@@ -235,7 +235,7 @@ DataEntity[] linkData = dao.getLinks(null,null);
 		하단 푸터
 	</div>
 	<div class='col-md-3'>
-		<input type='text' class='form-control' name='mTitle' required="required" value='<%if(linkData.length>4){ out.print(linkData[4].get("m_title")+"");}%>'/>
+		<input type='text' class='form-control' name='mTitle' value='<%if(linkData.length>4){ out.print(linkData[4].get("m_title")+"");}%>'/>
 	</div>
 	<div class='col-md-7'>
 		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>4){ out.print(linkData[4].get("m_link")+"");}%>'/>
@@ -248,7 +248,7 @@ DataEntity[] linkData = dao.getLinks(null,null);
 		하단 푸터
 	</div>
 	<div class='col-md-3'>
-		<input type='text' class='form-control' name='mTitle' required="required" value='<%if(linkData.length>5){ out.print(linkData[5].get("m_title")+"");}%>'/>
+		<input type='text' class='form-control' name='mTitle' value='<%if(linkData.length>5){ out.print(linkData[5].get("m_title")+"");}%>'/>
 	</div>
 	<div class='col-md-7'>
 		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>5){ out.print(linkData[5].get("m_link")+"");}%>'/>
@@ -261,7 +261,7 @@ DataEntity[] linkData = dao.getLinks(null,null);
 		하단 푸터
 	</div>
 	<div class='col-md-3'>
-		<input type='text' class='form-control' name='mTitle' required="required" value='<%if(linkData.length>6){ out.print(linkData[6].get("m_title")+"");}%>'/>
+		<input type='text' class='form-control' name='mTitle' value='<%if(linkData.length>6){ out.print(linkData[6].get("m_title")+"");}%>'/>
 	</div>
 	<div class='col-md-7'>
 		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>6){ out.print(linkData[6].get("m_link")+"");}%>'/>
@@ -274,12 +274,40 @@ DataEntity[] linkData = dao.getLinks(null,null);
 		하단 푸터
 	</div>
 	<div class='col-md-3'>
-		<input type='text' class='form-control' name='mTitle' required="required" value='<%if(linkData.length>7){ out.print(linkData[7].get("m_title")+"");}%>'/>
+		<input type='text' class='form-control' name='mTitle' value='<%if(linkData.length>7){ out.print(linkData[7].get("m_title")+"");}%>'/>
 	</div>
 	<div class='col-md-7'>
 		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>7){ out.print(linkData[7].get("m_link")+"");}%>'/>
 	</div>
 </div>
+
+<br>
+<div class='row'>
+	<div class='col-md-2'>
+		<input type='hidden' name='mType' value='FOOTER'/>
+		하단 푸터
+	</div>
+	<div class='col-md-3'>
+		<input type='text' class='form-control' name='mTitle' value='<%if(linkData.length>8){ out.print(linkData[8].get("m_title")+"");}%>'/>
+	</div>
+	<div class='col-md-7'>
+		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>8){ out.print(linkData[8].get("m_link")+"");}%>'/>
+	</div>
+</div>
+<br>
+<div class='row'>
+	<div class='col-md-2'>
+		<input type='hidden' name='mType' value='FOOTER'/>
+		하단 푸터
+	</div>
+	<div class='col-md-3'>
+		<input type='text' class='form-control' name='mTitle' value='<%if(linkData.length>9){ out.print(linkData[9].get("m_title")+"");}%>'/>
+	</div>
+	<div class='col-md-7'>
+		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>9){ out.print(linkData[9].get("m_link")+"");}%>'/>
+	</div>
+</div>
+
 <input type="hidden" name="cmd" value="saveMenuLink" />
 <input type="hidden" name="toUrl" value="<%=MpickParam.hostUrl%>/Admin/Msg" />
 </form>

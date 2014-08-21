@@ -168,9 +168,17 @@ mText = mText.replaceAll("\r\n", "<br>");
 		<td colspan="3"><a href="http://<%=tLink%>" target="_new">http://<%=tLink%></a></td>
 	</tr>
 <% } %>	
+<%
+String tNotice = tData.get("t_notice")+"";
+String tCate = tData.get("bbs_cate_name")+"";
+String tNoticeClass = "";
+if("TRUE".equals(tNotice)){
+	tCate = "공지사항";
+}
+%>
 	<tr>
 		<td colspan="3">
-			<h4><span class="text-muted">[ <%=tData.get("bbs_cate_name")+""%> ]</span> <%=tData.get("t_title")+""%></h4>
+			<h4><span class="text-muted">[ <%=tCate%> ]</span> <%=tData.get("t_title")+""%></h4>
 		</td>
 	</tr>
 </thead>

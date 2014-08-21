@@ -122,6 +122,9 @@ blockquote small:before, blockquote .small:before {
 	width: 75px;
 	height: 22px;
 }
+.logo-foot{
+	margin-top: 7px;
+}
 #welcome-text {
 	margin-top: 25%;
 }

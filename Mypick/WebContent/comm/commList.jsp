@@ -122,8 +122,8 @@ if(cateData != null){
 <table class="table table-condensed table-hover" id="bbs">
 <thead>
 	<tr class="info">
-		<th class="text-center" width="10%">No</th>
-		<th class="text-center" width="13%">Category</th>
+		<th class="text-center" width="7%">No</th>
+		<th class="text-center" width="15%">Category</th>
 		<th class="text-center">Subject</th>
 		<th class="text-center" width="10%">Name</th>
 		<th class="text-center" width="7%">Date</th>
