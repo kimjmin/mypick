@@ -231,7 +231,11 @@ public class MpickDao {
 		DataEntity[] data = null;
 		Dao dao = Dao.getInstance();
 		StringBuffer sql = new StringBuffer();
-		sql.append("SELECT * FROM mp_curr_rate order by onum");
+		sql.append("SELECT \n");
+		sql.append("A.* \n");
+		sql.append(", (SELECT ROUND(B.tax_rate, 3) FROM mp_curr_tax_rate B WHERE A.curr = B.curr) AS tax_rate \n");
+		sql.append("FROM mp_curr_rate A \n");
+		sql.append("ORDER BY A.onum \n");
 		data = dao.getResult(property, sql.toString(), null);
 		return data;
 	}

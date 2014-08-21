@@ -78,7 +78,8 @@ public class MpickAjax extends HttpServlet{
 					outStr.append("\"check_sell\":"+currData[i].get("check_sell")+",");
 					outStr.append("\"sell_refer\":"+currData[i].get("sell_refer")+",");
 					outStr.append("\"disc_rate\":"+currData[i].get("disc_rate")+",");
-					outStr.append("\"usd_rate\":"+currData[i].get("usd_rate")+"");
+					outStr.append("\"usd_rate\":"+currData[i].get("usd_rate")+",");
+					outStr.append("\"tax_rate\":"+currData[i].get("tax_rate")+"");
 					outStr.append("}");
 					if(i < currData.length-1){ outStr.append(","); }
 				}
