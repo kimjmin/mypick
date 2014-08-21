@@ -16,7 +16,7 @@ if(tDatas != null && tDatas.length > 0){
 	Date t_date = (Date)tData.get("t_date");
 	SimpleDateFormat frmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.KOREA);
 	String tText = tData.get("t_text")+"";
-	tText = tText.replaceAll("../../../File/", "../../File/");
+	tText = tText.replaceAll("\r\n", "<br>");
 	tText = tText.replaceAll("../../../File/", "../../File/");
 	tText = tText.replaceAll("../../File/", MpickParam.hostUrl+"/File/");
 	tText = tText.replaceAll("<img ", "<img class=\"img-responsive\" ");
@@ -161,7 +161,7 @@ mText = mText.replaceAll("\r\n", "<br>");
 <% } %>
 
 <form role="form" name="commFrm">
-<table class="table table-noline" id="bbs">
+<table class="table table-noline">
 <thead>
 	<tr class="info">
 		<th ><%=writerObj.getNicname()%> 님</th>
@@ -187,12 +187,14 @@ if("TRUE".equals(tNotice)){
 		</td>
 	</tr>
 </thead>
-<tbody>
-	<tr>
-		<td colspan="3">
+</table>
+<!-- 모바일에서 이미지 리사이징 되려면 테이블 바깥에 있어야 함. -->
+<div class="row">
 <%=tText%>
-		</td>
-	</tr>
+</div>
+	
+<table class="table table-noline">
+<tbody>	
 	<tr>
 		<td colspan="3">
 		

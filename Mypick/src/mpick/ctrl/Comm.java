@@ -30,6 +30,18 @@ public class Comm {
 		String tNotice = req.getParameter("tNotice");
 		String tText = req.getParameter("tText");
 		
+		String isMobile = req.getParameter("isMobile");
+		if("true".equals(isMobile)){
+			String fileNames = req.getParameter("fileNames");
+			String[] files = fileNames.split(",");
+			String tFHead = "";
+			for(String file : files){
+				if(file != null && !"".equals(file)){
+					tFHead += "<p><img src=\"" +file+ "\" /></p>";
+				}
+			}
+			tText = tFHead + tText;
+		}
 		
 		MpickDao dao = MpickDao.getInstance();
 		String tNumStr = req.getParameter("tNum");

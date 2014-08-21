@@ -82,23 +82,24 @@ tinymce.init({
 <% } %>
 			</select>
 		</div>
-		<div class="col-lg-1"></div>
-		<div class="col-lg-2 radio">
-			<label>
-				<input type="radio" value="ALL" name="tStateFrm" <%if(tState.equals("ALL")){ out.print("checked='checked'");} %>> 전체 조회
-			</label>
-		</div>
-		<div class="col-lg-2 radio">
-			<label>
-				<input type="radio" value="LOGIN" name="tStateFrm" <%if(tState.equals("LOGIN")){ out.print("checked='checked'");} %>> 로그인 조회
-			</label>
-		</div>
-		<div class="col-lg-2 checkbox">
+		<div class="col-lg-8">
+			<div class="col-xs-4 radio">
+				<label>
+					<input type="radio" value="ALL" name="tStateFrm" <%if(tState.equals("ALL")){ out.print("checked='checked'");} %>> 전체 조회
+				</label>
+			</div>
+			<div class="col-xs-4 radio">
+				<label>
+					<input type="radio" value="LOGIN" name="tStateFrm" <%if(tState.equals("LOGIN")){ out.print("checked='checked'");} %>> 로그인 조회
+				</label>
+			</div>
+			<div class="col-xs-4 checkbox">
 <% if("ADMIN".equals(userObj.getState())) { %>
-			<label>
-				<input type="checkbox" value="TRUE" id="tNoticeFrm" <%if(tNotice.equals("TRUE")){ out.print("checked='checked'");} %>> 공지사항
-			</label>	
+				<label>
+					<input type="checkbox" value="TRUE" id="tNoticeFrm" <%if(tNotice.equals("TRUE")){ out.print("checked='checked'");} %>> 공지사항
+				</label>
 <% } %>
+			</div>
 		</div>
 	</div>
 </form>
@@ -131,7 +132,7 @@ tinymce.init({
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
         	<div class="col-md-12">
-        	<p class="text-primary">
+        	<p class="text-primary visible-md visible-lg">
         		이미지를 첨부하려면 파일을 업로드 한 후 
         		이미지 <img src="<%=MpickParam.hostUrl%>/resource/img/img_attach.png" style="width: 23px; height: 21px;"> 
         		에 파일 주소를 복사해서 붙여넣어야 합니다.
@@ -180,17 +181,30 @@ tinymce.init({
 	</div>
 </form>
 <form class="form-horizontal" role="form">
-	<div class="form-group">
+
+	<div class="form-group visible-md visible-lg">
 		<label for="elm" class="col-lg-1 control-label">내용</label>
 		<div class="col-lg-10">
 			<textarea id="elm"><%=tText%></textarea>
 		</div>
+		<div class="col-lg-1"></div>
+	</div>
+	
+	<div class="form-group visible-xs visible-sm">
+		<label for="elm_mobile" class="col-lg-1 control-label">내용</label>
+		<div class="col-lg-11">
+			<textarea id="elm_mobile" class="form-control" rows="4"><%=tText%></textarea>
+		</div>
 	</div>
 </form>
 <form role="form" action="javascript:save();" name="commFrm">
-	<ul class="pager">
+	<ul class="pager visible-md visible-lg">
 		<li><button type="button" class="btn btn-warning btn-sm" onclick="if(confirm('작성을 취소하시겠습니까?')){window.history.back();}"><span class="glyphicon glyphicon-remove"></span> 취소 </button></li>
 		<li><button id="saveBtn" type="submit" class="btn btn-success btn-sm"><span class="glyphicon glyphicon-save"></span> 저장 </button></li>
+	</ul>
+	<ul class="pager visible-xs visible-sm">
+		<li><button type="button" class="btn btn-warning btn-sm" onclick="if(confirm('작성을 취소하시겠습니까?')){window.history.back();}"><span class="glyphicon glyphicon-remove"></span> 취소 </button></li>
+		<li><button id="saveBtnM" type="button" class="btn btn-success btn-sm" onclick="saveMobile();"><span class="glyphicon glyphicon-save"></span> 저장 </button></li>
 	</ul>
 	
 	<input type="hidden" name="cate" id="cate"/>
@@ -204,9 +218,24 @@ tinymce.init({
 <%if(tNum != null && !"".equals(tNum)){ %>	<input type="hidden" name="tNum" value="<%=tNum%>" /><% } %>
 	<input type="hidden" name="cmd" value="saveCommTxt" />
 	<input type="hidden" name="toUrl" value="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>" />
+	<input type="hidden" name="isMobile" id="isMobile" value="false" />
+	<input type="hidden" name="fileNames" id="fileNames"/>
 </form>
 
 <script>
+function saveMobile(){
+	$("#isMobile").val("true");
+	var files = "";
+	for(var i=0; i<$(".fileUrl").length; i++){
+		files += $(".fileUrl:eq("+i+")").text();
+		if(i < $(".fileUrl").length-1){
+			files += ",";
+		}
+	}
+	$("#fileNames").val(files);
+	save();
+}
+
 function save(){
 	if($("#tTitleFrm").val() == ""){
 		alert("제목을 입력하십시오.");
@@ -218,7 +247,11 @@ function save(){
 		$("#tNotice").val($("#tNoticeFrm:checked").val());
 		$("#tTitle").val($("#tTitleFrm").val());
 		$("#tLink").val($("#tLinkFrm").val());
-		$("#tText").val(tinymce.get('elm').getContent());
+		if($("#isMobile").val() == "true" ){
+			$("#tText").val($("#elm_mobile").val());
+		} else {
+			$("#tText").val(tinymce.get('elm').getContent());
+		}
 		
 		$("#saveBtn").attr("disabled",true);
 		var frm = document.commFrm;
@@ -265,7 +298,7 @@ function save(){
         <td>
             <p class="name">
                 {% if (file.url) { %}
-					{%=file.url%}
+					<span class="fileUrl">{%=file.url%}</span>
                 {% } else { %}
                     <span>{%=file.name%}</span>
                 {% } %}
