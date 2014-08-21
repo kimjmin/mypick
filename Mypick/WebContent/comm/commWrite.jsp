@@ -130,6 +130,11 @@ tinymce.init({
         <noscript><input type="hidden" name="redirect" value="http://blueimp.github.io/jQuery-File-Upload/"></noscript>
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
+        	<div class="col-md-12">
+        		이미지를 첨부하려면 파일을 업로드 한 후 
+        		이미지<img src="<%=MpickParam.hostUrl%>/resource/img/img_attach.png">
+        		에 파일 주소를 복사해서 붙여넣어야 합니다.
+        	</div>
             <div class="col-md-8">
                 <!-- The fileinput-button span is used to style the file input field as button -->
                 <span class="btn btn-sm btn-success fileinput-button">

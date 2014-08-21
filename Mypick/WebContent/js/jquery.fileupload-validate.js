@@ -67,10 +67,10 @@
 
             // Error and info messages:
             messages: {
-                maxNumberOfFiles: 'Maximum number of files exceeded',
-                acceptFileTypes: 'File type not allowed',
-                maxFileSize: 'File is too large',
-                minFileSize: 'File is too small'
+                maxNumberOfFiles: '첨부 가능한 최대 수를 초과하였습니다.',
+                acceptFileTypes: '(gif, jpg, png) 이미지 파일만 업로드가 가능합니다.',
+                maxFileSize: '업로드 가능한 최대 파일 용량은 5MB 입니다.',
+                minFileSize: '파일 사이즈가 너무 작습니다.'
             }
         },
 

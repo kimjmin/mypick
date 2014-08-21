@@ -16,6 +16,8 @@ if(tDatas != null && tDatas.length > 0){
 	Date t_date = (Date)tData.get("t_date");
 	SimpleDateFormat frmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.KOREA);
 	String tText = tData.get("t_text")+"";
+	tText = tText.replaceAll("../../../File/", "../../File/");
+	tText = tText.replaceAll("../../../File/", "../../File/");
 	tText = tText.replaceAll("../../File/", MpickParam.hostUrl+"/File/");
 	tText = tText.replaceAll("<img ", "<img class=\"img-responsive\" ");
 	String tLink = tData.get("t_link")+"";
