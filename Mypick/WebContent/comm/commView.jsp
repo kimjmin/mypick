@@ -189,10 +189,10 @@ if("TRUE".equals(tNotice)){
 </thead>
 </table>
 <!-- 모바일에서 이미지 리사이징 되려면 테이블 바깥에 있어야 함. -->
-<div class="row">
+<div class="col-xs-12">
 <%=tText%>
 </div>
-	
+
 <table class="table table-noline">
 <tbody>	
 	<tr>

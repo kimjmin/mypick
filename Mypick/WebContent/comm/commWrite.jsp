@@ -260,8 +260,17 @@ function save(){
 		frm.submit();
 	}
 }
-</script>
 
+function setMbClear(){
+	var elmMVal = $("#elm_mobile").val();
+	for(var i=0; i<$(".fileUrl").length; i++){
+		elmMVal = replaceAll(elmMVal, "<p><img src=\""+$(".fileUrl:eq("+i+")").text()+ "\" /></p>", "");
+	}
+}
+
+setMbClear();
+
+</script>
 
 <script id="template-upload" type="text/x-tmpl">
 {% for (var i=0, file; file=o.files[i]; i++) { %}
