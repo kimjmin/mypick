@@ -56,18 +56,18 @@ public class MpickLog {
 	
 	private static String getOS(HttpServletRequest req){
 		String header = req.getHeader("User-Agent");
-		String os = "os_error";
+		String os = "UnknownOs";
 		try{
 			if(header.indexOf("Windows") > -1){
-				os = header.substring(header.indexOf("Windows")-7,header.indexOf("Windows")+7);
-			} else {
-				if(header.indexOf("Android") != -1){
-					os = "Android";
-				} else if(header.indexOf("Mac OS") != -1){
-					os = "Mac OS";
-				} else if(header.indexOf(";") != -1){
-					os = os.substring(0,os.indexOf(";"));
-				}
+				os = "Windows";
+			} else if(header.indexOf("Android") > -1){
+				os = "Android";
+			} else if(header.indexOf("Macintosh") > -1){
+				os = "Macintosh";
+			} else if(header.indexOf("iPhone") > -1){
+				os = "iPhone";
+			} else if(header.indexOf("Linux") > -1){
+				os = "Linux";
 			}
 		} catch(Exception e){ 
 			// e.getStackTrace();
@@ -77,21 +77,18 @@ public class MpickLog {
 	
 	private static String getBrowser(HttpServletRequest req){
 		String header = req.getHeader("User-Agent");
-		String browser = "bw_error";
+		String browser = "UnknownBrowser";
 		try{
-			if(header.indexOf("Trident") != -1){
+			if(header.indexOf("Trident") > -1){
 				browser = "MSIE";
-			} else {
-				browser = header.substring(header.lastIndexOf(")")+1);
-				if(browser.indexOf("Chrome") != -1){
-					browser = browser.substring(browser.indexOf("Chrome"));
-					browser = browser.substring(0,browser.indexOf(" "));
-				} else {
-					browser = browser.substring(browser.lastIndexOf(" "));
-				}
-			}
-			if(browser.indexOf("/") > 0){
-				browser = browser.substring(0, browser.indexOf("/"));
+			} else if(header.indexOf("Chrome") > -1){
+				browser = "Chrome";
+			} else if(header.indexOf("Firefox") > -1){
+				browser = "Firefox";
+			} else if(header.indexOf("Safari") > -1){
+				browser = "Safari";
+			} else if(header.indexOf("Opera") > -1){
+				browser = "Opera";
 			}
 		} catch(Exception e){
 			// 파싱 오류 발생시 DEVICE 에 모든 헤더를 넣고 BRW 는 빈 값으로 설정. 
