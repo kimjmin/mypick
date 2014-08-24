@@ -1,12 +1,15 @@
 package mpick.com;
 
 import java.io.ObjectInputStream.GetField;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.xml.crypto.URIDereferencer;
 
 import jm.log.Log;
 
@@ -45,7 +48,12 @@ public class MpickLog {
 		str.append("\"browser\":");
 		str.append("\""+getBrowser(req)+"\"");
 		
-		String page = req.getRequestURI();
+		String page;
+		try {
+			page = URLDecoder.decode("UTF-8",req.getRequestURI());
+		} catch (UnsupportedEncodingException e) {
+			page = req.getRequestURI();
+		}
 		str.append(",");
 		str.append("\"page\":");
 		str.append("\""+page+"\"");
