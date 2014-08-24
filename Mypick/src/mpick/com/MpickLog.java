@@ -50,7 +50,7 @@ public class MpickLog {
 		
 		String page;
 		try {
-			page = URLDecoder.decode("UTF-8",req.getRequestURI());
+			page = URLDecoder.decode(req.getRequestURI(),"UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			page = req.getRequestURI();
 		}
