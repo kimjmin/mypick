@@ -21,16 +21,16 @@
 		<h4>
 			<label for="email1"><span class="text-red">*</span> 이메일 <small>아이디로 사용됩니다.</small></label>
 		</h4>
-		<div class="col-sm-5">
-			<div class="col-sm-5">
+		<div class="col-sm-5 form-signin-col">
+			<div class="col-sm-5 form-signin-col">
 				<input type="text" class="form-control" id="email1" name="email1" required="required" maxlength="60" />
 			</div>
-			<div class="col-sm-1 text-center"><h5>@</h5></div>
-			<div class="col-sm-6">
+			<div class="col-sm-1 form-signin-col text-center"><h5>@</h5></div>
+			<div class="col-sm-6 form-signin-col">
 				<input type="text" class="form-control" id="email2" name="email2" required="required" maxlength="40" />
 			</div>
 		</div>
-		<div class="col-sm-3">
+		<div class="col-sm-3 form-signin-col">
 		<select class="form-control" id="email3" name="email3" onchange="setMail(this);">
 			<option value="write" selected="selected">직접입력</option>
 			<option value="gmail.com">gmail.com</option>
@@ -42,7 +42,7 @@
 			<option value="dreamwiz.com">dreamwiz.com</option>
 		</select>
 		</div>
-		<div class="col-sm-2">
+		<div class="col-sm-2 form-signin-col">
 			<button type="button" class="btn btn-primary btn-block" id="chIdBtn" onclick="checkMail();">중복확인</button>
 		</div>
 		<input type="hidden" id="email" name="email"/>
@@ -52,7 +52,7 @@
 		<h4>
 			<label for="id"><span class="text-red">*</span> 비밀번호 <small>12자 이내</small></label>
 		</h4>
-		<div class="col-sm-4">
+		<div class="col-sm-4 form-signin-col">
 			<input type="password" class="form-control" id="passwd" name="passwd" placeholder="비밀번호" required="required" maxlength="12" />
 		</div>
 	</div>
@@ -62,7 +62,7 @@
 			<label for="passwd2"><span class="text-red">*</span> 비밀번호 확인</label>
 			<small><span id="chkPw"></span></small>
 		</h4>
-		<div class="col-sm-4">
+		<div class="col-sm-4 form-signin-col">
 		<input type="password" class="form-control" id="passwd2" name="passwd2" placeholder="비밀번호 확인" required="required" maxlength="12" onkeyup="chkPw();" />
 		</div>
 	</div>
@@ -71,7 +71,7 @@
 		<h4>
 			<label for="name"><span class="text-red">*</span> 이름 (본명)</label>
 		</h4>
-		<div class="col-sm-4">
+		<div class="col-sm-4 form-signin-col">
 			<input type="text" class="form-control" id="name" name="name" placeholder="이름" required="required" maxlength="5" />
 		</div>
 	</div>
@@ -80,10 +80,10 @@
 		<h4>
 			<label for="nicname"><span class="text-red">*</span> 닉네임 <small>10자 이내</small></label>
 		</h4>
-		<div class="col-sm-4">
+		<div class="col-sm-4 form-signin-col">
 			<input type="text" class="form-control" id="nicname" name="nicname" placeholder="닉네임" required="required" maxlength="10" />
 		</div>
-		<div class="col-sm-2">
+		<div class="col-sm-2 form-signin-col">
 			<button type="button" class="btn btn-primary btn-block" id="chNickBtn" onclick="checkNick();">중복확인</button>
 		</div>
 	</div>
@@ -92,23 +92,23 @@
 		<h4>
 			<label for="birthday"><span class="text-red">*</span> 생년월일</label>
 		</h4>
-		<div class="col-sm-2">
-			<div class="col-xs-10">
+		<div class="col-sm-2 form-signin-col">
+			<div class="col-xs-10 form-signin-col">
 				<select class="form-control" id="birthY" name="birthY" onchange="setBDate();"></select>
 			</div>
-			<div class="col-xs-2"><h5>년</h5></div> 
+			<div class="col-xs-2 form-signin-col"><h5>년</h5></div> 
 		</div>
-		<div class="col-sm-2">
-			<div class="col-xs-10">
+		<div class="col-sm-2 form-signin-col">
+			<div class="col-xs-10 form-signin-col">
 				<select class="form-control" id="birthM" name="birthM" onchange="setBDate();"></select>
 			</div>
-			<div class="col-xs-2"><h5>월</h5></div> 
+			<div class="col-xs-2 form-signin-col"><h5>월</h5></div> 
 		</div> 
-		<div class="col-sm-2">
-			<div class="col-xs-10">
+		<div class="col-sm-2 form-signin-col">
+			<div class="col-xs-10 form-signin-col">
 				<select class="form-control" id="birthD" name="birthD"></select>
 			</div>
-			<div class="col-xs-2"><h5>일</h5></div> 
+			<div class="col-xs-2 form-signin-col"><h5>일</h5></div> 
 		</div>
 	
 <script>
@@ -159,10 +159,10 @@ function setBDate(){
 		<h4>
 			<label><span class="text-red">*</span> 성별</label>
 		</h4>
-		<div class="col-sm-2">
+		<div class="col-sm-2 form-signin-col">
 			<input type="radio" id="genderM" name="gender" value="M" required="required" /> <label for="genderM">남성</label>
 		</div>
-		<div class="col-sm-2">
+		<div class="col-sm-2 form-signin-col">
 			<input type="radio" id="genderF" name="gender" value="F" required="required" /> <label for="genderF">여성</label>
 		</div>
 	</div>
@@ -171,17 +171,17 @@ function setBDate(){
 		<h4>
 			<label for="birthday">연락처 <small>(-) 없이 숫자만 입력하세요.</small></label>
 		</h4>
-		<div class="col-sm-4">
+		<div class="col-sm-4 form-signin-col">
 			<input type="number" class="form-control" id="phone" name="phone">
 		</div>
 	</div>
 	
 	<div class="row center-block">
 		<h4></h4>
-		<div class="col-sm-2">
+		<div class="col-sm-2 form-signin-col">
 			<button type="submit" class="btn btn-success btn-block">회원 가입</button>
 		</div>
-		<div class="col-sm-2">
+		<div class="col-sm-2 form-signin-col">
 			<a type="button" class="btn btn-danger btn-block" href="javascript:history.go(-1);">취소</a>
 		</div>
 		<input type="hidden" name="cmd" />
