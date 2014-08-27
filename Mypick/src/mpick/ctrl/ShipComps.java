@@ -1,5 +1,9 @@
 package mpick.ctrl;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -7,7 +11,7 @@ import mpick.com.MpickDao;
 
 public class ShipComps {
 	
-	public int saveShipCompList(HttpServletRequest req, HttpServletResponse res){
+	public int saveShipCompList(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		String[] shipItemIds = req.getParameterValues("shipItemId");
 		String[] shipItemNames = req.getParameterValues("shipItemName");
 		String[] shipItemUrls = req.getParameterValues("shipItemUrl");

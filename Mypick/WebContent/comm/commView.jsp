@@ -18,7 +18,7 @@ if(tDatas != null && tDatas.length > 0){
 	String tText = tData.get("t_text")+"";
 	tText = tText.replaceAll("\r\n", "<br>");
 	tText = tText.replaceAll("../../../File/", "../../File/");
-	tText = tText.replaceAll("../../File/", MpickParam.hostUrl+"/File/");
+	tText = tText.replaceAll("../../File/", MpickParam.getHostUrl()+"/File/");
 	tText = tText.replaceAll("<img ", "<img class=\"img-responsive\" ");
 	String tLink = tData.get("t_link")+"";
 	tLink = tLink.replaceAll("http://", "");
@@ -43,7 +43,7 @@ function reply(rnum1, rnum2, tText){
 		frm.tText.value = txtArea.value;
 		
 		frm.method="POST";
-		frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+		frm.action="<%=MpickParam.getHostUrl()%>/Control/Confirm";
 		frm.submit();
 	}
 }
@@ -71,7 +71,7 @@ function rDelete(rnum1,rnum2){
 		frm.cmd.value = "deleteCommReply";
 		
 		frm.method="POST";
-		frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+		frm.action="<%=MpickParam.getHostUrl()%>/Control/Confirm";
 		frm.submit();
 	}
 }
@@ -103,16 +103,16 @@ function delTxt(){
 		$(".btn-reply").attr("disabled",true);
 		var frm = document.commFrm;
 		frm.cmd.value = "deleteCommTxt";
-		frm.toUrl.value="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
+		frm.toUrl.value="<%=MpickParam.getHostUrl()%>/Comm/<%=bbs%>";
 		frm.method="POST";
-		frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+		frm.action="<%=MpickParam.getHostUrl()%>/Control/Confirm";
 		frm.submit();
 	}
 }
 function goModify(){
 	var frm = document.commFrm;
 	frm.method="POST";
-	frm.action="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/Write/<%=tNum%>";
+	frm.action="<%=MpickParam.getHostUrl()%>/Comm/<%=bbs%>/Write/<%=tNum%>";
 	frm.submit();
 }
 <% } %>
@@ -122,9 +122,9 @@ function blockTxt(){
 		$(".btn-reply").attr("disabled",true);
 		var frm = document.commFrm;
 		frm.cmd.value = "blockCommTxt";
-		frm.toUrl.value="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
+		frm.toUrl.value="<%=MpickParam.getHostUrl()%>/Comm/<%=bbs%>";
 		frm.method="POST";
-		frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+		frm.action="<%=MpickParam.getHostUrl()%>/Control/Confirm";
 		frm.submit();
 	}
 }
@@ -133,9 +133,9 @@ function unblockTxt(){
 		$(".btn-reply").attr("disabled",true);
 		var frm = document.commFrm;
 		frm.cmd.value = "unblockCommTxt";
-		frm.toUrl.value="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
+		frm.toUrl.value="<%=MpickParam.getHostUrl()%>/Comm/<%=bbs%>";
 		frm.method="POST";
-		frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+		frm.action="<%=MpickParam.getHostUrl()%>/Control/Confirm";
 		frm.submit();
 	}
 }
@@ -143,7 +143,7 @@ function unblockTxt(){
 function goList(){
 	var frm = document.commFrm;
 	frm.method="POST";
-	frm.action="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
+	frm.action="<%=MpickParam.getHostUrl()%>/Comm/<%=bbs%>";
 	frm.submit();
 }
 </script>
@@ -322,7 +322,7 @@ if(rrDatas != null && rrDatas.length > 1){
 	<input type="hidden" name="menu" value="<%=bbs%>" />
 <%if(tNum != null && !"".equals(tNum)){ %>	<input type="hidden" name="tNum" value="<%=tNum%>" /><% } %>
 	<input type="hidden" name="cmd" value="saveCommReply" />
-	<input type="hidden" name="toUrl" value="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>" />
+	<input type="hidden" name="toUrl" value="<%=MpickParam.getHostUrl()%>/Comm/<%=bbs%>" />
 	<input type="hidden" id="rNum" name="rNum"/>
 	<input type="hidden" id="rNum2" name="rNum2"/>
 	<input type="hidden" id="tText" name="tText"/>

@@ -38,17 +38,17 @@ if(tNum != null && !"".equals(tNum)){
 }
 %>
 
-<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload.css">
-<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload-ui.css">
+<link rel="stylesheet" href="<%=MpickParam.getHostUrl()%>/css/jquery.fileupload.css">
+<link rel="stylesheet" href="<%=MpickParam.getHostUrl()%>/css/jquery.fileupload-ui.css">
 <!-- CSS adjustments for browsers with JavaScript disabled -->
 <noscript>
-	<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload-noscript.css">
+	<link rel="stylesheet" href="<%=MpickParam.getHostUrl()%>/css/jquery.fileupload-noscript.css">
 </noscript>
 <noscript>
-	<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload-ui-noscript.css">
+	<link rel="stylesheet" href="<%=MpickParam.getHostUrl()%>/css/jquery.fileupload-ui-noscript.css">
 </noscript>
 
-<script src="<%=MpickParam.hostUrl%>/js/tinymce/tinymce.min.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/tinymce/tinymce.min.js"></script>
 <script>
 tinymce.init({
 	selector: "textarea#elm",
@@ -134,7 +134,7 @@ tinymce.init({
         	<div class="col-md-12">
         	<p class="text-primary visible-md visible-lg">
         		이미지를 첨부하려면 파일을 업로드 한 후 
-        		이미지 <img src="<%=MpickParam.hostUrl%>/resource/img/img_attach.png" style="width: 23px; height: 21px;"> 
+        		이미지 <img src="<%=MpickParam.getHostUrl()%>/resource/img/img_attach.png" style="width: 23px; height: 21px;"> 
         		에 파일 주소를 복사해서 붙여넣어야 합니다.
         	</p>
         	</div>
@@ -217,7 +217,7 @@ tinymce.init({
 	<input type="hidden" name="menu" value="<%=bbs%>" />
 <%if(tNum != null && !"".equals(tNum)){ %>	<input type="hidden" name="tNum" value="<%=tNum%>" /><% } %>
 	<input type="hidden" name="cmd" value="saveCommTxt" />
-	<input type="hidden" name="toUrl" value="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>" />
+	<input type="hidden" name="toUrl" value="<%=MpickParam.getHostUrl()%>/Comm/<%=bbs%>" />
 	<input type="hidden" name="isMobile" id="isMobile" value="false" />
 	<input type="hidden" name="fileNames" id="fileNames"/>
 </form>
@@ -256,7 +256,7 @@ function save(){
 		$("#saveBtn").attr("disabled",true);
 		var frm = document.commFrm;
 		frm.method="POST";
-		frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+		frm.action="<%=MpickParam.getHostUrl()%>/Control/Confirm";
 		frm.submit();
 	}
 }
@@ -327,7 +327,7 @@ function save(){
     </tr>
 {% } %}
 </script>
-<script src="<%=MpickParam.hostUrl%>/js/vendor/jquery.ui.widget.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/vendor/jquery.ui.widget.js"></script>
 <!-- The Templates plugin is included to render the upload/download listings -->
 <script src="http://blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
 <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
@@ -337,21 +337,21 @@ function save(){
 <!-- blueimp Gallery script -->
 <script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
 <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.iframe-transport.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.iframe-transport.js"></script>
 <!-- The basic File Upload plugin -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.fileupload.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.fileupload.js"></script>
 <!-- The File Upload processing plugin -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.fileupload-process.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.fileupload-process.js"></script>
 <!-- The File Upload image preview & resize plugin -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.fileupload-image.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.fileupload-image.js"></script>
 <!-- The File Upload audio preview plugin -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.fileupload-audio.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.fileupload-audio.js"></script>
 <!-- The File Upload video preview plugin -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.fileupload-video.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.fileupload-video.js"></script>
 <!-- The File Upload validation plugin -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.fileupload-validate.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.fileupload-validate.js"></script>
 <!-- The File Upload user interface plugin -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.fileupload-ui.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.fileupload-ui.js"></script>
 <!-- The main application script -->
-<script src="<%=MpickParam.hostUrl%>/js/main_comm.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/main_comm.js"></script>
 	

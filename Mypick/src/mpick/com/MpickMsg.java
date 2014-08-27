@@ -8,7 +8,7 @@ public class MpickMsg {
 	 */
 	public static String loginError(){
 		StringBuffer msg = new StringBuffer();
-		String hostUrl = MpickParam.hostUrl;
+		String hostUrl = MpickParam.getHostUrl();
 		msg.append("<script> \n");
 		msg.append("	alert(\"로그인 후 이용해 주시기 바랍니다.\"); \n");
 		msg.append("	location.replace('"+hostUrl+"'); \n");
@@ -19,7 +19,7 @@ public class MpickMsg {
 	
 	public static String approachError(){
 		StringBuffer msg = new StringBuffer();
-		String hostUrl = MpickParam.hostUrl;
+		String hostUrl = MpickParam.getHostUrl();
 		msg.append("<script> \n");
 		msg.append("	alert(\"잘못된 접근입니다.\"); \n");
 		msg.append("	location.replace('"+hostUrl+"'); \n");

@@ -57,7 +57,7 @@ function addRow(hid,mid,mTitle,mText,mHide){
 function saveMsg(){
 	var frm = document.msgFrm;
 	frm.method="POST";
-	frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+	frm.action="<%=MpickParam.getHostUrl()%>/Control/Confirm";
 	frm.submit();
 }
 function delDiv(divId){
@@ -67,7 +67,7 @@ function delDiv(divId){
 function saveLink(){
 	var frm = document.linkFrm;
 	frm.method="POST";
-	frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+	frm.action="<%=MpickParam.getHostUrl()%>/Control/Confirm";
 	frm.submit();
 }
 </script>
@@ -139,7 +139,7 @@ function saveLink(){
 <%} %>
 </div>
 <input type="hidden" name="cmd" value="saveMenuMsg" />
-<input type="hidden" name="toUrl" value="<%=MpickParam.hostUrl%>/Admin/Msg" />
+<input type="hidden" name="toUrl" value="<%=MpickParam.getHostUrl()%>/Admin/Msg" />
 </form>
 </div>
 <!-- 메시지 입력 탭 끝 -->
@@ -180,7 +180,7 @@ DataEntity[] linkData = dao.getLinks(null,null);
 		첫 화면
 	</div>
 	<div class='col-md-3'>
-		<img class="img-responsive panel-primary" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_pen.png"/>
+		<img class="img-responsive panel-primary" src="<%=MpickParam.getHostUrl()%>/resource/img/bg_icon_pen.png"/>
 	</div>
 	<div class='col-md-7'>
 		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>0){ out.print(linkData[0].get("m_link")+"");}%>'/>
@@ -194,7 +194,7 @@ DataEntity[] linkData = dao.getLinks(null,null);
 		첫 화면
 	</div>
 	<div class='col-md-3'>
-		<img class="img-responsive panel-success" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_listdown.png">
+		<img class="img-responsive panel-success" src="<%=MpickParam.getHostUrl()%>/resource/img/bg_icon_listdown.png">
 	</div>
 	<div class='col-md-7'>
 		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>1){ out.print(linkData[1].get("m_link")+"");}%>'/>
@@ -208,7 +208,7 @@ DataEntity[] linkData = dao.getLinks(null,null);
 		첫 화면
 	</div>
 	<div class='col-md-3'>
-		<img class="img-responsive panel-danger" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_limitup.png">
+		<img class="img-responsive panel-danger" src="<%=MpickParam.getHostUrl()%>/resource/img/bg_icon_limitup.png">
 	</div>
 	<div class='col-md-7'>
 		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>2){ out.print(linkData[2].get("m_link")+"");}%>'/>
@@ -222,7 +222,7 @@ DataEntity[] linkData = dao.getLinks(null,null);
 		첫 화면
 	</div>
 	<div class='col-md-3'>
-		<img class="img-responsive panel-warning" src="<%=MpickParam.hostUrl%>/resource/img/bg_icon_cal.png">
+		<img class="img-responsive panel-warning" src="<%=MpickParam.getHostUrl()%>/resource/img/bg_icon_cal.png">
 	</div>
 	<div class='col-md-7'>
 		<input type='text' class='form-control' name='mLink' value='<%if(linkData.length>3){ out.print(linkData[3].get("m_link")+"");}%>'/>
@@ -309,7 +309,7 @@ DataEntity[] linkData = dao.getLinks(null,null);
 </div>
 
 <input type="hidden" name="cmd" value="saveMenuLink" />
-<input type="hidden" name="toUrl" value="<%=MpickParam.hostUrl%>/Admin/Msg" />
+<input type="hidden" name="toUrl" value="<%=MpickParam.getHostUrl()%>/Admin/Msg" />
 </form>
 </div>
 <!-- 링크 입력 탭 끝 -->

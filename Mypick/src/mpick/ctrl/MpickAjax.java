@@ -267,7 +267,7 @@ public class MpickAjax extends HttpServlet{
 						FileInputStream inputStream = new FileInputStream(file);
 						XSSFWorkbook workbook = new XSSFWorkbook(inputStream);
 						if(xlCmd.equals("workBook")){
-							if(!"http://localhost:8080/Mypick".equals(MpickParam.hostUrl)){
+							if(!"http://localhost:8080/Mypick".equals(MpickParam.getHostUrl())){
 								dao.deleteAllSh();
 							}
 							int sheetCn = workbook.getNumberOfSheets();
@@ -314,7 +314,7 @@ public class MpickAjax extends HttpServlet{
 									}
 									retJson += "]";
 									retJson += "}";
-									if(!"http://localhost:8080/Mypick".equals(MpickParam.hostUrl)){
+									if(!"http://localhost:8080/Mypick".equals(MpickParam.getHostUrl())){
 										dao.insertShMain(shNum, shipId.toString(), shipName.toString(), shipUrl.toString(), wUnit.toString(), aUnit.toString());
 									}
 								} else {
@@ -353,7 +353,7 @@ public class MpickAjax extends HttpServlet{
 											tCols = 0;
 											errMsg.append("전체");
 										} else {
-											if(!"http://localhost:8080/Mypick".equals(MpickParam.hostUrl)){
+											if(!"http://localhost:8080/Mypick".equals(MpickParam.getHostUrl())){
 												dao.insertShLevs(shipId.toString(), levNum, levNameVal);
 											}
 											for(int cl=1; cl < rcols; cl++){
@@ -364,7 +364,7 @@ public class MpickAjax extends HttpServlet{
 													String vName = wCell.getRawValue();
 													String vVal = cell.getRawValue();
 													if((vName != null && !"".equals(vName)) && (vVal != null && !"".equals(vVal))){
-														if(!"http://localhost:8080/Mypick".equals(MpickParam.hostUrl)){
+														if(!"http://localhost:8080/Mypick".equals(MpickParam.getHostUrl())){
 															dao.insertShVals(shipId.toString(), levNum, vName, vVal);
 														}
 													} else {

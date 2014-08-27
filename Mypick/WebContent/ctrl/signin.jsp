@@ -42,7 +42,7 @@
 			<option value="dreamwiz.com">dreamwiz.com</option>
 		</select>
 		</div>
-		<div class="col-sm-2 form-signin-col">
+		<div class="col-sm-2">
 			<button type="button" class="btn btn-primary btn-block" id="chIdBtn" onclick="checkMail();">중복확인</button>
 		</div>
 		<input type="hidden" id="email" name="email"/>
@@ -83,7 +83,7 @@
 		<div class="col-sm-4 form-signin-col">
 			<input type="text" class="form-control" id="nicname" name="nicname" placeholder="닉네임" required="required" maxlength="10" />
 		</div>
-		<div class="col-sm-2 form-signin-col">
+		<div class="col-sm-2">
 			<button type="button" class="btn btn-primary btn-block" id="chNickBtn" onclick="checkNick();">중복확인</button>
 		</div>
 	</div>
@@ -178,10 +178,10 @@ function setBDate(){
 	
 	<div class="row center-block">
 		<h4></h4>
-		<div class="col-sm-2 form-signin-col">
+		<div class="col-sm-2">
 			<button type="submit" class="btn btn-success btn-block">회원 가입</button>
 		</div>
-		<div class="col-sm-2 form-signin-col">
+		<div class="col-sm-2">
 			<a type="button" class="btn btn-danger btn-block" href="javascript:history.go(-1);">취소</a>
 		</div>
 		<input type="hidden" name="cmd" />

@@ -2,10 +2,12 @@ package mpick.com;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,11 +18,11 @@ public class MpickIO {
 	private static MpickIO instance = null;
 	private JmProperties property = null;
 
-	private MpickIO() {
+	private MpickIO() throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		property = new JmProperties(MpickParam.property);
 	}
 
-	public static MpickIO getInstance() {
+	public static MpickIO getInstance() throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		if (instance == null) {
 			instance = new MpickIO();
 		}

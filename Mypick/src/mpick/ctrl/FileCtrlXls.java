@@ -39,7 +39,11 @@ public class FileCtrlXls extends HttpServlet {
 	private File xlsPath;
 	
 	public void init() {
-		property = new JmProperties(MpickParam.property);
+		try {
+			property = new JmProperties(MpickParam.property);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		xlsPath = new File(property.get("xlsPath"));
 	}
 	

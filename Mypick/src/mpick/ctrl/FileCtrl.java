@@ -34,7 +34,11 @@ public class FileCtrl extends HttpServlet {
 	private File fileUploadPath;
 	
 	public void init() {
-		property = new JmProperties(MpickParam.property);
+		try {
+			property = new JmProperties(MpickParam.property);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		fileUploadPath = new File(property.get("fileUpPath"));
 	}
 	

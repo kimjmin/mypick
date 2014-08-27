@@ -5,6 +5,7 @@ String selMenu = request.getParameter("menu");
 String cate1 = request.getParameter("cate1");
 String cate2 = request.getParameter("cate2");
 String arcNum = request.getParameter("arcNum");
+
 /*
 System.out.println("selMenu: "+selMenu);
 System.out.println("cate1: "+cate1);
@@ -27,7 +28,7 @@ function getArcTxt(cate2,title){
 	} else if(cates.length == 2){
 		enclUrl = cates[0]+"/"+cates[1];
 	}
-	window.location.href="<%=MpickParam.hostUrl%>/Encl/"+enclUrl;
+	window.location.href="<%=MpickParam.getHostUrl()%>/Encl/"+enclUrl;
 }
 
 </script>

@@ -98,7 +98,7 @@ public class Confirm extends HttpServlet {
 			if(toUrl != null && !toUrl.equals("")){
 				res.sendRedirect(toUrl);
 			} else {
-				res.sendRedirect(MpickParam.hostUrl);
+				res.sendRedirect(MpickParam.getHostUrl());
 			}
 		} else if(toUrl != null && cmd != null && cmd.equals("saveShip")){
 			//배송대행지 저장.

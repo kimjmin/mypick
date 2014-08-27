@@ -1,6 +1,7 @@
 package mpick.com;
 
-import java.io.ObjectInputStream.GetField;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
@@ -9,13 +10,12 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.xml.crypto.URIDereferencer;
 
 import jm.log.Log;
 
 public class MpickLog {
 	
-	public static void debug(HttpServletRequest req){
+	public static void debug(HttpServletRequest req) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		Log log = Log.getInstance(MpickParam.property);
 		
 		HttpSession session = req.getSession();

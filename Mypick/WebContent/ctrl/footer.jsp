@@ -8,7 +8,7 @@ DataEntity[] linkDataF = daoF.getLinks("FOOTER",null);
 <div class="footer visible-md visible-lg">
 	<div class="container">
 		<div class="col-sm-1 text-right">
-			<h4><img class="logo logo-foot" src="<%=MpickParam.hostUrl%>/resource/img/mypick.png"></h4>
+			<h4><img class="logo logo-foot" src="<%=MpickParam.getHostUrl()%>/resource/img/mypick.png"></h4>
 		</div>
 		<div class="col-sm-11">
 			<p class="copyright">
@@ -34,7 +34,7 @@ if(linkDataF != null){
 <div class="footer visible-sm">
 	<div class="container">
 		<div class="col-sm-2 text-right">
-			<h4><img class="logo logo-foot" src="<%=MpickParam.hostUrl%>/resource/img/mypick.png"></h4>
+			<h4><img class="logo logo-foot" src="<%=MpickParam.getHostUrl()%>/resource/img/mypick.png"></h4>
 		</div>
 		<div class="col-sm-10">
 			<p class="copyright">
@@ -61,7 +61,7 @@ if(linkDataF != null){
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-4 text-center">
-				<img class="logo logo-foot" src="<%=MpickParam.hostUrl%>/resource/img/mypick.png">
+				<img class="logo logo-foot" src="<%=MpickParam.getHostUrl()%>/resource/img/mypick.png">
 			</div>
 			<div class="col-xs-8" style="padding:2px 0px;">
 				<p class="copyright" style="padding:0px; margin:0px;">

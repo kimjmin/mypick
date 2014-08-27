@@ -169,7 +169,7 @@ function saveCate(){
 	$("#catesVal").val(catesVal);
 	
 	frm.method="POST";
-	frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+	frm.action="<%=MpickParam.getHostUrl()%>/Control/Confirm";
 	frm.submit();
 }
 
@@ -181,7 +181,7 @@ $(document).ready(function(){
 	$.ajax({
 		type : "GET",
 		data : paramCate,
-		url : "<%=MpickParam.hostUrl%>/Control/MpickAjax",
+		url : "<%=MpickParam.getHostUrl()%>/Control/MpickAjax",
 		dataType:"json",
 		success : function(dataCate) {
 			for(var i=0; i < dataCate.menu_info.length; i++){
@@ -298,5 +298,5 @@ $(document).ready(function(){
 	</div>
 	
 	<input type="hidden" name="cmd" value="saveCommCate" />
-	<input type="hidden" name="toUrl" value="<%=MpickParam.hostUrl%>/Admin/Comm" />
+	<input type="hidden" name="toUrl" value="<%=MpickParam.getHostUrl()%>/Admin/Comm" />
 </form>

@@ -26,7 +26,7 @@ public class Encyclopedia extends HttpServlet {
 		MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
 		PrintWriter out = res.getWriter();
 		//로그인 체크. MpickParam.login == true 일 때만 체크.
-		if( "true".equals(MpickParam.login) && (userObj == null || "".equals(userObj.getEmail())) ){
+		if( "true".equals(MpickParam.getLogin()) && (userObj == null || "".equals(userObj.getEmail())) ){
 			out.print(MpickMsg.loginError());
 		} else {
 			String uri = req.getRequestURI();
@@ -36,7 +36,7 @@ public class Encyclopedia extends HttpServlet {
 				MpickDao daoM = MpickDao.getInstance();
 				DataEntity[] menuDatas = daoM.getMenu();
 				if(menuDatas.length > 0){
-					res.sendRedirect(MpickParam.hostUrl+"/Encl/"+(String)menuDatas[0].get("ar_menu_id"));
+					res.sendRedirect(MpickParam.getHostUrl()+"/Encl/"+(String)menuDatas[0].get("ar_menu_id"));
 				} else {
 					out.print(MpickMsg.approachError());
 				}

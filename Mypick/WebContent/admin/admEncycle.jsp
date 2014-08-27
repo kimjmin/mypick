@@ -8,17 +8,17 @@ if(enclTab == null || "".equals(enclTab)){
 }
 
 %>
-<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload.css">
-<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload-ui.css">
+<link rel="stylesheet" href="<%=MpickParam.getHostUrl()%>/css/jquery.fileupload.css">
+<link rel="stylesheet" href="<%=MpickParam.getHostUrl()%>/css/jquery.fileupload-ui.css">
 <!-- CSS adjustments for browsers with JavaScript disabled -->
 <noscript>
-	<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload-noscript.css">
+	<link rel="stylesheet" href="<%=MpickParam.getHostUrl()%>/css/jquery.fileupload-noscript.css">
 </noscript>
 <noscript>
-	<link rel="stylesheet" href="<%=MpickParam.hostUrl%>/css/jquery.fileupload-ui-noscript.css">
+	<link rel="stylesheet" href="<%=MpickParam.getHostUrl()%>/css/jquery.fileupload-ui-noscript.css">
 </noscript>
 
-<script src="<%=MpickParam.hostUrl%>/js/tinymce/tinymce.min.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/tinymce/tinymce.min.js"></script>
 <script>
 tinymce.init({
     selector: "textarea#elm",
@@ -358,7 +358,7 @@ function saveCate(){
 	$("#cate2sVal").val(cate2sVal);
 	
 	frm.method="POST";
-	frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+	frm.action="<%=MpickParam.getHostUrl()%>/Control/Confirm";
 	frm.submit();
 }
 
@@ -371,7 +371,7 @@ $(document).ready(function(){
 	$.ajax({
 		type : "GET",
 		data : paramCate,
-		url : "<%=MpickParam.hostUrl%>/Control/MpickAjax",
+		url : "<%=MpickParam.getHostUrl()%>/Control/MpickAjax",
 		dataType:"json",
 		success : function(dataCate) {
 			for(var i=0; i < dataCate.menu_info.length; i++){
@@ -399,7 +399,7 @@ $(document).ready(function(){
 	$.ajax({
 		type : "GET",
 		data : paramArcCate,
-		url : "<%=MpickParam.hostUrl%>/Control/MpickAjax",
+		url : "<%=MpickParam.getHostUrl()%>/Control/MpickAjax",
 		dataType:"json",
 		success : function(dataArcCate) {
 			arcCateData = dataArcCate;
@@ -485,7 +485,7 @@ function loadEnc(){
 	$.ajax({
 		type : "GET",
 		data : params,
-		url : "<%=MpickParam.hostUrl%>/Control/MpickAjax",
+		url : "<%=MpickParam.getHostUrl()%>/Control/MpickAjax",
 		dataType:"text",
 		success : function(dataArcTxt) {
 			tinymce.get('elm').setContent(dataArcTxt);
@@ -504,7 +504,7 @@ function saveEnc(){
 	$("#saveEncBtn").attr("disabled",true);
 	var frm = document.encArticle;
 	frm.method="POST";
-	frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+	frm.action="<%=MpickParam.getHostUrl()%>/Control/Confirm";
 	frm.submit();
 }
 
@@ -513,14 +513,14 @@ function delEnc(){
 	var frm = document.encArticle;
 	frm.cmd.value="delEncl";
 	frm.method="POST";
-	frm.action="<%=MpickParam.hostUrl%>/Control/Confirm";
+	frm.action="<%=MpickParam.getHostUrl()%>/Control/Confirm";
 	frm.submit();
 }
 
 function fileUp(){
 	var frm = document.encFileUp;
 	frm.method="POST";
-	frm.action="<%=MpickParam.hostUrl%>/Control/FileCtrl";
+	frm.action="<%=MpickParam.getHostUrl()%>/Control/FileCtrl";
 	frm.submit();
 }
 
@@ -675,7 +675,7 @@ function fileUp(){
 	</div>
 	
 	<input type="hidden" name="cmd" value="saveCate" />
-	<input type="hidden" name="toUrl" value="<%=MpickParam.hostUrl%>/Admin/Encl" />
+	<input type="hidden" name="toUrl" value="<%=MpickParam.getHostUrl()%>/Admin/Encl" />
 </form>
 </div>
 <!-- 카테고리 편집 탭 끝 -->
@@ -720,7 +720,7 @@ function fileUp(){
 	<textarea id="elm" name="encText"></textarea>
 	
 	<input type="hidden" name="cmd" value="saveEncl" />
-	<input type="hidden" name="toUrl" value="<%=MpickParam.hostUrl%>/Admin/Encl" />
+	<input type="hidden" name="toUrl" value="<%=MpickParam.getHostUrl()%>/Admin/Encl" />
 </form>
 </div>
 <!-- 내용 입력 탭 끝 -->
@@ -846,7 +846,7 @@ function fileUp(){
     </tr>
 {% } %}
 </script>
-<script src="<%=MpickParam.hostUrl%>/js/vendor/jquery.ui.widget.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/vendor/jquery.ui.widget.js"></script>
 <!-- The Templates plugin is included to render the upload/download listings -->
 <script src="http://blueimp.github.io/JavaScript-Templates/js/tmpl.min.js"></script>
 <!-- The Load Image plugin is included for the preview images and image resizing functionality -->
@@ -856,23 +856,23 @@ function fileUp(){
 <!-- blueimp Gallery script -->
 <script src="http://blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
 <!-- The Iframe Transport is required for browsers without support for XHR file uploads -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.iframe-transport.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.iframe-transport.js"></script>
 <!-- The basic File Upload plugin -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.fileupload.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.fileupload.js"></script>
 <!-- The File Upload processing plugin -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.fileupload-process.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.fileupload-process.js"></script>
 <!-- The File Upload image preview & resize plugin -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.fileupload-image.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.fileupload-image.js"></script>
 <!-- The File Upload audio preview plugin -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.fileupload-audio.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.fileupload-audio.js"></script>
 <!-- The File Upload video preview plugin -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.fileupload-video.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.fileupload-video.js"></script>
 <!-- The File Upload validation plugin -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.fileupload-validate.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.fileupload-validate.js"></script>
 <!-- The File Upload user interface plugin -->
-<script src="<%=MpickParam.hostUrl%>/js/jquery.fileupload-ui.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/jquery.fileupload-ui.js"></script>
 <!-- The main application script -->
-<script src="<%=MpickParam.hostUrl%>/js/main.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/main.js"></script>
 	
 </div>
 <!-- 파일 업로드 탭 끝 -->

@@ -3,7 +3,7 @@
 <%
 String toUrl = request.getParameter("toUrl");
 if (toUrl == null || toUrl.equals("")){ 
-	toUrl = MpickParam.hostUrl + "/Page/Welcome";
+	toUrl = MpickParam.getHostUrl() + "/Page/Welcome";
 	toUrl = toUrl.replaceAll("//Page", "/Page");
 }
 response.sendRedirect(toUrl);

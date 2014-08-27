@@ -35,7 +35,7 @@ public class Community extends HttpServlet {
 		}
 		
 		//로그인 체크. MpickParam.login == true 일 때만 체크.
-		if( "true".equals(MpickParam.login) && !loggedIn ){
+		if( "true".equals(MpickParam.getLogin()) && !loggedIn ){
 			out.print(MpickMsg.loginError());
 		} else {
 			String uri = req.getRequestURI();
@@ -44,7 +44,7 @@ public class Community extends HttpServlet {
 			if(subUri == null || "".equals(subUri.trim())){
 				DataEntity[] menuDatas = dao.getCommViewMenu();
 				if(menuDatas.length > 0){
-					res.sendRedirect(MpickParam.hostUrl+"/Comm/"+(String)menuDatas[0].get("bbs_menu_id"));
+					res.sendRedirect(MpickParam.getHostUrl()+"/Comm/"+(String)menuDatas[0].get("bbs_menu_id"));
 				} else {
 					out.print(MpickMsg.approachError());
 				}

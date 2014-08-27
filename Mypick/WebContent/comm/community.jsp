@@ -42,7 +42,7 @@ for(DataEntity menuData : menuDatas){
 	String menuId = (String)menuData.get("bbs_menu_id");
 	String menuName = (String)menuData.get("bbs_menu_name");
 %>
-	<a href="<%=MpickParam.hostUrl%>/Comm/<%=menuId%>" class="list-group-item <%if(bbsM.equals(menuId)){out.print("active");}%>"><%=menuName%></a>
+	<a href="<%=MpickParam.getHostUrl()%>/Comm/<%=menuId%>" class="list-group-item <%if(bbsM.equals(menuId)){out.print("active");}%>"><%=menuName%></a>
 <% } %>
 </div>
 <!-- 메뉴 링크 목록 끝 -->

@@ -4,7 +4,7 @@
 	MpickLog.debug(request);
 	MpickUserObj userObjNav = (MpickUserObj) session.getAttribute("mpUserObj");
 	String toUrl = request.getRequestURI();
-	if (toUrl == null || toUrl.equals("")){ toUrl = MpickParam.initPage; }
+	if (toUrl == null || toUrl.equals("")){ toUrl = MpickParam.getInitPage(); }
 	String pageName = "";
 	if (toUrl.indexOf("Admin") > 0){
 		pageName = "Admin";
@@ -16,14 +16,14 @@
 		pageName = "Comm";
 	}
 %>
-<script src="<%=MpickParam.hostUrl%>/js/nav.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/nav.js"></script>
 <nav class="navbar navbar-inverse" role="navigation">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 			<span class="glyphicon glyphicon-list"></span>
 		</button>
-		<a class="navbar-brand" href="<%=MpickParam.hostUrl%>">
-			<img class="logo" src="<%=MpickParam.hostUrl%>/resource/img/mypick.png">
+		<a class="navbar-brand" href="<%=MpickParam.getHostUrl()%>">
+			<img class="logo" src="<%=MpickParam.getHostUrl()%>/resource/img/mypick.png">
 		</a>
 	</div>
 	
@@ -42,7 +42,7 @@ function goAdmin(){
 	var frm = document.getElementById("navFrm");
 	frm.toUrl.value="Admin";
 	frm.method="POST";
-	frm.action="<%=MpickParam.hostUrl%>/Admin/Ship";
+	frm.action="<%=MpickParam.getHostUrl()%>/Admin/Ship";
 	frm.submit();
 }
 </script>
@@ -70,7 +70,7 @@ if(userObjNav == null){
 				<span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu" role="menu">
-				<li><a href="<%=MpickParam.hostUrl%>/User/Modify">사용자정보 변경</a></li>
+				<li><a href="<%=MpickParam.getHostUrl()%>/User/Modify">사용자정보 변경</a></li>
 <%--
 				<li><a href="#">환경설정</a></li>
 				<li class="divider"></li>

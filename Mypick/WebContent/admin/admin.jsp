@@ -25,10 +25,10 @@ if(m == null || m.equals("")){ m="fee"; }
 
 <!-- 메뉴 링크 목록 시작 -->	
 <div class="list-group">
-	<a href="<%=MpickParam.hostUrl%>/Admin/Ship" class="list-group-item <%if("ship".equals(m)){out.print("active");}%>">배송대행지 관리</a>
-	<a href="<%=MpickParam.hostUrl%>/Admin/Encl" class="list-group-item <%if("encl".equals(m)){out.print("active");}%>">백과사전 관리</a>
-	<a href="<%=MpickParam.hostUrl%>/Admin/Comm" class="list-group-item <%if("comm".equals(m)){out.print("active");}%>">커뮤니티 관리</a>
-	<a href="<%=MpickParam.hostUrl%>/Admin/Msg" class="list-group-item <%if("msg".equals(m)){out.print("active");}%>">메시지/링크 관리</a>
+	<a href="<%=MpickParam.getHostUrl()%>/Admin/Ship" class="list-group-item <%if("ship".equals(m)){out.print("active");}%>">배송대행지 관리</a>
+	<a href="<%=MpickParam.getHostUrl()%>/Admin/Encl" class="list-group-item <%if("encl".equals(m)){out.print("active");}%>">백과사전 관리</a>
+	<a href="<%=MpickParam.getHostUrl()%>/Admin/Comm" class="list-group-item <%if("comm".equals(m)){out.print("active");}%>">커뮤니티 관리</a>
+	<a href="<%=MpickParam.getHostUrl()%>/Admin/Msg" class="list-group-item <%if("msg".equals(m)){out.print("active");}%>">메시지/링크 관리</a>
 </div>
 <!-- 메뉴 링크 목록 끝 -->
 

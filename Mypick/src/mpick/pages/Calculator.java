@@ -24,7 +24,7 @@ public class Calculator extends HttpServlet {
 		MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
 		PrintWriter out = res.getWriter();
 		//로그인 체크. MpickParam.login == true 일 때만 체크.
-		if( "true".equals(MpickParam.login) && (userObj == null || "".equals(userObj.getEmail())) ){
+		if( "true".equals(MpickParam.getLogin()) && (userObj == null || "".equals(userObj.getEmail())) ){
 			out.print(MpickMsg.loginError());
 		} else {
 			String uri = req.getRequestURI();

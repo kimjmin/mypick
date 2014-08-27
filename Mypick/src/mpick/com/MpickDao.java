@@ -1,5 +1,8 @@
 package mpick.com;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,11 +20,11 @@ public class MpickDao {
 	private static MpickDao instance = null;
 	private JmProperties property = null;
 	
-	private MpickDao(){
+	private MpickDao() throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		property = new JmProperties(MpickParam.property);
 	}
 	
-	public static MpickDao getInstance() {
+	public static MpickDao getInstance() throws UnsupportedEncodingException, FileNotFoundException, IOException {
 		if(instance == null){
 			instance = new MpickDao();
 		}

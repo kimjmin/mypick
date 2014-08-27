@@ -23,7 +23,7 @@ DataEntity[] msgData = daoM.getMenuMsg(hid,mid,"TRUE");
 <!-- 공통 라이브러리 시작 -->
 <%@include file="../ctrl/header.jsp"%>
 <!-- 공통 라이브러리 끝 -->
-<script src="<%=MpickParam.hostUrl%>/js/calc.js"></script>
+<script src="<%=MpickParam.getHostUrl()%>/js/calc.js"></script>
 </head>
 <body>
 <!-- 상단 네비게이션 메뉴 시작 -->	

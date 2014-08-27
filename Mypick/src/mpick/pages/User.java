@@ -23,11 +23,11 @@ public class User extends HttpServlet {
 		MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
 		PrintWriter out = res.getWriter();
 		//로그인 체크. MpickParam.login == true 일 때만 체크.
-		if( "true".equals(MpickParam.login) && (userObj == null || "".equals(userObj.getEmail())) ){
+		if( "true".equals(MpickParam.getLogin()) && (userObj == null || "".equals(userObj.getEmail())) ){
 			out.print(MpickMsg.approachError());
 		} else {
 			String uri = req.getRequestURI();
-			String nextUrl = MpickParam.hostUrl;
+			String nextUrl = MpickParam.getHostUrl();
 			if(uri.indexOf("Modify") > 0){
 				nextUrl = "/ctrl/user_modify.jsp";
 			} else if(uri.indexOf("Signin") > 0){

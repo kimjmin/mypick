@@ -1,5 +1,9 @@
 package mpick.ctrl;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,8 +19,11 @@ public class Comm {
 	 * @param req
 	 * @param res
 	 * @return
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public int saveText(HttpServletRequest req, HttpServletResponse res){
+	public int saveText(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		int result = 0;
 		int tNum = 0;
 		HttpSession session = req.getSession();
@@ -64,8 +71,11 @@ public class Comm {
 	 * @param req
 	 * @param res
 	 * @return
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public int saveReply(HttpServletRequest req, HttpServletResponse res){
+	public int saveReply(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		int result = 0;
 		HttpSession session = req.getSession();
 		MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
@@ -107,10 +117,10 @@ public class Comm {
 		}
 	}
 	
-	public String getText(HttpServletRequest req, HttpServletResponse res){
+	public String getText(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		String result = "";
 		DataEntity[] data = null;
-		String arcMenu = req.getParameter("arcMenu");
+//		String arcMenu = req.getParameter("arcMenu");
 		String arcCate = req.getParameter("arcCate");
 		String arcTitleSel = req.getParameter("arcTitleSel");
 		if("new".equals(arcTitleSel)){
@@ -136,8 +146,11 @@ public class Comm {
 	 * @param req
 	 * @param res
 	 * @return
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public int delTxt(HttpServletRequest req, HttpServletResponse res){
+	public int delTxt(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		int result = 0;
 		String menu = req.getParameter("menu");
 		String tNum = req.getParameter("tNum");
@@ -163,8 +176,11 @@ public class Comm {
 	 * @param req
 	 * @param res
 	 * @return
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public int blockTxt(HttpServletRequest req, HttpServletResponse res){
+	public int blockTxt(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		int result = 0;
 		String menu = req.getParameter("menu");
 		String tNum = req.getParameter("tNum");
@@ -185,8 +201,11 @@ public class Comm {
 	 * @param req
 	 * @param res
 	 * @return
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public int unblockTxt(HttpServletRequest req, HttpServletResponse res){
+	public int unblockTxt(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		int result = 0;
 		String menu = req.getParameter("menu");
 		String tNum = req.getParameter("tNum");
@@ -208,8 +227,11 @@ public class Comm {
 	 * @param req
 	 * @param res
 	 * @return
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public int delReply(HttpServletRequest req, HttpServletResponse res){
+	public int delReply(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		int result = 0;
 		String tNum = req.getParameter("tNum");
 		String rNumStr = req.getParameter("rNum");
@@ -224,8 +246,11 @@ public class Comm {
 	 * @param req
 	 * @param res
 	 * @return
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	public int saveCate(HttpServletRequest req, HttpServletResponse res){
+	public int saveCate(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		int result = 1;
 		MpickDao dao = MpickDao.getInstance();
 		
@@ -258,7 +283,7 @@ public class Comm {
 		return result;
 	}
 	
-	public int delNSaveCate(HttpServletRequest req, HttpServletResponse res){
+	public int delNSaveCate(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		MpickDao dao = MpickDao.getInstance();
 		dao.deleteAllCommCates();
 		this.modifTextCate(req, res);
@@ -269,8 +294,11 @@ public class Comm {
 	 * 변경된 메뉴명, 카테고리명 각 글에 적용.
 	 * @param req
 	 * @param res
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
+	 * @throws UnsupportedEncodingException 
 	 */
-	private void modifTextCate(HttpServletRequest req, HttpServletResponse res){
+	private void modifTextCate(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		String[] menuChg = req.getParameterValues("menuChg");
 		String[] cage1Chg = req.getParameterValues("cage1Chg");
 		MpickDao dao = MpickDao.getInstance();

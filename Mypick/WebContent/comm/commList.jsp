@@ -60,20 +60,20 @@ function goPage(pageN){
 	var frm = document.pageFrm;
 	$("#pageNum").val(pageN);
 	frm.method = "POST";
-	frm.action = "<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
+	frm.action = "<%=MpickParam.getHostUrl()%>/Comm/<%=bbs%>";
 	frm.submit();
 }
 function goCate(cate){
 	var frm = document.pageFrm;
 	$("#cate").val(cate);
 	frm.method = "POST";
-	frm.action = "<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
+	frm.action = "<%=MpickParam.getHostUrl()%>/Comm/<%=bbs%>";
 	frm.submit();
 }
 function search(){
 	var frm = document.pageFrm;
 	frm.method = "POST";
-	frm.action = "<%=MpickParam.hostUrl%>/Comm/<%=bbs%>";
+	frm.action = "<%=MpickParam.getHostUrl()%>/Comm/<%=bbs%>";
 	frm.submit();
 }
 </script>
@@ -155,7 +155,7 @@ for(int i=0; i<listData.length; i++){
 <%if("BLOCK_ALL".equals(listData[i].get("t_state")+"") || "BLOCK_LOGIN".equals(listData[i].get("t_state")+"")){ %>
 <% if(userObj != null && "ADMIN".equals(userObj.getState())) { %>
 		<td class="text-muted">
-			<a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/View/<%=listData[i].get("t_num")+""%>">관리자에 의해 차단된 게시물입니다.</a><% if(replys != null && !"".equals(replys) && !"0".equals(replys)){ %> [<%=replys %>]<% } %>
+			<a href="<%=MpickParam.getHostUrl()%>/Comm/<%=bbs%>/View/<%=listData[i].get("t_num")+""%>">관리자에 의해 차단된 게시물입니다.</a><% if(replys != null && !"".equals(replys) && !"0".equals(replys)){ %> [<%=replys %>]<% } %>
 		</td>
 <% } else { %>
 		<td class="text-muted">
@@ -164,7 +164,7 @@ for(int i=0; i<listData.length; i++){
 <% } %>
 <% } else { %>
 		<td class="">
-			<a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/View/<%=listData[i].get("t_num")+""%>"><%=tTitle%></a><% if(replys != null && !"".equals(replys) && !"0".equals(replys)){ %> [<%=replys %>]<% } %>
+			<a href="<%=MpickParam.getHostUrl()%>/Comm/<%=bbs%>/View/<%=listData[i].get("t_num")+""%>"><%=tTitle%></a><% if(replys != null && !"".equals(replys) && !"0".equals(replys)){ %> [<%=replys %>]<% } %>
 		</td>
 <% } %>
 		<td class="text-center"><%=listData[i].get("nicname")+""%></td>
@@ -201,8 +201,8 @@ for(int i=0; i<listData.length; i++){
 
 <div class="row">
 <ul class="pager">
-	<li class="previous"><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>"><span class="glyphicon glyphicon-align-justify"></span> 목록</a></li>
-  	<li class="next"><a href="<%=MpickParam.hostUrl%>/Comm/<%=bbs%>/Write"><span class="glyphicon glyphicon-pencil"></span> 글쓰기</a></li>
+	<li class="previous"><a href="<%=MpickParam.getHostUrl()%>/Comm/<%=bbs%>"><span class="glyphicon glyphicon-align-justify"></span> 목록</a></li>
+  	<li class="next"><a href="<%=MpickParam.getHostUrl()%>/Comm/<%=bbs%>/Write"><span class="glyphicon glyphicon-pencil"></span> 글쓰기</a></li>
 <%if(pageNum > 0){ %>
   	<li><a href="javascript:goPage('<%=(pageNum)+""%>');">&lt</a></li>
 <% } %>

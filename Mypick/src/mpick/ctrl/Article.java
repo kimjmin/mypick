@@ -1,5 +1,9 @@
 package mpick.ctrl;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,7 +14,7 @@ import mpick.com.MpickUserObj;
 
 public class Article {
 	
-	public int saveArticle(HttpServletRequest req, HttpServletResponse res){
+	public int saveArticle(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		int result = 0;
 		HttpSession session = req.getSession();
 		MpickUserObj userObj = (MpickUserObj) session.getAttribute("mpUserObj");
@@ -44,7 +48,7 @@ public class Article {
 		return result;
 	}
 	
-	public String getArticle(HttpServletRequest req, HttpServletResponse res){
+	public String getArticle(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		String result = "";
 		DataEntity[] data = null;
 		String arcMenu = req.getParameter("arcMenu");
@@ -87,7 +91,7 @@ public class Article {
 		return result;
 	}
 	
-	public int delArticle(HttpServletRequest req, HttpServletResponse res){
+	public int delArticle(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		int result = 0;
 		String arcCate = req.getParameter("arcCate2");
 		String arcTitleSel = req.getParameter("arcTitleSel");
@@ -99,7 +103,7 @@ public class Article {
 		return result;
 	}
 	
-	public int saveCate(HttpServletRequest req, HttpServletResponse res){
+	public int saveCate(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		int result = 1;
 		MpickDao dao = MpickDao.getInstance();
 		
@@ -148,14 +152,14 @@ public class Article {
 		return result;
 	}
 	
-	public int delNSaveCate(HttpServletRequest req, HttpServletResponse res){
+	public int delNSaveCate(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		MpickDao dao = MpickDao.getInstance();
 		dao.deleteAllCates();
 		this.modifArcCate(req, res);
 		return saveCate(req, res);
 	}
 	
-	private void modifArcCate(HttpServletRequest req, HttpServletResponse res){
+	private void modifArcCate(HttpServletRequest req, HttpServletResponse res) throws UnsupportedEncodingException, FileNotFoundException, IOException{
 		String[] menuChg = req.getParameterValues("menuChg");
 		String[] cage1Chg = req.getParameterValues("cage1Chg");
 		String[] cage2Chg = req.getParameterValues("cage2Chg");

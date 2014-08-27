@@ -31,7 +31,12 @@ public class FileCtrlComm extends HttpServlet {
 	private File commPath;
 	
 	public void init() {
-		property = new JmProperties(MpickParam.property);
+		try {
+			property = new JmProperties(MpickParam.property);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
