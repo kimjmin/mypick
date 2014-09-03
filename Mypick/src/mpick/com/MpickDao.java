@@ -89,7 +89,7 @@ public class MpickDao {
 			data.put("birthday", userObj.getBirthday());
 			data.put("gender", userObj.getGender());
 			data.put("phone", userObj.getPhone());
-			result = dao.inertData(property, "mp_user", data);
+			result = dao.insertData(property, "mp_user", data);
 		}
 		return result;
 	}
@@ -258,7 +258,7 @@ public class MpickDao {
 		data.put("ship_id", shipId);
 		data.put("ship_name", ShipName);
 		data.put("ship_url", shipUrl);
-		result = dao.inertData(property, "mp_ship", data);
+		result = dao.insertData(property, "mp_ship", data);
 		return result;
 	}
 	
@@ -280,7 +280,7 @@ public class MpickDao {
 		data.put("lev_name", levName);
 		data.put("lev_val", levVal);
 		data.put("lev_unit", levUnit);
-		result = dao.inertData(property, "mp_ship_levs", data);
+		result = dao.insertData(property, "mp_ship_levs", data);
 		return result;
 	}
 	
@@ -339,7 +339,7 @@ public class MpickDao {
 		data.put("ar_text", encText);
 		data.put("ar_mail", userMail);
 		data.put("ar_state", "ACTIVE");
-		result = dao.inertData(property, "mp_article", data);
+		result = dao.insertData(property, "mp_article", data);
 		return result;
 	}
 	
@@ -451,7 +451,7 @@ public class MpickDao {
 		data.put("ar_ord", arOrd);
 		data.put("ar_menu_id", arMenuId);
 		data.put("ar_menu_name", arMenuName);
-		result = dao.inertData(property, "mp_ar_menu", data);
+		result = dao.insertData(property, "mp_ar_menu", data);
 		return result;
 	}
 	
@@ -469,7 +469,7 @@ public class MpickDao {
 		data.put("ar_ord", arOrd);
 		data.put("ar_menu_id", arMenuId);
 		data.put("ar_cate_name", arCateName);
-		result = dao.inertData(property, "mp_ar_cate_1", data);
+		result = dao.insertData(property, "mp_ar_cate_1", data);
 		return result;
 	}
 	
@@ -489,7 +489,7 @@ public class MpickDao {
 		data.put("ar_menu_id", arMenuId);
 		data.put("ar_cate_1", arCate1);
 		data.put("ar_cate_name", arCateName);
-		result = dao.inertData(property, "mp_ar_cate_2", data);
+		result = dao.insertData(property, "mp_ar_cate_2", data);
 		return result;
 	}
 	
@@ -591,7 +591,7 @@ public class MpickDao {
 		data.put("ship_url", shipUrl);
 		data.put("wunit", wUnit);
 		data.put("aunit", aUnit);
-		result = dao.inertData(property, "mp_sh_main", data);
+		result = dao.insertData(property, "mp_sh_main", data);
 		return result;
 	}
 	
@@ -609,7 +609,7 @@ public class MpickDao {
 		data.put("ship_id", shipId);
 		data.put("lev_num", levNum);
 		data.put("lev_name", levName);
-		result = dao.inertData(property, "mp_sh_levs", data);
+		result = dao.insertData(property, "mp_sh_levs", data);
 		return result;
 	}
 	
@@ -628,7 +628,7 @@ public class MpickDao {
 		data.put("lev_num", levNum);
 		data.put("val_weight", valWeight);
 		data.put("val_amount", valAmount);
-		result = dao.inertData(property, "mp_sh_vals", data);
+		result = dao.insertData(property, "mp_sh_vals", data);
 		return result;
 	}
 	
@@ -721,7 +721,7 @@ public class MpickDao {
 		}
 		data.put("user_email", userMail);
 		data.put("t_text", tText);
-		result = dao.inertData(property, "mp_bbs_text", data);
+		result = dao.insertData(property, "mp_bbs_text", data);
 		return result;
 	}
 	
@@ -745,7 +745,7 @@ public class MpickDao {
 		data.put("t_state", tState);
 		data.put("user_email", userMail);
 		data.put("t_text", tText);
-		result = dao.inertData(property, "mp_bbs_text_reply", data);
+		result = dao.insertData(property, "mp_bbs_text_reply", data);
 		return result;
 	}
 	
@@ -1035,7 +1035,7 @@ public class MpickDao {
 		data.put("bbs_menu_id", bbsMenuId);
 		data.put("bbs_menu_name", bbsMenuName);
 		data.put("viewable", "ALL");
-		result = dao.inertData(property, "mp_bbs_menu", data);
+		result = dao.insertData(property, "mp_bbs_menu", data);
 		return result;
 	}
 	
@@ -1053,7 +1053,7 @@ public class MpickDao {
 		data.put("bbs_ord", bbsOrd);
 		data.put("bbs_menu_id", bbsMenuId);
 		data.put("bbs_cate_name", bbsCateName);
-		result = dao.inertData(property, "mp_bbs_cate", data);
+		result = dao.insertData(property, "mp_bbs_cate", data);
 		return result;
 	}
 	
@@ -1220,7 +1220,7 @@ public class MpickDao {
 		data.put("m_title", m_title);
 		data.put("m_text", m_text);
 		data.put("m_visible", m_visible);
-		result = dao.inertData(property, "mp_message", data);
+		result = dao.insertData(property, "mp_message", data);
 		return result;
 	}
 	/**
@@ -1281,7 +1281,7 @@ public class MpickDao {
 		data.put("m_type", m_type);
 		data.put("m_title", m_title);
 		data.put("m_link", m_link);
-		result = dao.inertData(property, "mp_link", data);
+		result = dao.insertData(property, "mp_link", data);
 		return result;
 	}
 	/**
