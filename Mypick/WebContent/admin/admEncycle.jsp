@@ -875,7 +875,7 @@ function fileUp(){
 <!-- The main application script -->
 <script src="<%=MpickParam.getHostUrl()%>/js/main.js"></script>
 --%>
-
+  
 <script src="/resource/fileuploader/blueimp/jquery.min.js"></script>
 <!-- The jQuery UI widget factory, can be omitted if jQuery UI is already included -->
 <script src="/resource/fileuploader/js/vendor/jquery.ui.widget.js"></script>
